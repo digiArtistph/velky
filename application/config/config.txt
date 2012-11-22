@@ -2,3 +2,7 @@ sadmin_uname:SADMIN_USERNAME
 sadmin_islog:SADMIN_ISLOGGEDIN
 sadmin_fullname:SADMIN_FULLNAME
 sadmin_ulvl:SADMIN_ULVL
+suser_uname:SUSER_USERNAME
+suser_islog:SUSER_ISLOG
+suser_fullname:SUSER_FULLNAME
+suser_ulvl:SUSER_ULVL
