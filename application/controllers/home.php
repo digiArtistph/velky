@@ -2,11 +2,22 @@
 
 class Home extends CI_Controller {
 	
+	private $title;
+	
 	public function __construct() {
+		
 		parent::__construct();
+		
+		// initiates values on some variables
+		$this->title = 'Home Page';
+		
 	}
 	
 	public function index() {
-		$this->load->view('home/home_view');
+		
+		$data['title'] = $this->title;
+		$data['main_content'] = 'home/home_view';
+		$this->load->view('includes/template', $data);
 	}
+	
 }
