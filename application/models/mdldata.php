@@ -10,7 +10,7 @@
  * @author		Kenneth "digiArtist_ph" P. Vallejos
  * @link		http://n2esolutions.org
  * @since		Mid 2011
- * @version		2.3.5
+ * @version		2.4.6
  *
  *
  * 
@@ -65,6 +65,9 @@
  *																													 'count=101'); >>> optional <<<
  *          UPDATE QUERY:
  *              $params['table']        >>> REQUIRED
+ *              $params['table']['criteria]  and $params['table']['criteria_value]       >>> REQUIRED
+ *              	OR
+ *              $params['table']['criteria_phrase] = ' c_id=' . $id . ' AND title="' . $name . '"'; >>> REQUIRED
  *              $params['fields']       >>> REQUIRED
  *                                          e.i. $params['fields'] = array('<colname1>' => '<colvalue1>', 'colname2' => 'colvalue2', ... , 'colnameN' => 'colvalueN');
  *                                          e.i. $params['fields'] = array(
@@ -113,7 +116,7 @@
  * 																	$this->_getUserID()
  *																	);
  *								
- * 													$this->mdldata->executeSP('sp_add_listing', $params);
+ * 													$result = $this->mdldata->executeSP('sp_add_listing', $params)->result();
  * 
  * 				NOTES: 	1. Store procedure's array parameter. This type of array can be an indexed or associative array (please see above examples).
  * 					   		When using an associative type of array parameter, make sure the values of your key=>value pair array are the ones you intended
@@ -204,7 +207,6 @@ class Mdldata extends CI_Model {
 				$output .= $this->__stringConcatSelect($params['fields']);
 			} else {
 				$output .= " * ";
-
 			}
 
 			$output .=  " FROM " . $params['table']['name'];
@@ -266,8 +268,8 @@ class Mdldata extends CI_Model {
 			throw new Exception("Unable to query records");
 		}
 
-		$this->_mRecords = $this->db->query($strQry)->result();
-		$this->_mRowCount = $this->__getRowCount();
+ 		$this->_mRecords = $this->db->query($strQry)->result();
+		$this->_mRowCount = $this->__getRowCount();		
 
 		return TRUE;
 	}
@@ -316,7 +318,10 @@ class Mdldata extends CI_Model {
 
 			$output = 'UPDATE ' . $params['table']['name'] . " SET ";
 			$output .= $this->__stringConcatUpdate($params['fields']);
-			$output .= " WHERE " . $params['table']['criteria'] . "='" . $params['table']['criteria_value'] . "'";
+			if(array_key_exists('criteria_phrase', $params['table']))
+				$output .= " WHERE " . $params['table']['criteria_phrase'];
+			else
+				$output .= " WHERE " . $params['table']['criteria'] . "='" . $params['table']['criteria_value'] . "'";
 			$this->_mSQLString = $output;
                         
                         if($this->_mSQLText)
@@ -467,12 +472,17 @@ class Mdldata extends CI_Model {
 	public function executeSP($procName, $params = array()) {
 
 		if(empty($params)){
-			if(!$this->db->query("CALL $procName()"))
-				throw new Exception('Unable to execute ' . $procName . ' stored procedure.');
+			$query = $this->db->query("CALL $procName()");
+// 			$this->_mRecords = $this->db->query("CALL $procName()")->result();
+			$this->_mRecords = $query->result();
+			$query->free_result();
+
 
 		} else {
-			if(!$this->db->query("CALL $procName(" . $this->_implodeParameters($params). ")", $this->_safe_escape($params)))
-				throw new Exception('Unable to execute ' . $procName . ' stored procedure.');
+			$query = $this->db->query("CALL $procName(" . $this->_implodeParameters($params). ")", $this->_safe_escape($params));
+// 			$this->_mRecords = $this->db->query("CALL $procName(" . $this->_implodeParameters($params). ")", $this->_safe_escape($params))->result();
+			$this->_mRecords = $query->result();
+			$query->free_result();
 		}
 
 		return TRUE;
@@ -511,6 +521,8 @@ class Mdldata extends CI_Model {
 	private function _implodeParameters($params) {
 		$output = '';
 
+
+
 		for($i = 0; $i < count($params); $i++) {
 			$output .= "?, ";
 		}
@@ -518,7 +530,9 @@ class Mdldata extends CI_Model {
 		preg_match('/[?, ]+(?=,)/', $output, $matches);
 		$output = $matches[0];
 
-		return $output;
+		//on_watch($output);
+
+		return trim($output);
 	}
 	/*---------------        END      ------------------*/
 }
