@@ -14,10 +14,12 @@ class Home extends CI_Controller {
 	}
 	
 	public function index() {
+
 		
 		$data['title'] = $this->title;
 		$data['main_content'] = 'home/home_view';
 		$this->load->view('includes/template', $data);
+
 	}
 	
 }

@@ -175,14 +175,14 @@
 
 class Mdldata extends CI_Model {
 
-	
+
 	private $_mSQLString;
         private $_mSQLText;
 	public $_mRecords;
 	public $_mRowCount;        
         
 	public function __construct() {
-		
+
             parent::__construct();
             // initializes some values
             $this->_mSQLString = '';
@@ -191,26 +191,26 @@ class Mdldata extends CI_Model {
             $this->_mSQLText = FALSE; // flags the methods (select, insert, update & delete) will not execute the query instead generate an SQL QUERY text/string.
 
 	}
-	
+
 	public function select($params) {
 		if(empty($params))
 			return FALSE;
-			
+
 		if(array_key_exists('querystring', $params)) {
 			$this->_mSQLString = $params['querystring'];
 		} else {
 			$output = '';
 			$output .= "SELECT ";
-			
+
 			// fields
 			if(array_key_exists('fields', $params) && !empty ($params['fields'])) {
 				$output .= $this->__stringConcatSelect($params['fields']);
 			} else {
 				$output .= " * ";
 			}
-			
+
 			$output .=  " FROM " . $params['table']['name'];
-			
+
 			// where clause
                         if(array_key_exists('criteria_phrase', $params['table'])) {
                             $output .= " WHERE " . trim($params['table']['criteria_phrase']);
@@ -246,15 +246,15 @@ class Mdldata extends CI_Model {
                                     $output .= " LIMIT " . $params['table']['limit'];
                             }                            
                         }
-			
+
 			$this->_mSQLString = $output;		
                         
                         if($this->_mSQLText)
                             return TRUE;
 		}
-		
+
 		$strQry = $this->_mSQLString;
-		
+
 		// @neerevisit: enabled method to throw Exception 
 		/* if($this->db->query($strQry)) {
 			$this->_mRecords = $this->db->query($strQry)->result();
@@ -263,22 +263,22 @@ class Mdldata extends CI_Model {
 		}
 		
 		return FALSE; */
-		
+
 		if(!$this->db->query($strQry)) {			
 			throw new Exception("Unable to query records");
 		}
-		
+
  		$this->_mRecords = $this->db->query($strQry)->result();
 		$this->_mRowCount = $this->__getRowCount();		
-		
+
 		return TRUE;
 	}
-	
+
 	public function insert($params) {
-		
+
 		if(empty($params))
 			return FALSE;
-			
+
 		if(array_key_exists('querystring', $params)) {
 			$this->_mSQLString = $params['querystring'];
 		} else {
@@ -291,9 +291,9 @@ class Mdldata extends CI_Model {
                         if($this->_mSQLText)
                             return TRUE;
 		}
-		
+
 		$strQry = $this->_mSQLString;
-		
+
 		// @neerevisit: enabled method to throw Exception
 		/* if($this->db->query($strQry))
 			return TRUE;
@@ -302,20 +302,20 @@ class Mdldata extends CI_Model {
 		if(!$this->db->query($strQry)) {
 			throw new Exception('Something goes wrong');
 		}
-		
+
 		return TRUE;
-		
+
 	}
-	
+
 	public function update($params) {
-		
+
 		if(empty($params))
 			return FALSE;
-			
+
 		if(array_key_exists('querystring', $params)) {
 			$this->_mSQLString = $params['querystring'];
 		} else {
-				
+
 			$output = 'UPDATE ' . $params['table']['name'] . " SET ";
 			$output .= $this->__stringConcatUpdate($params['fields']);
 			if(array_key_exists('criteria_phrase', $params['table']))
@@ -327,24 +327,24 @@ class Mdldata extends CI_Model {
                         if($this->_mSQLText)
                             return TRUE;
 		}
-		
+
 		$strQry = $this->_mSQLString;
-		
+
 		if($this->db->query($strQry))			
 			return TRUE;
-		
+
 		return FALSE;
 	}
-	
+
 	public function delete($params) {
-		
+
 		if(empty($params))
 			return FALSE;
-		
+
 		if(array_key_exists('querystring', $params)) {
 			$this->_mSQLString = $params['querystring'];
 		} else {
-				
+
 			$output = 'DELETE FROM ' . $params['table']['name'];
 			$output .= " WHERE " . $params['table']['criteria'] . "='" . $params['table']['criteria_value'] . "'";
 			$this->_mSQLString = $output;
@@ -352,12 +352,12 @@ class Mdldata extends CI_Model {
                         if($this->_mSQLText)
                             return TRUE;
 		}
-		
+
 		$strQry = $this->_mSQLString;
-		
+
 		if($this->db->query($strQry))
 			return TRUE;
-			
+
 		return FALSE;
 	}
         
@@ -406,23 +406,23 @@ class Mdldata extends CI_Model {
         }
         
 	private function __stringConcatSelect($params) {
-	
+
 		$output = "";
-		
+
 		if(!empty($params)) {
 			foreach($params as $key => $value):				
 					$output .= $key . ", ";
 			endforeach;	
 		} 
-		
+
 		return rtrim($output, ", ");
-		
+
 	}	
-	
+
 	private function __stringConcatUpdate($params) {
 
 		$output = "";
-		
+
 		if(!empty($params)) {
 			foreach($params as $key => $value):				
 				if(is_array($value)):
@@ -432,16 +432,16 @@ class Mdldata extends CI_Model {
 				endif;
 			endforeach;	
 		} 
-		
+
 		return rtrim($output, ", ");
-		
+
 	}
-	
+
 	private function __stringConcatInsert($params) {
-		
+
 		$output1 = "(";
 		$output2 = "VALUES(";
-		
+
 		if(!empty($params)) {
 			foreach($params as $key => $value):				
 				$output1 .= $key . ", ";
@@ -452,56 +452,56 @@ class Mdldata extends CI_Model {
 				endif;
 			endforeach;	
 		} 
-		
+
 		return rtrim($output1, ", ") . ") " . rtrim($output2, ", ") . ")";
 	}
-		
+
 	public function buildQueryString() {
 		return $this->_mSQLString;
 	}
-	
+
 	public function reset() {
 		$this->_mSQLString = '';
 		$this->_mRecords = null;
 	}
-	
+
 	public function SQLText($flag) {
 		$this->_mSQLText = $flag;            
 	}
-	
+
 	public function executeSP($procName, $params = array()) {
-		
+
 		if(empty($params)){
 			$query = $this->db->query("CALL $procName()");
 // 			$this->_mRecords = $this->db->query("CALL $procName()")->result();
 			$this->_mRecords = $query->result();
 			$query->free_result();
-			
-			
+
+
 		} else {
 			$query = $this->db->query("CALL $procName(" . $this->_implodeParameters($params). ")", $this->_safe_escape($params));
 // 			$this->_mRecords = $this->db->query("CALL $procName(" . $this->_implodeParameters($params). ")", $this->_safe_escape($params))->result();
 			$this->_mRecords = $query->result();
 			$query->free_result();
 		}
-				
+
 		return TRUE;
-		
+
 	}
-	
+
 	private function __order_by($char) {
 		$ptrnAsc = '/[\s]*a[\w]+/i';
 		$ptrnDesc = '/[\s]*d[\w]+/i';
-	
+
 		if(preg_match($ptrnAsc, $char))
 			$output = 'asc';
-			
+
 		if(preg_match($ptrnDesc, $char))
 			$output = 'desc';
-	
+
 		return trim($output);
 	}
-	
+
 	/**
 	 * Escapes string from HTML entities
 	 * @param array $params
@@ -510,30 +510,29 @@ class Mdldata extends CI_Model {
 	private function _safe_escape($params) {
 		if(empty($param))
 			return $params;
-	
+
 		foreach ($params as $node):
 			$node = $this->db->escape($node);
 		endforeach;		
-		
+
 		return $params;
 	}
-	
+
 	private function _implodeParameters($params) {
 		$output = '';
-		
-		
-		
+
+
+
 		for($i = 0; $i < count($params); $i++) {
 			$output .= "?, ";
 		}
-		
+
 		preg_match('/[?, ]+(?=,)/', $output, $matches);
 		$output = $matches[0];
-		
+
 		//on_watch($output);
-		
+
 		return trim($output);
 	}
 	/*---------------        END      ------------------*/
 }
-

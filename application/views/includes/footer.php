@@ -1,1 +1,1 @@
-<div>Developed by <?php anchor('http://mugsandcoffee.org', 'mugs and coffee'); ?></div>
+<div>Developed by <?php echo anchor('http://mugsandcoffee.org', 'mugs and coffee'); ?></div>

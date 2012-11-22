@@ -1,1 +1,4 @@
-kenn:genius
+sadmin_uname:SADMIN_USERNAME
+sadmin_islog:SADMIN_ISLOGGEDIN
+sadmin_fullname:SADMIN_FULLNAME
+sadmin_ulvl:SADMIN_ULVL
