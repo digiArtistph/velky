@@ -17,7 +17,7 @@ class Home extends CI_Controller {
 
 		
 		$data['title'] = $this->title;
-		$data['main_content'] = 'admin/loginad_view';
+		$data['main_content'] = 'admin/login/login_view';
 		$this->load->view('includes/template', $data);
 
 	}

@@ -18,12 +18,6 @@ class Loginad extends CI_Controller {
 		$this->load->view('admin/login/login_view');
 	}
 	
-	public function admin() {
-
-		$data['main_content'] = 'admin/loginad_view';
-		$this->load->view('includes/template', $data);
-
-	}
 	
 	public function validate() {
 		$this->load->library('form_validation');
@@ -60,7 +54,7 @@ class Loginad extends CI_Controller {
 				redirect(base_url() . 'admin/panel');
 
 			} else {
-				$this->admin();
+				$this->index();
 			}
 
 		}
