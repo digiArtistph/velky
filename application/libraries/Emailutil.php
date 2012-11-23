@@ -119,7 +119,7 @@ class Emailutil {
 					'protocol' => 'smtp',
 					'smtp_host' => 'ssl://smtp.googlemail.com',
 					'smtp_port' => 465,
-					'smtp_user' => 'kennvall@gmail.com',
+					'smtp_user' => 'juntals01@gmail.com',
 					'smtp_pass' => $this->CI->config->item('gmailpassword'), // real password hidden elsewhere
 					'mailtype' => 'html'
 				);

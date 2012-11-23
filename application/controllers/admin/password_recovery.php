@@ -7,8 +7,14 @@ class Password_recovery extends CI_Controller {
 		parent::__construct();
 	}
 	
+	public function index() {
+		$data['main_content'] = 'admin/login/login_view';
+		$this->load->view('includes/template', $data);
+	}
+	
 	public function reset_password(){
-		$this->load->view('admin/login/reset_password');
+		$data['main_content'] = 'admin/login/reset_password';
+		$this->load->view('includes/template', $data);
 	}
 	
 	public function validate_reset_password(){
@@ -22,45 +28,42 @@ class Password_recovery extends CI_Controller {
 		if($validation->run() === FALSE) {
 			$this->reset_password();
 		} else {
-				
-			$config = Array(
-					'protocol' => 'smtp',
-					'smtp_host' => 'ssl://smtp.googlemail.com',
-					'smtp_port' => 465,
-					'smtp_user' => 'juntals01@gmail.com',
-					'smtp_pass' => 'csmolax01!',
-					'mailtype'  => 'html',
-					'charset' => 'utf-8',
-					'wordwrap' => TRUE
-			);
-				
-			$this->load->library('email', $config);
-			$this->email->set_newline("\r\n");
-	
-			$email_body ="<div>
+			
+			$mMsg ="<div>
 			<h3>This is a Link to Reset your Password</h3>
-			<p><a href=". base_url('admin/loginad/renew_password') .">Please Click this link to Reset your Password</a></p>
+			<p><a href=". base_url(). 'admin/password_recovery/renew_password/' . strencode($this->input->post('email')) .">Please Click this link to Reset your Password</a></p>
 			</div>";
+			
+			$params = array(
+					'sender' => 'juntals01@gmail.com',
+					'receiver' => $this->input->post('email'),
+					'from_name' => 'Velky Web Master',
+					'cc' => 'supervisor@otherdomainname.com', 
+					'subject' => 'Velky Password Recovery',
+					'msg' => $mMsg, 
+					'email_temp_account' => TRUE
+					);
+			//call_debug($params);
+			
+			$this->load->library('emailutil', $params);
 	
-			$this->email->from('juntals01@gmail.com', 'Reset Password Confirmation');
-			$this->email->to($this->input->post('email'));
-			$this->email->subject('Reset your password');
-			$this->email->message($email_body);
-	
-			$this->email->send();
-	
-			if($this->email->print_debugger()){
-				echo "message sent";
+			if( $this->emailutil->send() ){
+				$data['msg'] = 'Email Sent';
 			}else{
-				echo "message not sent";
+				$data['msg'] = 'Sending Email Error';
 			}
+			$data['main_content'] = 'admin/login/email_status';
+			$this->load->view('includes/template', $data);
 	
 		}
 	}
 	
 	
 	public function renew_password(){
-		$this->load->view('admin/login/renew_password');
+		$mHash = $this->uri->segment(4);
+		$mEmail = strdecode($mHash);
+		$data['email'] = $mEmail;
+		$this->load->view('admin/login/renew_password', $data);
 	}
 	
 	
@@ -68,7 +71,7 @@ class Password_recovery extends CI_Controller {
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
 	
-		$validation->set_rules('email', 'Email', 'required');
+		$validation->set_rules('email', '', 'required');
 		$validation->set_rules('pass', 'Password', 'required');
 		$validation->set_rules('pass_conf', 'Password Confirmation', 'required');
 	
@@ -76,7 +79,8 @@ class Password_recovery extends CI_Controller {
 			$this->renew_password();
 		} else {
 			$this->load->model('mdldata');
-				
+			
+			
 			$params['table']['name'] = 'users';
 			$params['table']['criteria'] = 'email';
 			$params['table']['criteria_value'] = $this->input->post('email');
@@ -87,7 +91,7 @@ class Password_recovery extends CI_Controller {
 			$this->mdldata->reset();
 			$this->mdldata->update($params);
 				
-			redirect( base_url() . 'admin/loginad/password_renewed');
+			redirect( base_url() . 'admin/password_recovery/password_renewed');
 		}
 	
 	}
