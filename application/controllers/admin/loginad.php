@@ -20,7 +20,7 @@ class Loginad extends CI_Controller {
 	
 	public function admin() {
 
-		$data['main_content'] = 'admin/admin_view';
+		$data['main_content'] = 'admin/loginad_view';
 		$this->load->view('includes/template', $data);
 
 	}
@@ -45,7 +45,7 @@ class Loginad extends CI_Controller {
 				$params = array(
 						'sadmin_uname' => $this->input->post('email'),
 						'sadmin_islog' => TRUE,
-						'sadmin_fullname' => $this->_mfullname
+						'sadmin_fullname' => $this->_mAdminFullname
 				);
 
 				// loads the sessionbrowser
@@ -58,9 +58,6 @@ class Loginad extends CI_Controller {
 				$arr = $this->sessionbrowser->mData;
 
 				//call_debug($arr);
-
-				//change the admin's login status to TRUE
-				$this->_toggleLogIn('1', $this->input->post('email'), TRUE);
 
 				//call_debug($_POST);
 
@@ -177,6 +174,7 @@ class Loginad extends CI_Controller {
 
 		return TRUE;
 	}
+	
 
 	
 }
