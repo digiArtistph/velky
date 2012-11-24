@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Welcome to CodeIgniter</title>
+	<title>Welcome to Velky</title>
 
 	<style type="text/css">
 
@@ -70,7 +70,7 @@
 	<h1>Welcome to Our Site</h1>
 <div id=login_form>
 
-<?php echo form_open(base_url().'user/login' )?>
+<?php echo form_open(base_url().'login/validate_my_login' )?>
 <ul>
 	<li>
 		<label>Email</label>

@@ -1,5 +1,18 @@
+<<<<<<< HEAD
 <div class="adlogin">
 <?php echo form_open(base_url() . 'admin/loginad/validate_admin_login'); ?>
+=======
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="utf-08" />
+<title>Back-End Interface</title>
+<link rel="stylesheet" href="<?php echo base_url(); ?>css/style.css" type="text/css" />
+
+</head>
+<body>
+<?php echo form_open(base_url() . 'admin/loginad/validate'); ?>
+>>>>>>> 6ad6e98548f514b2eec81859e2d1e8d53c893832
 <fieldset>
 <legend>Sign-In</legend>
 <?php echo validation_errors('<div class="error">', '</div>'); ?>
@@ -8,7 +21,7 @@
 	 <div class="colleft">
     	<ul>
         	<li><input id="rememberme" type="checkbox" name="rememberme" /> <label for="rememberme">Remember me</label></li>
-            <li><p><a href="<?php echo base_url(). 'admin/password_recovery/reset_password';?>">Forgot Password?</a></p></li>
+            <li><p><a href="<?php echo base_url(). 'admin/password_recovery/forgot_password/' . strencode('admin');?>">Forgot Password?</a></p></li>
         </ul>
     </div>
     
@@ -18,5 +31,6 @@
 <?php echo form_close(); ?>
 
 </fieldset>
-</div>
+</body>
 
+</html>

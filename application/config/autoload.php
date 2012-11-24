@@ -109,7 +109,11 @@ $autoload['language'] = array();
 |
 */
 
+<<<<<<< HEAD
 $autoload['model'] = array('mdldata');
+=======
+$autoload['model'] = array('');
+>>>>>>> 6ad6e98548f514b2eec81859e2d1e8d53c893832
 
 
 /* End of file autoload.php */
