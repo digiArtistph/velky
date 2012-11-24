@@ -74,7 +74,7 @@ class Loginad extends CI_Controller {
  		
 		$this->sessionbrowser->destroy($params);
 
-		redirect(base_url() . 'login/admin');
+		redirect(base_url() . 'admin/loginad');
 
 	}
 	
