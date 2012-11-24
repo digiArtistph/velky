@@ -1,12 +1,10 @@
-
 <div class="adlogin">
-<?php echo form_open(base_url() . 'admin/loginad/validate'); ?>
+<?php echo form_open(base_url() . 'admin/loginad/validate_admin_login'); ?>
 <fieldset>
 <legend>Sign-In</legend>
 <?php echo validation_errors('<div class="error">', '</div>'); ?>
 	<p><label>Username: </label><input type="text" name="email" /></p>
     <p><label>Password: </label><input type="password" name="pword" /></p>
-   
 	 <div class="colleft">
     	<ul>
         	<li><input id="rememberme" type="checkbox" name="rememberme" /> <label for="rememberme">Remember me</label></li>

@@ -21,7 +21,7 @@ class Loginad extends CI_Controller {
 	}
 	
 	
-	public function validate() {
+	public function validate_admin_login() {
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
 
@@ -30,16 +30,15 @@ class Loginad extends CI_Controller {
 
 		//call_debug($_POST);
 
-		if($validation->run() === FALSE) {
-			
+		if($validation->run() === FALSE) {		
 			$this->index();
-			echo"display me";
+			echo"validation fail";
 		} else {
 			if($this->__isAdminExists()) {
 				$params = array(
 						'sadmin_uname' => $this->input->post('email'),
 						'sadmin_islog' => TRUE,
-						'sadmin_fullname' => $this->_mAdminFullname
+						'sadmin_fullname' => $this->_mfullname
 				);
 
 				// loads the sessionbrowser
@@ -51,18 +50,15 @@ class Loginad extends CI_Controller {
 				$this->sessionbrowser->getInfo($params);
 				$arr = $this->sessionbrowser->mData;
 
-				call_debug($arr);
-				echo "Welcome admin";	
-				//change the admin's login status to TRUE
-				$this->_toggleLogIn('1', $this->input->post('email'), TRUE);
+				//call_debug($arr);
 
-				//call_debug($_POST);
-		
-				redirect(base_url() . 'admin/loginad');
+				//redirect(base_url() . 'admin/panel');
+				echo "Welcome Admin!";
 
 			} else {
-				
+				echo"This email has not been registered";
 				$this->index();
+				
 			}
 
 		}
@@ -74,36 +70,17 @@ class Loginad extends CI_Controller {
 		$params = array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname');
 		$this->sessionbrowser->getInfo($params); // returns TRUE if successful, otherwise FALSE
 		$arr = $this->sessionbrowser->mData;
-
-		//change the advertiser's login status to TRUE
- 		$this->_toggleLogIn('0', $arr['sadmin_uname']);
  		
 		$this->sessionbrowser->destroy($params);
 
-		redirect(base_url() . 'admin/loginad');
+		redirect(base_url() . 'admin/loginad/index');
 
 	}
 	
-	public function validateemailadmin() {
-
-		$user = ($this->input->post('user')) ? $this->input->post('user') : strencode('admin');
-		$this->load->library('form_validation');
-		$validation  = $this->form_validation;
-
-		// sets rules
-		$validation->set_rules('email', 'Email', 'required|valid_email');
-
-		if($validation->run() === FALSE) {
-			$this->_forgotPasswordAdmin($user);
-		} else {
-			echo 'success';
-		}
-
-	}
 	
 	private function __isAdminExists() {
 
-		$strQry = sprintf("SELECT * FROM `users` WHERE email='%s' AND password='%s'", $this->input->post('email'), MD5($this->input->post('pword')));
+		$strQry = sprintf("SELECT * FROM `users` WHERE email='%s' AND password='%s' AND utype like '0'", $this->input->post('email'), MD5($this->input->post('password')));
 
 		$this->load->model('mdldata');
 		$params['querystring'] = $strQry;
@@ -119,21 +96,5 @@ class Loginad extends CI_Controller {
 		return TRUE;
 	}
 	
-	private function _toggleLogIn($flag, $user, $admin = TRUE ) {	
 
-		if(! $admin)
-			$strQry = sprintf("UPDATE advertiser SET loggedin='%s' WHERE username='%s'", $flag, $user);
-		else 
-			$strQry = sprintf("UPDATE `user` SET loggedin='%s' WHERE uname='%s'", $flag, $user);
-
-		$this->load->model('mdldata');
-		$params["querystring"] = $strQry;
-
-		// executes the query
-		$this->mdldata->update($params);
-
-	}	
-	
-
-	
 }
