@@ -29,7 +29,7 @@ class Loginad extends CI_Controller {
 		//call_debug($_POST);
 
 		if($validation->run() === FALSE) {
-			$this->admin();
+			$this->index();
 		} else {
 			if($this->__isAdminExists()) {
 				$params = array(
@@ -51,7 +51,7 @@ class Loginad extends CI_Controller {
 
 				//call_debug($_POST);
 
-				redirect(base_url() . 'admin/panel');
+				redirect(base_url() . 'admin/loginad');
 
 			} else {
 				$this->index();

@@ -7,16 +7,25 @@
 
 </head>
 <body>
-<?php echo form_open(base_url() . 'admin/loginad/validate', array('class' => 'loginad')); ?>
+<?php echo form_open(base_url() . 'admin/loginad/validate'); ?>
 <fieldset>
 <legend>Sign-In</legend>
 <?php echo validation_errors('<div class="error">', '</div>'); ?>
 	<p><label>Username: </label><input type="text" name="email" /></p>
     <p><label>Password: </label><input type="password" name="pword" /></p>
-    <p class="submitbtn"><input type="submit" value="Login" /></p>
-	
+   
+	 <div class="colleft">
+    	<ul>
+        	<li><input id="rememberme" type="checkbox" name="rememberme" /> <label for="rememberme">Remember me</label></li>
+            <li><p><a href="<?php echo base_url(). 'admin/password_recovery/reset_password';?>">Forgot Password?</a></p></li>
+        </ul>
+    </div>
+    
+    <div class="colright">
+    	<input type="submit" value="Login" />
+    </div>
 <?php echo form_close(); ?>
-<p><a href="<?php echo base_url(). 'admin/password_recovery/reset_password';?>">Forgot Password?</a></p>
+
 </fieldset>
 </body>
 
