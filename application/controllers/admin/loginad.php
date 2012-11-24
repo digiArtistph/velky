@@ -29,7 +29,11 @@ class Loginad extends CI_Controller {
 		//call_debug($_POST);
 
 		if($validation->run() === FALSE) {
+
 			$this->admin();
+
+			$this->index();
+>>>>>>> 8c48d5654291535324724a15c341d0178af49c31
 		} else {
 			if($this->__isAdminExists()) {
 				$params = array(
@@ -51,7 +55,11 @@ class Loginad extends CI_Controller {
 
 				//call_debug($_POST);
 
+<<<<<<< HEAD
 				redirect(base_url() . 'admin/panel');
+=======
+				redirect(base_url() . 'admin/loginad');
+>>>>>>> 8c48d5654291535324724a15c341d0178af49c31
 
 			} else {
 				$this->index();
@@ -61,8 +69,26 @@ class Loginad extends CI_Controller {
 
 	}
 	
+<<<<<<< HEAD
 	
 	
+=======
+	public function admin_signout() {
+
+		$params = array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname');
+		$this->sessionbrowser->getInfo($params); // returns TRUE if successful, otherwise FALSE
+		$arr = $this->sessionbrowser->mData;
+
+		//change the advertiser's login status to TRUE
+ 		$this->_toggleLogIn('0', $arr['admin_uname']);
+ 		
+		$this->sessionbrowser->destroy($params);
+
+		redirect(base_url() . 'admin/loginad');
+
+	}
+	
+>>>>>>> 8c48d5654291535324724a15c341d0178af49c31
 	private function __isAdminExists() {
 
 		$strQry = sprintf("SELECT * FROM `users` WHERE email='%s' AND password='%s'", $this->input->post('email'), MD5($this->input->post('pword')));
