@@ -1,0 +1,25 @@
+[33md01b362[m fixes issues and errors in admin login
+[33m20b3d12[m changes session storage into db - config.php. and adds velky_sessions table definition
+[33m7c4545d[m the interface, says
+[33mc73a12f[m Sends query to the database for user's email and password
+[33m605f281[m The controller that validates user input and redirects the user if logged in or not.
+[33mc9b2f68[m combines jun's login_view.php with loginad_view.php
+[33m6f36395[m Merge branch 'master' of https://github.com/digiArtistph/velky
+[33m8e0deed[m adds panel.php for admin_view to show admin has logged in
+[33m30e8e5b[m Password Recovery: Email Lib. & codex helper used
+[33m1f871ef[m Created a controller for password_recovery
+[33mb329eef[m edits loginad.php controller for login validation
+[33m7089767[m edits loginad.php
+[33ma90f190[m deletes the panel.php controller
+[33mfbb380d[m adds session variables in config.txt
+[33m4265941[m Merge branch 'master' of https://github.com/digiArtistph/velky
+[33mb338353[m fixes conflict at home controller - amended
+[33m862e911[m fixes conflict at home controller
+[33m1525dc7[m adds templates for the view
+[33m7326b94[m initial commit
+[33mc972c2a[m initial commit
+[33mf849345[m commited by jun2x
+[33m6fb2f3e[m adds sql stmt to alter users table (added password field)
+[33mee9cc74[m adds initial databse schema. Name our database as velkydb
+[33mb825214[m adds core codeigniter system with some pre-config settings
+[33m84ada32[m Initial commit

@@ -15,7 +15,9 @@ class Loginad extends CI_Controller {
 	}
 	
 	public function index() {
-		$this->load->view('admin/login/login_view');
+		$data['main_content'] = 'admin/login/login_view';
+		$this->load->view('includes/template', $data);
+		
 	}
 	
 	
@@ -61,7 +63,20 @@ class Loginad extends CI_Controller {
 
 	}
 	
-	
+	public function admin_signout() {
+
+		$params = array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname');
+		$this->sessionbrowser->getInfo($params); // returns TRUE if successful, otherwise FALSE
+		$arr = $this->sessionbrowser->mData;
+
+		//change the advertiser's login status to TRUE
+ 		$this->_toggleLogIn('0', $arr['admin_uname']);
+ 		
+		$this->sessionbrowser->destroy($params);
+
+		redirect(base_url() . 'login/admin');
+
+	}
 	
 	private function __isAdminExists() {
 
