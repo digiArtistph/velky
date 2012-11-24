@@ -7,7 +7,7 @@
 			$CI = get_instance();
 			$strqry = sprintf('SELECT * FROM users WHERE email = "%s"', $param);
 			
-			if($CI->db->query($strqry)->num_rows <= 1 ){
+			if($CI->db->query($strqry)->num_rows == 1 ){
 				return true;
 			}
 			return false;
