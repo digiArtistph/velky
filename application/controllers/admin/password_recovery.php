@@ -6,18 +6,19 @@ class Password_recovery extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 	}
-	function index(){
-		call_debug("ds");
+	
+	private function _emailView(){
+		$data['main_content'] = 'admin/login/reset_password';
+		$this->load->view('includes/template', $data);
 	}
+	
 	public function forgot_password(){
 		$user = ($this->uri->segment(4)) ? :show_404();
 	
 		if(strdecode($user) != 'admin'){
 			show_404();
 		}
-		$data['main_content'] = 'admin/login/reset_password';
-		$this->load->view('includes/template', $data);
-	
+		$this->_emailView();
 	}
 	
 	
@@ -30,18 +31,23 @@ class Password_recovery extends CI_Controller {
 		$validation->set_rules('email_conf', 'email_conf', 'required|matches[email]');
 	
 		if($validation->run() === FALSE) {
-			$this->forgot_password();
+			$this->_emailView();
 		} else {
 			$this->load->helper('recovery_util');
 				
 			if(auth_email( $this->input->post('email') ) ){
 				$hash = strencode($this->input->post('email') ) . '/' . $this->session->userdata('session_id');
 				$this->_sendMail( $hash );
-				echo 'Email Sent';
+				
+				$data['msg'] = 'email sent';
 			}else{
-				echo 'your account doesn\'t exisin our database ';
+				$data['msg'] = 'your account doesn\'t exisin our database ';
 			}
+			$data['main_content'] = 'admin/login/email_verification';
+			$this->load->view('includes/template', $data);
 		}
+		
+		
 	}
 	
 	private function _sendMail($param){
@@ -68,6 +74,12 @@ class Password_recovery extends CI_Controller {
 	
 	}
 	
+	private function _passView($email){
+		$data['email'] = $email;
+		$data['main_content'] = 'admin/login/renew_password';
+		$this->load->view('includes/template', $data);
+	}
+	
 	public function renew_password(){
 	
 		$sessionId = ($this->uri->segment(5)) ? : show_404();
@@ -79,10 +91,10 @@ class Password_recovery extends CI_Controller {
 			call_debug( 'you password link has expired. please renew' );
 		}
 	
-		$data['email'] = strdecode($email);
-		$data['main_content'] = 'admin/login/renew_password';
-		$this->load->view('includes/template', $data);
+		$this->_passView(strdecode($email) );
 	}
+	
+	
 	
 	public function validate_renew_password(){
 		$this->load->library('form_validation');
@@ -92,13 +104,16 @@ class Password_recovery extends CI_Controller {
 		$validation->set_rules('pass_conf', 'pass_conf', 'required|matches[pass]');
 	
 		if($validation->run() === FALSE) {
-			$this->reset_password();
+			$this->_passView('');
 		} else {
 			$this->load->model('mdldata');
 			$params['table'] = array('name' => 'users', 'criteria' => 'email', 'criteria_value' => $this->input->post('email'));
 			$params['fields'] = array( 'password' => md5($this->input->post('pass')) );
 			$this->mdldata->update($params);
-			echo 'password renewed';
+			
+			$data['msg'] =  'password renewed';
+			$data['main_content'] = 'admin/login/password_verification';
+			$this->load->view('includes/template', $data);
 		}
 	}
 }
