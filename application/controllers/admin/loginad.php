@@ -15,9 +15,7 @@ class Loginad extends CI_Controller {
 	}
 	
 	public function index() {
-		$data['main_content'] = 'admin/login/login_view';
-		$this->load->view('includes/template', $data);
-		
+		$this->load->view('admin/login/login_view');
 	}
 	
 	
@@ -58,26 +56,12 @@ class Loginad extends CI_Controller {
 			} else {
 				echo"This email has not been registered";
 				$this->index();
-				
 			}
 
 		}
 
 	}
-	
-	public function admin_signout() {
 
-		$params = array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname');
-		$this->sessionbrowser->getInfo($params); // returns TRUE if successful, otherwise FALSE
-		$arr = $this->sessionbrowser->mData;
- 		
-		$this->sessionbrowser->destroy($params);
-
-		redirect(base_url() . 'admin/loginad/index');
-
-	}
-	
-	
 	private function __isAdminExists() {
 
 		$strQry = sprintf("SELECT * FROM `users` WHERE email='%s' AND password='%s' AND utype like '0'", $this->input->post('email'), MD5($this->input->post('password')));
@@ -87,7 +71,7 @@ class Loginad extends CI_Controller {
 		$this->mdldata->select($params);
 
 		if($this->mdldata->_mRowCount < 1)
-			return FALSE;
+		return FALSE;
 
 		foreach($this->mdldata->_mRecords as $rec) {
 			$this->_mAdminFullname = $rec->fname . ' ' . $rec->lname;
@@ -96,5 +80,4 @@ class Loginad extends CI_Controller {
 		return TRUE;
 	}
 	
-
 }
