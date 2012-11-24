@@ -2,22 +2,26 @@
 
 class User_model extends CI_Model{
 
-	function User_model()
+	function __construct()
 	{
-	parent::__construct();
+		parent::__construct();
 	}
-	function check_login($email,$password)
-	{
-		$sha1_password = sha1($password);
-		$query_str = "Select u_id FROM users WHERE email = ? and password= ?";
-		$result = $this->db->query ($query_str, array($email, $sha1_password));
+	function check_login()
+	{	
+		
+		$email = $this->input->post('email');
+		$password = $this->input->post('password');
+		$this->db->where('utype', '1');
+		$this->db->where('email', $email);
+		$this->db->where('password', $password);
+		$query = $this->db->get('users');
 	
-	
-		if ($result->num_rows() == 1)
+		if($query->num_rows == 1)
 		{
-			return $result->row(0)->u_id;
+			$row = $query->row();
+			return true;
 		}
-			else 
+			else 	
 		{
 			return false;
 		}
