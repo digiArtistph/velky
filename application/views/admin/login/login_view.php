@@ -18,3 +18,4 @@
 <?php echo form_close(); ?>
 
 </fieldset>
+</div>
