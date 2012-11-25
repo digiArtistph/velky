@@ -54,7 +54,7 @@ class Loginad extends CI_Controller {
 				echo "Welcome Admin!";
 
 			} else {
-				echo"This email has not been registered";
+				echo"This email has not been registered or the password did not match.";
 				$this->index();
 			}
 
