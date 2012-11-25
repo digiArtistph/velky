@@ -14,7 +14,7 @@
 		background-color: #fff;
 		margin: 40px;
 		font: 13px/20px normal Helvetica, Arial, sans-serif;
-		color: #4F5155;
+		color: #4F5155;	
 	}
 
 	a {
@@ -62,6 +62,18 @@
 		border: 1px solid #D0D0D0;
 		-webkit-box-shadow: 0 0 8px #D0D0D0;
 	}
+	ul
+	{
+	list-style-type: none;
+	padding: 5px;
+	margin: 0px;
+	}
+	ul li
+	{
+	background-repeat: no-repeat;
+	background-position: 0px 5px; 
+	padding-left: 14px; 
+	}
 	</style>
 </head>
 <body>
@@ -70,7 +82,7 @@
 	<h1>Welcome to Our Site</h1>
 <div id=login_form>
 
-<?php echo form_open(base_url().'login/validate_my_login' )?>
+<?php echo form_open(base_url().'login/validate_login' )?>
 <ul>
 	<li>
 		<label>Email</label>
@@ -85,13 +97,9 @@
 		</div>
 	</li>
 	<li>
-	<?php 
-		if ($this->session->flashdata('loggin_error'))
-		{
-			echo 'You entered an incorrect email or password';
-		}
-		
-		?>
+	<?php if($this->session->flashdata('message')) : ?>
+    <p><?=$this->session->flashdata('message')?></p>
+	<?php endif; ?>
 		<?php echo validation_errors(); ?>
 	</li>
 	
