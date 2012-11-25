@@ -15,7 +15,8 @@ class Loginad extends CI_Controller {
 	}
 	
 	public function index() {
-		$this->load->view('admin/login/login_view');
+		$data['main_content'] = 'admin/login/login_view';
+		$this->load->view('includes/template', $data);
 	}
 	
 	
@@ -30,7 +31,6 @@ class Loginad extends CI_Controller {
 
 		if($validation->run() === FALSE) {		
 			$this->index();
-			echo"validation fail";
 		} else {
 			if($this->__isAdminExists()) {
 				$params = array(
