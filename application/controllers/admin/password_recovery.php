@@ -81,17 +81,18 @@ class Password_recovery extends CI_Controller {
 	}
 	
 	public function renew_password(){
-	
-		$sessionId = ($this->uri->segment(5)) ? : show_404();
-		$email = ($this->uri->segment(4)) ? : show_404();
-	
+		
+		$email = ($this->uri->segment(4)) ?  $this->uri->segment(4): show_404();
+		$sessionId = ($this->uri->segment(5)) ? $this->uri->segment(5): show_404();
+		
 		$this->load->helper('recovery_util');
-	
-		if( !auth_session($sessionId) ){
+		
+		if( auth_session($sessionId) ){
+			$this->_passView(strdecode($email) );
+			
+		}else{
 			call_debug( 'you password link has expired. please renew' );
 		}
-	
-		$this->_passView(strdecode($email) );
 	}
 	
 	
