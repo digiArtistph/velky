@@ -89,7 +89,7 @@ public function signout() {
 		$this->sessionbrowser->destroy($params);
 	
 		redirect(base_url() .'login');
-	
+
 	}
 	
 }
