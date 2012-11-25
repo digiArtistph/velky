@@ -1,18 +1,5 @@
-<<<<<<< HEAD
 <div class="adlogin">
 <?php echo form_open(base_url() . 'admin/loginad/validate_admin_login'); ?>
-=======
-<!DOCTYPE html >
-<html>
-<head>
-<meta charset="utf-08" />
-<title>Back-End Interface</title>
-<link rel="stylesheet" href="<?php echo base_url(); ?>css/style.css" type="text/css" />
-
-</head>
-<body>
-<?php echo form_open(base_url() . 'admin/loginad/validate'); ?>
->>>>>>> 6ad6e98548f514b2eec81859e2d1e8d53c893832
 <fieldset>
 <legend>Sign-In</legend>
 <?php echo validation_errors('<div class="error">', '</div>'); ?>
@@ -31,6 +18,3 @@
 <?php echo form_close(); ?>
 
 </fieldset>
-</body>
-
-</html>
