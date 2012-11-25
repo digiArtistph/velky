@@ -64,14 +64,14 @@ class Loginad extends CI_Controller {
 
 	private function __isAdminExists() {
 
-		$strQry = sprintf("SELECT * FROM `users` WHERE email='%s' AND password='%s' AND utype like '0'", $this->input->post('email'), MD5($this->input->post('password')));
+		$strQry = sprintf("SELECT * FROM `users` WHERE email='%s' AND password='%s' AND utype LIKE '0'", $this->input->post('email'), MD5($this->input->post('pword')));
 
 		$this->load->model('mdldata');
 		$params['querystring'] = $strQry;
 		$this->mdldata->select($params);
-
+		
 		if($this->mdldata->_mRowCount < 1)
-		return FALSE;
+			return FALSE;
 
 		foreach($this->mdldata->_mRecords as $rec) {
 			$this->_mAdminFullname = $rec->fname . ' ' . $rec->lname;
