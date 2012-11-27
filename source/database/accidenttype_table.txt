@@ -1,0 +1,5 @@
+CREATE TABLE accidenttype(
+at_id INT NOT NULL AUTO_INCREMENT,
+name VARCHAR(150) NULL,
+status ENUM("0","1") DEFAULT "1",
+PRIMARY KEY(at_id)) ENGINE=INNODB;

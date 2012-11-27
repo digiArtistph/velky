@@ -1,0 +1,11 @@
+CREATE TABLE accidents(
+a_id INT NOT NULL AUTO_INCREMENT,
+acdnttype TINYINT NOT NULL,
+brgy TINYINT NOT NULL,
+details MEDIUMTEXT NULL,
+caller VARCHAR(255) NULL,
+acdntdate DATETIME NULL COMMENT 'date of the accident took place',
+rptdate DATETIME NULL COMMENT 'date of the report being called to',
+broadcasted TINYINT COMMENT 'police|rta|hospital|firehouse. uses binary bits for 4 entities',
+responded TINYINT COMMENT 'police|rta|hospital|firehouse. uses binary bits for 4 entities',
+PRIMARY KEY(a_id)) ENGINE=INNODB;
