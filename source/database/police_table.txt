@@ -1,0 +1,8 @@
+CREATE TABLE police(
+p_id INT NOT NULL AUTO_INCREMENT,
+station VARCHAR(255) NULL,
+address VARCHAR(255) NULL,
+phone VARCHAR(150) NULL,
+contactperson VARCHAR(255) NULL,
+status ENUM("0", "1") DEFAULT "1",
+PRIMARY KEY (p_id), UNIQUE INDEX (station)) ENGINE=INNODB;
