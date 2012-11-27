@@ -50,8 +50,8 @@ class Loginad extends CI_Controller {
 
 				//call_debug($arr);
 
-				//redirect(base_url() . 'admin/panel');
-				echo "Welcome Admin!";
+				redirect(base_url() . 'master/users');
+				
 
 			} else {
 				echo"This email has not been registered or the password did not match.";
