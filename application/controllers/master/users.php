@@ -27,12 +27,9 @@ class Users extends CI_Controller {
 	
 	public function section() {
 		
-		$section = ($this->uri->segment(2)) ? $this->uri->segment(2) : '';
+		$section = ($this->uri->segment(4)) ? $this->uri->segment(4) : '';
 		//call_debug($section);
 		switch($section) {
-			case 'users':
-				$this->_users();
-				break;
 			case 'newuser':
 				$this->_newuser();
 				break;
@@ -42,6 +39,8 @@ class Users extends CI_Controller {
 			case 'deleteuser':
 				$this->_deleteuser();
 				break;
+			default:
+				$this->_users();
 		}			
 		
 	}
@@ -79,7 +78,7 @@ class Users extends CI_Controller {
 			if( ! $this->mdldata->insert($params))
 				echo 'Error on updating some record.';
 			else
-				redirect(base_url("master/users/section/users"));
+				redirect(base_url("master/users"));
 		}
 		
 	}
