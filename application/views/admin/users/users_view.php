@@ -6,13 +6,17 @@
                 </div>                
 <div class="runninglist">
                 	
-                    <table width="745">
+                    <table width="1000">
                     	<thead>
                         	<tr>
                             	<th width="50"><input class="cboxToggleSelectAll" type="checkbox" /></th>
-                                <th width="306">Username</th>
-                                <th width="259">Fullname</th>
-                                <th width="110">Action</th>
+                                <th width="350">Email Address</th>
+                                <th width="350">Fullname</th>
+                                <th width="350">Address #1</th>
+                                <th width="350">Address #2</th>
+                                <th width="350">User Type</th>
+                                <th width="350">Status</th>     
+                                <th width="350">Action</th>
                             </tr>
                         </thead>
                         
@@ -20,9 +24,13 @@
 					<?php if(isset($users)): ?>
                         	<?php foreach($users as $user): ?>
                         	<tr>
-                            	<td><input class="cboxSelector" type="checkbox" /></td><td><?php echo $user->uname; ?></td>
+                            	<td><input class="cboxSelector" type="checkbox" /></td><td><?php echo $user->email; ?></td>
                                 <td><?php echo $user->fullname; ?></td>
-                            	<td><a href="<?php echo base_url("master/users/section/edituser/$user->us_id"); ?>">Edit</a> | <a href="<?php echo base_url("master/users/section/deleteuser/$user->us_id"); ?>">Delete</a></td>
+                                <td><?php echo $user->addr1; ?></td>
+                                <td><?php echo $user->addr2; ?></td>
+                                <td><?php echo $user->utype; ?></td>
+                                <td><?php echo $user->status; ?></td>
+                            	<td><a href="<?php echo base_url("master/users/section/edituser/$user->u_id"); ?>">Edit</a> | <a href="<?php echo base_url("master/users/section/deleteuser/$user->u_id"); ?>">Delete</a></td>
                             </tr>                            
 							<?php endforeach; ?>
 					<?php endif; ?>

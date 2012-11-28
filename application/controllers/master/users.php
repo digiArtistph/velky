@@ -14,7 +14,7 @@ class Users extends CI_Controller {
 		//call_debug($arr);
 		
 		// authorizes access
-		authUser(array('section' => 'admin', 'sessvar' => array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname')));
+		authUser(array('section' => 'admin/loginad', 'sessvar' => array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname')));
 				
 		// sets default prefs
 		$this->_mConfig = array('full_tag_open' => '<div class="pagination">', 'full_tag_close' => '</div>', 'first_link' => 'First', 'last_link' => 'Last', 'next_link' => '»', 'prev_link' => '«');
@@ -27,8 +27,8 @@ class Users extends CI_Controller {
 	
 	public function section() {
 		
-		$section = ($this->uri->segment(3)) ? $this->uri->segment(3) : '';
-		
+		$section = ($this->uri->segment(2)) ? $this->uri->segment(2) : '';
+		//call_debug($section);
 		switch($section) {
 			case 'users':
 				$this->_users();
@@ -58,17 +58,19 @@ class Users extends CI_Controller {
 		$validation->set_rules('pword', 'Password', 'required|min_length[6]');
 		$validation->set_rules('pword2', 'Confirm Password', 'required|matches[pword]');
 		$validation->set_rules('utype', 'Access Level', 'required');
+		$validation->set_rules('status', 'status', 'required');
 		
 		if($validation->run() === FALSE) {
 			$this->_newuser();
 		} else {
-			$strQry = sprintf("INSERT INTO `users` SET fname='%s', lname='%s', mname='%s', password='%s', email='%s', utype='%s'",
+			$strQry = sprintf("INSERT INTO `users` SET fname='%s', lname='%s', mname='%s', password='%s', email='%s', utype='%s', status='%s'",
 					$this->input->post('fname'),
 					$this->input->post('lname'),
 					$this->input->post('mname'),
 					md5($this->input->post('pword')),
 					$this->input->post('email'),
-					$this->input->post('utype')					
+					$this->input->post('utype'),
+					$this->input->post('status')					
 				);	
 			
 			$this->load->model('mdldata');
@@ -91,7 +93,7 @@ class Users extends CI_Controller {
 	private function _deleteuser() {
 		$user_id = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
 		
-		$strQry = sprintf("UPDATE `users` SET `status`='1' WHERE u_id=%d", $user_id);
+		$strQry = sprintf("DELETE FROM users WHERE u_id = %d", $user_id);
 		$this->load->model('mdldata');
 		$params['querystring'] = $strQry;
 		
@@ -104,18 +106,18 @@ class Users extends CI_Controller {
 	
 	private function _edituser() {
 		
-		$usr_id = ($this->uri->segment(5)) ? $this->uri->segment(5) : (($this->input->post('usr_id')) ? $this->input->post('usr_id') : 0);
+		$u_id = ($this->uri->segment(5)) ? $this->uri->segment(5) : (($this->input->post('u_id')) ? $this->input->post('u_id') : 0);
 		
-		$strQry = sprintf("SELECT * FROM `users` WHERE u_id=%d", $usr_id);
+		$strQry = sprintf("SELECT * FROM `users` WHERE u_id=%d", $u_id);
 		$this->load->model('mdldata');
 		$params['querystring'] = $strQry;
 		$this->mdldata->select($params);
 		$data['users'] = $this->mdldata->_mRecords;
-		$data['usr_id'] = $usr_id;
+		$data['u_id'] = $u_id;
 	
 		
 		$data['main_content'] = 'admin/users/edituser_view';
-		$this->load->view('includes/admin/template', $data);
+		$this->load->view('includes/template', $data);
 		
 	}
 	
@@ -157,8 +159,8 @@ class Users extends CI_Controller {
 		
 		// pagination
 		$this->load->library('pagination');
-		$config['base_url'] = base_url("master/users/section/users");
-		$config['total_rows'] = $this->db->query("SELECT u_id, mname, email, IF(ASCII(fname) !=0 AND ASCII(lname) !=0, CONCAT(fname, ' ', lname), 'no complete name provided') AS fullname FROM `users` WHERE status='1'")->num_rows();
+		$config['base_url'] = base_url("master/users/users");
+		$config['total_rows'] = $this->db->query("SELECT u_id, mname, email, IF(ASCII(fname) !=0 AND ASCII(mname) !=0 AND ASCII(lname) !=0, CONCAT(fname, ' ', mname, ' ', lname), 'no complete name provided') AS fullname, addr1, addr2, utype, status FROM `users` WHERE status='1'")->num_rows();
 		$config['per_page'] = 10;
 		$config['num_links'] = 4;
 		$config['uri_segment'] = 5;
@@ -166,7 +168,7 @@ class Users extends CI_Controller {
 		$this->pagination->initialize($config);
 		$data['pagination'] = $this->pagination->create_links();
 		
-		$strQry = sprintf("SELECT u_id, mname, email, IF(ASCII(fname) !=0 AND ASCII(lname) !=0, CONCAT(fname, ' ', lname), 'no complete name provided') AS fullname FROM `users`  WHERE status='1' LIMIT %d, %d",$this->uri->segment($config['uri_segment']), $config['per_page']);
+		$strQry = sprintf("SELECT u_id, mname, email, IF(ASCII(fname) !=0 AND ASCII(mname) !=0 AND ASCII(lname) !=0, CONCAT(fname, ' ', mname, ' ', lname), 'no complete name provided') AS fullname, addr1, addr2, utype, status FROM `users`  WHERE status='1' LIMIT %d, %d",$this->uri->segment($config['uri_segment']), $config['per_page']);
 		$this->load->model('mdldata');
 		$params['querystring'] = $strQry;
 		$this->mdldata->select($params);
@@ -174,7 +176,7 @@ class Users extends CI_Controller {
 				
 		
 		$data['main_content'] = 'admin/users/users_view';
-		$this->load->view('includes/admin/template', $data);
+		$this->load->view('includes/template', $data);
 	}
 	
 	
