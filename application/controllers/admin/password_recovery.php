@@ -4,6 +4,7 @@ class Password_recovery extends CI_Controller {
 
 	
 	public function __construct() {
+		
 		parent::__construct();
 	}
 	
@@ -13,11 +14,11 @@ class Password_recovery extends CI_Controller {
 	}
 	
 	public function forgot_password(){
-		$user = ($this->uri->segment(4)) ? :show_404();
+		$user = ($this->uri->segment(4)) ? $this->uri->segment(4) : show_404();
 	
-		if(strdecode($user) != 'admin'){
+		if(strdecode($user) != 'admin')
 			show_404();
-		}
+		
 		$this->_emailView();
 	}
 	
@@ -29,7 +30,9 @@ class Password_recovery extends CI_Controller {
 	
 		$validation->set_rules('email', 'email', 'required');
 		$validation->set_rules('email_conf', 'email_conf', 'required|matches[email]');
-	
+		
+		
+		
 		if($validation->run() === FALSE) {
 			$this->_emailView();
 		} else {
@@ -37,8 +40,8 @@ class Password_recovery extends CI_Controller {
 				
 			if(auth_email( $this->input->post('email') ) ){
 				$hash = strencode($this->input->post('email') ) . '/' . $this->session->userdata('session_id');
+				$this->_setsession();
 				$this->_sendMail( $hash );
-				
 				$data['msg'] = 'email sent';
 			}else{
 				$data['msg'] = 'your account doesn\'t exisin our database ';
@@ -88,10 +91,16 @@ class Password_recovery extends CI_Controller {
 		$this->load->helper('recovery_util');
 		
 		if( auth_session($sessionId) ){
-			$this->_passView(strdecode($email) );
-			
+				
+			if ($this->_getsession()) {
+				$this->_updatesession();
+				$this->_passView(strdecode($email) );
+			}else{
+				
+				call_debug( 'you password link has expired.  Please resend your email' );
+			}
 		}else{
-			call_debug( 'you password link has expired. please renew' );
+			call_debug( 'Your time has passed. Please resend your email' );
 		}
 	}
 	
@@ -111,10 +120,32 @@ class Password_recovery extends CI_Controller {
 			$params['table'] = array('name' => 'users', 'criteria' => 'email', 'criteria_value' => $this->input->post('email'));
 			$params['fields'] = array( 'password' => md5($this->input->post('pass')) );
 			$this->mdldata->update($params);
+		
 			
 			$data['msg'] =  'password renewed';
 			$data['main_content'] = 'admin/login/password_verification';
 			$this->load->view('includes/template', $data);
 		}
+	}
+
+	private function _setsession(){
+			$params = array('pass_track' => true);
+	 		$this->sessionbrowser->setInfo($params);
+	}
+	
+	private function _updatesession(){
+		$params = array('pass_track' => false);
+		$this->sessionbrowser->setInfo($params);
+	}
+	
+	private function _getsession(){
+		$params = array('pass_track');
+		$this->sessionbrowser->getInfo($params);
+		
+		$arr = $this->sessionbrowser->mData;
+		if( $arr['pass_track'] == true)
+			return true;
+		else 
+			return false;
 	}
 }

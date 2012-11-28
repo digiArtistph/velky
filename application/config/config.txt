@@ -6,3 +6,4 @@ suser_uname:SUSER_USERNAME
 suser_islog:SUSER_ISLOG
 suser_fullname:SUSER_FULLNAME
 suser_ulvl:SUSER_ULVL
+pass_track:PASS_TRACK
