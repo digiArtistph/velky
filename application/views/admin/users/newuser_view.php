@@ -2,7 +2,7 @@
                 	<div class="titlebar">
                 	  <h1>Add New User</h1>
                       </div>
-                      <div class="actionbutton"><a href="<?php echo base_url("master/users/section/users"); ?>">Cancel New User</a></div>
+                      <div class="actionbutton"><a href="<?php echo base_url("master/users/users"); ?>">Cancel New User</a></div>
                       <div class="clearthis"></div>
     <?php echo form_open("master/users/validatenewuser"); ?>
             <p><label>First Name</label> <input type="text" name="fname" value="<?php echo set_value('fname'); ?>" /><?php echo display_error('fname'); ?></p>
