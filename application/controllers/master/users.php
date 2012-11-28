@@ -54,6 +54,8 @@ class Users extends CI_Controller {
 		$validation->set_rules('lname', 'Last Name', 'required');
 		$validation->set_rules('mname', 'Middle Name', 'required');
 		$validation->set_rules('email', 'Email', 'required');
+		$validation->set_rules('addr1', 'Address1', 'required');
+		$validation->set_rules('addr2', 'Address2', 'required');
 		$validation->set_rules('pword', 'Password', 'required|min_length[6]');
 		$validation->set_rules('pword2', 'Confirm Password', 'required|matches[pword]');
 		$validation->set_rules('utype', 'Access Level', 'required');
@@ -62,12 +64,14 @@ class Users extends CI_Controller {
 		if($validation->run() === FALSE) {
 			$this->_newuser();
 		} else {
-			$strQry = sprintf("INSERT INTO `users` SET fname='%s', lname='%s', mname='%s', password='%s', email='%s', utype='%s', status='%s'",
+			$strQry = sprintf("INSERT INTO `users` SET fname='%s', lname='%s', mname='%s', password='%s', email='%s', addr1='%s', addr2='%s', utype='%s', status='%s'",
 					$this->input->post('fname'),
 					$this->input->post('lname'),
 					$this->input->post('mname'),
 					md5($this->input->post('pword')),
 					$this->input->post('email'),
+					$this->input->post('addr1'),
+					$this->input->post('addr2'),
 					$this->input->post('utype'),
 					$this->input->post('status')					
 				);	
@@ -123,13 +127,15 @@ class Users extends CI_Controller {
 	public function validateedituser() {
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
-		
-		
+
 		$validation->set_rules('fname', 'First Name', 'required');
 		$validation->set_rules('lname', 'Last Name', 'required');
 		$validation->set_rules('mname', 'Middle Name', 'required');
 		$validation->set_rules('email', 'Email', 'required');
+		$validation->set_rules('email', 'Email', 'required');
+		$validation->set_rules('email', 'Email', 'required');
 		$validation->set_rules('utype', 'Access Level', 'required');
+		$validation->set_rules('status', 'status', 'required');
 		
 		if($validation->run() === FALSE) {
 			$this->_edituser();
@@ -140,7 +146,7 @@ class Users extends CI_Controller {
 					$this->input->post('mname'),
 					$this->input->post('email'),
 					$this->input->post('utype'),					
-					$this->input->post('usr_id')
+					$this->input->post('u_id')
 				);
 			
 			$this->load->model('mdldata');
