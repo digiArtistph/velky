@@ -2,21 +2,11 @@
 
 class Rta extends CI_Controller{
 	
-	private $_mConfig;
-	
 	public function __construct() {
 		parent::__construct();
-	
-		$params = array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname');
-		$this->sessionbrowser->getInfo($params);
-		$arr = $this->sessionbrowser->mData;
-	
+		
 		//authenticate pages 
 		authUser(array('section' => 'admin', 'sessvar' => array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname')));
-	
-		// sets default prefs
-		$this->_mConfig = array('full_tag_open' => '<div class="pagination">', 'full_tag_close' => '</div>', 'first_link' => 'First', 'last_link' => 'Last', 'next_link' => '»', 'prev_link' => '«');
-	
 	}
 	
 	public function index(){
@@ -32,11 +22,11 @@ class Rta extends CI_Controller{
 				$this->_addoffice();
 				break;
 			case 'editoffice':
-					$this->_editoffice();
-					break;
+				$this->_editoffice();
+				break;
 			case 'deleteoffice':
-						$this->_deleteoffice();
-						break;
+				$this->_deleteoffice();
+				break;
 			default:
 				$this->_viewoffice();
 		}
@@ -115,6 +105,7 @@ class Rta extends CI_Controller{
 		$this->load->model('mdldata');
 		$params['table'] = array('name' => 'rta');
 		$params['table']['order_by'] = 'r_id:asc';
+		
 		if(!$this->mdldata->select($params))
 			echo 'getting rta office failed';
 		else 
@@ -122,11 +113,13 @@ class Rta extends CI_Controller{
 	}
 	
 	private function _addoffice(){
+		
 		$data['main_content'] = 'admin/rta/addoffice_view';
 		$this->load->view('includes/template', $data);
 	}
 	
 	private function _editoffice(){
+		
 		$id = ($this->uri->segment(5)) ? $this->uri->segment(5) : (($this->input->post('id')) ? $this->input->post('id'): 0);
 		
 		$data['office'] = $this->_selectoffice($id);
@@ -136,6 +129,7 @@ class Rta extends CI_Controller{
 	}
 	
 	private function _selectoffice($config){
+		
 		$rid = strdecode($config);
 		$params['querystring'] = sprintf("SELECT * FROM rta WHERE r_id=%d", $rid);
 		
@@ -147,6 +141,7 @@ class Rta extends CI_Controller{
 	}
 	
 	private function _deleteoffice(){
+		
 		$id = ($this->uri->segment(5)) ? $this->uri->segment(5) : show_404();
 		
 		$strqry = sprintf('DELETE FROM rta WHERE r_id = %d ', strdecode($id));
