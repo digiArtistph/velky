@@ -51,14 +51,12 @@ class Accident_type extends CI_Controller {
 		$validation = $this->form_validation;
 		
 		$validation->set_rules('name', 'Name', 'required');
-		$validation->set_rules('status', 'status', 'required');
 		
 		if($validation->run() === FALSE) {
 			$this->_addaccident_type();
 		} else {
-			$strQry = sprintf("INSERT INTO `accidenttype` SET name='%s', status='%s'",
-					$this->input->post('name'),
-					$this->input->post('status')					
+			$strQry = sprintf("INSERT INTO `accidenttype` SET name='%s'",
+					$this->input->post('name')			
 				);	
 			
 			$this->load->model('mdldata');
@@ -114,14 +112,12 @@ class Accident_type extends CI_Controller {
 		$validation = $this->form_validation;
 		
 		$validation->set_rules('name', 'Name', 'required');
-		$validation->set_rules('status', 'status', 'required');
 		
 		if($validation->run() === FALSE) {
 			$this->_editaccident_type();
 		} else {
-			$strQry  = sprintf("UPDATE `accidenttype` SET name='%s', status='%s' WHERE at_id=%d", 				
+			$strQry  = sprintf("UPDATE `accidenttype` SET name='%s' WHERE at_id=%d", 				
 					$this->input->post('name'),
-					$this->input->post('status'),
 					$this->input->post('at_id')
 				);
 			
@@ -141,7 +137,7 @@ class Accident_type extends CI_Controller {
 		// pagination
 		$this->load->library('pagination');
 		$config['base_url'] = base_url("master/accident_type");
-		$config['total_rows'] = $this->db->query("SELECT at_id, name, status FROM `accidenttype`")->num_rows();
+		$config['total_rows'] = $this->db->query("SELECT at_id, name FROM `accidenttype`")->num_rows();
 		$config['per_page'] = 10;
 		$config['num_links'] = 4;
 		$config['uri_segment'] = 5;
@@ -149,7 +145,7 @@ class Accident_type extends CI_Controller {
 		$this->pagination->initialize($config);
 		$data['pagination'] = $this->pagination->create_links();
 		
-		$strQry = sprintf("SELECT at_id, name, status FROM `accidenttype` LIMIT %d, %d",$this->uri->segment($config['uri_segment']), $config['per_page']);
+		$strQry = sprintf("SELECT at_id, name FROM `accidenttype` LIMIT %d, %d",$this->uri->segment($config['uri_segment']), $config['per_page']);
 		$this->load->model('mdldata');
 		$params['querystring'] = $strQry;
 		$this->mdldata->select($params);

@@ -9,8 +9,8 @@
                     <table>
                     	<thead>
                         	<tr> 
-                                <th>Name</th>     
-                                <th>Accident</th>
+                                <th>Accident Type</th>     
+                                <th>Action</th>
                             </tr>
                         </thead>
                         
@@ -19,7 +19,6 @@
                         	<?php foreach($accidenttype as $atype): ?>
                         	<tr>
                             	<td><?php echo $atype->name; ?></td>
-                                <td><?php echo $atype->status; ?></td>
                             	<td><a href="<?php echo base_url("master/accident_type/section/editaccident_type/$atype->at_id"); ?>">Edit</a> | <a href="<?php echo base_url("master/accident_type/section/deleteaccident_type/$atype->at_id"); ?>">Delete</a></td>
                             </tr>                            
 							<?php endforeach; ?>

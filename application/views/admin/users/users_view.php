@@ -13,8 +13,7 @@
                                 <th>Fullname</th>
                                 <th>Address #1</th>
                                 <th>Address #2</th>
-                                <th>User Type</th>
-                                <th>Status</th>     
+                                <th>User Type</th>  
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -28,7 +27,6 @@
                                 <td><?php echo $user->addr1; ?></td>
                                 <td><?php echo $user->addr2; ?></td>
                                 <td><?php echo $user->utype; ?></td>
-                                <td><?php echo $user->status; ?></td>
                             	<td><a href="<?php echo base_url("master/users/section/edituser/$user->u_id"); ?>">Edit</a> | <a href="<?php echo base_url("master/users/section/deleteuser/$user->u_id"); ?>">Delete</a></td>
                             </tr>                            
 							<?php endforeach; ?>
