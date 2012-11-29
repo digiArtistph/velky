@@ -1,5 +1,4 @@
 <div>
-	<p>Your are editing station id: No. <?php echo $name[0]->h_id;?></p>
 	<p><a href="<?php echo base_url() . 'master/hospitals';?>">Back</a></p>
 	<h3>Edit Hospital</h3>
 	<?php echo form_open( base_url() . 'master/hospitals/validateupdatehospital' );?>

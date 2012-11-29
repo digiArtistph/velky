@@ -38,8 +38,6 @@ class Hospitals extends CI_Controller{
 		$validation = $this->form_validation;
 		
 		$validation->set_rules('name', 'name', 'required');
-		$validation->set_rules('address', 'address');
-		$validation->set_rules('phone', 'phone');
 		
 		if($validation->run() ===  FALSE) {
 			$this->_addhospital();
@@ -51,8 +49,6 @@ class Hospitals extends CI_Controller{
 					'table' => array('name' => 'hospitals'),
 					'fields' => array(
 						'name' => $this->input->post('name'),
-						'address' => $this->input->post('address'),
-						'phone' => $this->input->post('phone'),
 						'status' => 1
 						)
 					);
@@ -72,15 +68,13 @@ class Hospitals extends CI_Controller{
 		
 		$validation->set_rules('id', 'id', 'required');
 		$validation->set_rules('name', 'name');
-		$validation->set_rules('address', 'address');
-		$validation->set_rules('phone', 'phone');
 		$validation->set_rules('status', 'status', 'integer');
 		
 		if($validation->run() ===  FALSE) {
 			$this->_edithospital();
 		} else {
 			
-			$strqry = sprintf('UPDATE hospitals SET name="%s", address="%s", phone="%s",  status="%d" WHERE h_id="%s"', $this->input->post('name'), $this->input->post('address'), $this->input->post('phone'), $this->input->post('status'), strdecode($this->input->post('id') ));
+			$strqry = sprintf('UPDATE hospitals SET name="%s", status="%d" WHERE h_id="%s"', $this->input->post('name'), $this->input->post('status'), strdecode($this->input->post('id') ));
 			
 			if(!$this->db->query($strqry))
 				echo 'update failed';
