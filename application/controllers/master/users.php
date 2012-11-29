@@ -54,8 +54,8 @@ class Users extends CI_Controller {
 		$validation->set_rules('lname', 'Last Name', 'required');
 		$validation->set_rules('mname', 'Middle Name', 'required');
 		$validation->set_rules('email', 'Email', 'required');
-		$validation->set_rules('addr1', 'Address1', 'required');
-		$validation->set_rules('addr2', 'Address2', 'required');
+		$validation->set_rules('addr1', 'Address #1', 'required');
+		$validation->set_rules('addr2', 'Address #2', 'required');
 		$validation->set_rules('pword', 'Password', 'required|min_length[6]');
 		$validation->set_rules('pword2', 'Confirm Password', 'required|matches[pword]');
 		$validation->set_rules('utype', 'Access Level', 'required');
@@ -127,25 +127,28 @@ class Users extends CI_Controller {
 	public function validateedituser() {
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
-
+		
 		$validation->set_rules('fname', 'First Name', 'required');
 		$validation->set_rules('lname', 'Last Name', 'required');
 		$validation->set_rules('mname', 'Middle Name', 'required');
 		$validation->set_rules('email', 'Email', 'required');
-		$validation->set_rules('email', 'Email', 'required');
-		$validation->set_rules('email', 'Email', 'required');
+		$validation->set_rules('addr1', 'Address #1', 'required');
+		$validation->set_rules('addr2', 'Address #2', 'required');
 		$validation->set_rules('utype', 'Access Level', 'required');
 		$validation->set_rules('status', 'status', 'required');
 		
 		if($validation->run() === FALSE) {
 			$this->_edituser();
 		} else {
-			$strQry  = sprintf("UPDATE `users` SET fname='%s', lname='%s', mname='%s', email='%s', utype='%s' WHERE u_id=%d", 
+			$strQry  = sprintf("UPDATE `users` SET fname='%s', lname='%s', mname='%s', email='%s', addr1='%s', addr2='%s', utype='%s', status='%s' WHERE u_id=%d", 				
 					$this->input->post('fname'),
 					$this->input->post('lname'),
 					$this->input->post('mname'),
 					$this->input->post('email'),
-					$this->input->post('utype'),					
+					$this->input->post('addr1'),
+					$this->input->post('addr2'),
+					$this->input->post('utype'),
+					$this->input->post('status'),
 					$this->input->post('u_id')
 				);
 			
@@ -165,7 +168,7 @@ class Users extends CI_Controller {
 		// pagination
 		$this->load->library('pagination');
 		$config['base_url'] = base_url("master/users/users");
-		$config['total_rows'] = $this->db->query("SELECT u_id, mname, email, IF(ASCII(fname) !=0 AND ASCII(mname) !=0 AND ASCII(lname) !=0, CONCAT(fname, ' ', mname, ' ', lname), 'no complete name provided') AS fullname, addr1, addr2, utype, status FROM `users` WHERE status='1'")->num_rows();
+		$config['total_rows'] = $this->db->query("SELECT u_id, mname, email, IF(ASCII(fname) !=0 AND ASCII(mname) !=0 AND ASCII(lname) !=0, CONCAT(fname, ' ', mname, ' ', lname), 'no complete name provided') AS fullname, addr1, addr2, utype, status FROM `users`")->num_rows();
 		$config['per_page'] = 10;
 		$config['num_links'] = 4;
 		$config['uri_segment'] = 5;
@@ -173,7 +176,7 @@ class Users extends CI_Controller {
 		$this->pagination->initialize($config);
 		$data['pagination'] = $this->pagination->create_links();
 		
-		$strQry = sprintf("SELECT u_id, mname, email, IF(ASCII(fname) !=0 AND ASCII(mname) !=0 AND ASCII(lname) !=0, CONCAT(fname, ' ', mname, ' ', lname), 'no complete name provided') AS fullname, addr1, addr2, utype, status FROM `users`  WHERE status='1' LIMIT %d, %d",$this->uri->segment($config['uri_segment']), $config['per_page']);
+		$strQry = sprintf("SELECT u_id, mname, email, IF(ASCII(fname) !=0 AND ASCII(mname) !=0 AND ASCII(lname) !=0, CONCAT(fname, ' ', mname, ' ', lname), 'no complete name provided') AS fullname, addr1, addr2, utype, status FROM `users` LIMIT %d, %d",$this->uri->segment($config['uri_segment']), $config['per_page']);
 		$this->load->model('mdldata');
 		$params['querystring'] = $strQry;
 		$this->mdldata->select($params);

@@ -13,9 +13,18 @@
             <p>
               <label>Email</label> <input type="text" value="<?php echo set_value('email'); ?>" name="email" /><?php echo form_error('email'); ?></p>
               <p><label>Address #1</label> <input type="text" value="<?php echo set_value('addr1'); ?>" name="addr1" /><?php echo form_error('addr1'); ?></p>
-              <p><label>Address #2</label> <input type="text" value="<?php echo set_value('addr2'); ?>" name="addr1" /><?php echo form_error('addr2'); ?></p>
-            <p><label>Access Level</label> <input type="text" value="<?php echo set_value('utype'); ?>" name="utype" /><?php echo form_error('utype'); ?></p>
-             <p><label>Status</label> <input type="text" value="<?php echo set_value('status'); ?>" name="status" /><?php echo form_error('status'); ?></p>
+              <p><label>Address #2</label> <input type="text" value="<?php echo set_value('addr2'); ?>" name="addr2" /><?php echo form_error('addr2'); ?></p>
+            <p><label>Access Level</label>
+			<input type="radio" name="utype" value="0"/><label>Admin</label>
+			<input type="radio" name="utype" value="1"/><label>Call Center Agent</label>
+            <input type="radio" name="utype" value="2"/><label>Reserved</label>
+			<span><?php echo form_error('utype'); ?></span>
+		</p>
+            <p><label>Status </label>
+			<input type="radio" name="status" value="1"/><label>Active</label>
+			<input type="radio" name="status" value="0"/><label>InActive</label>
+			<span><?php echo form_error('status'); ?></span>
+		</p>
            
         <!--<fieldset>
         	<legend></legend><label>Active <input type="checkbox" name="active" <?php echo set_checkbox('active', '1'); ?> value="1" /></label></fieldset>-->
