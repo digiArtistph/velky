@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Hospitals extends CI_Controller{
+class Barangay extends CI_Controller{
 	
 	public function __construct() {
 		parent::__construct();
@@ -18,21 +18,21 @@ class Hospitals extends CI_Controller{
 		$section = ($this->uri->segment(4)) ? $this->uri->segment(4) : '';
 		
 		switch($section){
-			case 'addhospital':
-				$this->_addhospital();
+			case 'addbarangay':
+				$this->_addbarangay();
 				break;
-			case 'edithospital':
-				$this->_edithospital();
+			case 'editbarangay':
+				$this->_editbarangay();
 				break;
-			case 'deletehospital':
-				$this->_deletehospital();
+			case 'deletebarangay':
+				$this->_deletebarangay();
 				break;
 			default:
-				$this->_viewhospital();
+				$this->_viewbarangay();
 		}
 	}
 	
-	public function validatenewhospital(){
+	public function validatenewbarangay(){
 		
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
@@ -40,13 +40,13 @@ class Hospitals extends CI_Controller{
 		$validation->set_rules('name', 'name', 'required');
 		
 		if($validation->run() ===  FALSE) {
-			$this->_addhospital();
+			$this->_addbarangay();
 		} else {
 			
 			$this->load->model('mdldata');
 			
 			$params = array(
-					'table' => array('name' => 'hospitals'),
+					'table' => array('name' => 'barangay'),
 					'fields' => array(
 						'name' => $this->input->post('name'),
 						'status' => 1
@@ -57,11 +57,11 @@ class Hospitals extends CI_Controller{
 			if(! $this->mdldata->insert($params))
 				echo 'Insert new record failed.';
 			else
-				redirect(base_url("master/hospitals"));
+				redirect(base_url("master/barangay"));
 		}
 	}
 	
-	public function validateupdatehospital(){
+	public function validateupdatebarangay(){
 		
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
@@ -71,57 +71,57 @@ class Hospitals extends CI_Controller{
 		$validation->set_rules('status', 'status', 'integer');
 		
 		if($validation->run() ===  FALSE) {
-			$this->_edithospital();
+			$this->_editbarangay();
 		} else {
 			
-			$strqry = sprintf('UPDATE hospitals SET name="%s", status="%d" WHERE h_id="%s"', $this->input->post('name'), $this->input->post('status'), strdecode($this->input->post('id') ));
+			$strqry = sprintf('UPDATE barangay SET name="%s", status="%d" WHERE b_id="%s"', $this->input->post('name'), $this->input->post('status'), strdecode($this->input->post('id') ));
 			
 			if(!$this->db->query($strqry))
 				echo 'update failed';
 			else
-				redirect(base_url("master/hospitals"));
+				redirect(base_url("master/barangay"));
 		}
 	}
 	
-	private function _viewhospital(){
+	private function _viewbarangay(){
 		
-		$data['hospitals'] = $this->_gethospital();
-		$data['main_content'] = 'admin/hospitals/hospital_view';
+		$data['barangay'] = $this->_getbarangay();
+		$data['main_content'] = 'admin/barangay/barangay_view';
 		$this->load->view('includes/template', $data);
 	}
 	
-	private function _gethospital(){
+	private function _getbarangay(){
 		
 		$this->load->model('mdldata');
-		$params['table'] = array('name' => 'hospitals');
-		$params['table']['order_by'] = 'h_id:asc';
+		$params['table'] = array('name' => 'barangay');
+		$params['table']['order_by'] = 'b_id:asc';
 		
 		if(!$this->mdldata->select($params))
-			echo 'getting Hospital name failed';
+			echo 'getting barangay name failed';
 		else 
 			return $this->mdldata->_mRecords;
 	}
 	
-	private function _addhospital(){
+	private function _addbarangay(){
 		
-		$data['main_content'] = 'admin/hospitals/addhospital_view';
+		$data['main_content'] = 'admin/barangay/addbarangay_view';
 		$this->load->view('includes/template', $data);
 	}
 	
-	private function _edithospital(){
+	private function _editbarangay(){
 		
 		$id = ($this->uri->segment(5)) ? $this->uri->segment(5) : (($this->input->post('id')) ? $this->input->post('id'): 0);
 		
-		$data['name'] = $this->_selecthospital($id);
+		$data['name'] = $this->_selectbarangay($id);
 		
-		$data['main_content'] = 'admin/hospitals/edithospital_view';
+		$data['main_content'] = 'admin/barangay/editbarangay_view';
 		$this->load->view('includes/template', $data);
 	}
 	
-	private function _selecthospital($config){
+	private function _selectbarangay($config){
 		
 		$rid = strdecode($config);
-		$params['querystring'] = sprintf("SELECT * FROM hospitals WHERE h_id=%d", $rid);
+		$params['querystring'] = sprintf("SELECT * FROM barangay WHERE b_id=%d", $rid);
 		
 		$this->load->model('mdldata');
 		if(!$this->mdldata->select($params))
@@ -130,15 +130,15 @@ class Hospitals extends CI_Controller{
 			return $this->mdldata->_mRecords;
 	}
 	
-	private function _deletehospital(){
+	private function _deletebarangay(){
 		
 		$id = ($this->uri->segment(5)) ? $this->uri->segment(5) : show_404();
 		
-		$strqry = sprintf('DELETE FROM hospitals WHERE h_id = %d ', strdecode($id));
+		$strqry = sprintf('DELETE FROM barangay WHERE b_id = %d ', strdecode($id));
 			
 		if(!$this->db->query($strqry))
 			echo 'delete failed';
 		else
-			redirect(base_url("master/hospitals"));
+			redirect(base_url("master/barangay"));
 	}
 }

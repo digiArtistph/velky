@@ -32,6 +32,5 @@
 		</tbody>
 		<?php endforeach;?>
 	</table>
-	</br>
 	
 </div>
