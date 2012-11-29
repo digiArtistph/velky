@@ -2,7 +2,7 @@
                 	<div class="titlebar">
                 	  <h1>Edit User</h1>
                       </div>
-                      <div class="actionbutton"><a href="<?php echo base_url("master/users/section/users"); ?>">Cancel Edit User</a></div>
+                      <div class="actionbutton"><a href="<?php echo base_url("master/users"); ?>">Cancel Edit User</a></div>
                       <div class="clearthis"></div>
     <?php echo form_open("master/users/validateedituser"); ?>
     	<?php if($users) : ?>

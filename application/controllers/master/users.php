@@ -103,7 +103,7 @@ class Users extends CI_Controller {
 		if(! $this->mdldata->update($params))
 			echo 'Deleting existing record failded.';
 		
-		redirect(base_url("master/users/section/users"));
+		redirect(base_url("master/users"));
 		
 	}
 	
@@ -158,7 +158,7 @@ class Users extends CI_Controller {
 			if(! $this->mdldata->insert($params))
 				echo 'Error on updating some record.';
 			else
-				redirect(base_url("master/users/section/users"));
+				redirect(base_url("master/users"));
 		}
 		
 	}
@@ -167,7 +167,7 @@ class Users extends CI_Controller {
 		
 		// pagination
 		$this->load->library('pagination');
-		$config['base_url'] = base_url("master/users/users");
+		$config['base_url'] = base_url("master/users");
 		$config['total_rows'] = $this->db->query("SELECT u_id, mname, email, IF(ASCII(fname) !=0 AND ASCII(mname) !=0 AND ASCII(lname) !=0, CONCAT(fname, ' ', mname, ' ', lname), 'no complete name provided') AS fullname, addr1, addr2, utype, status FROM `users`")->num_rows();
 		$config['per_page'] = 10;
 		$config['num_links'] = 4;
