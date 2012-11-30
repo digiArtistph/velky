@@ -40,8 +40,6 @@ class Police extends CI_Controller{
 		$validation->set_rules('station', 'station', 'required');
 		$validation->set_rules('address', 'address', 'required');
 		$validation->set_rules('phone', 'phone', 'required');
-		$validation->set_rules('contactperson', 'contactperson', 'required');
-		$validation->set_rules('status', 'status', 'required');
 		
 		if($validation->run() ===  FALSE) {
 			$this->_addoffice();
@@ -55,8 +53,7 @@ class Police extends CI_Controller{
 						'station' => $this->input->post('station'),
 						'address' => $this->input->post('address'),
 						'phone' => $this->input->post('phone'),
-						'contactperson' => $this->input->post('contactperson'),
-						'status' => $this->input->post('status')
+						'contactperson' => $this->input->post('contactperson')
 						)
 					);
 			$this->mdldata->reset();
@@ -77,14 +74,12 @@ class Police extends CI_Controller{
 		$validation->set_rules('station', 'station', 'required');
 		$validation->set_rules('address', 'address', 'required');
 		$validation->set_rules('phone', 'phone', 'required');
-		$validation->set_rules('contactperson', 'contactperson', 'required');
-		$validation->set_rules('status', 'status', 'required|integer');
 		
 		if($validation->run() ===  FALSE) {
 			$this->_editoffice();
 		} else {
 			
-			$strqry = sprintf('UPDATE police SET station="%s", address="%s", phone="%s", contactperson="%s", status="%d" WHERE p_id="%s"', $this->input->post('station'), $this->input->post('address'), $this->input->post('phone'), $this->input->post('contactperson'),$this->input->post('status'), strdecode($this->input->post('id') ));
+			$strqry = sprintf('UPDATE police SET station="%s", address="%s", phone="%s", contactperson="%s" WHERE p_id="%s"', $this->input->post('station'), $this->input->post('address'), $this->input->post('phone'), $this->input->post('contactperson'), strdecode($this->input->post('id') ));
 			
 			if(!$this->db->query($strqry))
 				echo 'update failed';

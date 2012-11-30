@@ -39,9 +39,7 @@ class Rta extends CI_Controller{
 		
 		$validation->set_rules('office', 'office', 'required');
 		$validation->set_rules('address', 'address', 'required');
-		$validation->set_rules('phone', 'phone', 'required');
-		$validation->set_rules('contactperson', 'contactperson', 'required');
-		$validation->set_rules('status', 'status', 'required');
+		$validation->set_rules('phone', 'phone', 'required|alpha_dash');
 		
 		if($validation->run() ===  FALSE) {
 			$this->_addoffice();
@@ -55,8 +53,7 @@ class Rta extends CI_Controller{
 						'office' => $this->input->post('office'),
 						'address' => $this->input->post('address'),
 						'phone' => $this->input->post('phone'),
-						'contactperson' => $this->input->post('contactperson'),
-						'status' => $this->input->post('status')
+						'contactperson' => $this->input->post('contactperson')
 						)
 					);
 			$this->mdldata->reset();
@@ -76,15 +73,13 @@ class Rta extends CI_Controller{
 		$validation->set_rules('id', 'id', 'required');
 		$validation->set_rules('office', 'office', 'required');
 		$validation->set_rules('address', 'address', 'required');
-		$validation->set_rules('phone', 'phone', 'required');
-		$validation->set_rules('contactperson', 'contactperson', 'required');
-		$validation->set_rules('status', 'status', 'required|integer');
+		$validation->set_rules('phone', 'phone', 'required|alpha_dash');
 		
 		if($validation->run() ===  FALSE) {
 			$this->_editoffice();
 		} else {
 			
-			$strqry = sprintf('UPDATE rta SET office="%s", address="%s", phone="%s", contactperson="%s", status="%d" WHERE r_id="%s"', $this->input->post('office'), $this->input->post('address'), $this->input->post('phone'), $this->input->post('contactperson'),$this->input->post('status'), strdecode($this->input->post('id') ));
+			$strqry = sprintf('UPDATE rta SET office="%s", address="%s", phone="%s", contactperson="%s" WHERE r_id="%s"', $this->input->post('office'), $this->input->post('address'), $this->input->post('phone'), $this->input->post('contactperson'), strdecode($this->input->post('id') ));
 			
 			if(!$this->db->query($strqry))
 				echo 'update failed';
