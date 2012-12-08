@@ -7,7 +7,6 @@
     <?php echo form_open("master/accident_type/validateaddaccidenttype"); ?>
             <p><label class="label">Name</label> <input type="text" name="name" value="<?php echo set_value('name'); ?>" class="textbox"/><?php echo form_error('name'); ?></p>
 			<span><?php echo form_error('status'); ?></span>
-		</p>
            
         <!--<fieldset>
         	<legend></legend><label>Active <input type="checkbox" name="active" <?php echo set_checkbox('active', '1'); ?> value="1" /></label></fieldset>-->
