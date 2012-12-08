@@ -28,8 +28,8 @@ class Password_recovery extends CI_Controller {
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
 	
-		$validation->set_rules('email', 'email', 'required');
-		$validation->set_rules('email_conf', 'email_conf', 'required|matches[email]');
+		$validation->set_rules('email', 'email', 'required|valid_email|xss_clean');
+		$validation->set_rules('email_conf', 'email_conf', 'required|valid_email|xss_clean|matches[email]');
 		
 		
 		
@@ -60,7 +60,7 @@ class Password_recovery extends CI_Controller {
 		</div>";
 	
 		$params = array(
-				'sender' => 'juntals01@gmail.com',
+				'sender' => 'velkypro@gmail.com',
 				'receiver' => $this->input->post('email'),
 				'from_name' => 'Velky Web Master',
 				'cc' => 'supervisor@otherdomainname.com',
@@ -110,8 +110,8 @@ class Password_recovery extends CI_Controller {
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
 	
-		$validation->set_rules('pass', 'pass', 'required');
-		$validation->set_rules('pass_conf', 'pass_conf', 'required|matches[pass]');
+		$validation->set_rules('pass', 'pass', 'required|xss_clean');
+		$validation->set_rules('pass_conf', 'pass_conf', 'required|matches[pass]|xss_clean');
 	
 		if($validation->run() === FALSE) {
 			$this->_passView('');

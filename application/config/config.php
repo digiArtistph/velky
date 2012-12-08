@@ -342,7 +342,7 @@ $config['time_reference'] = 'local';
 |
 */
 $config['rewrite_short_tags'] = FALSE;
-$config['gmailpassword'] = 'csmolax01!';
+$config['gmailpassword'] = 'velkyproXU';
 
 
 /*
