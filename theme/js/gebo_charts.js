@@ -63,6 +63,7 @@
             });
             
             var options = {
+				legend: {position: "nw"},
                 grid:{
                     hoverable:true
                 },

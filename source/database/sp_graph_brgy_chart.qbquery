@@ -1,0 +1,73 @@
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `sp_chart_brgy` $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_chart_brgy`()
+BEGIN
+
+DECLARE l_id INT DEFAULT 0;
+DECLARE l_name VARCHAR(255) DEFAULT '';
+DECLARE l_count INT DEFAULT 0;
+DECLARE l_bname VARCHAR(255) DEFAULT '';
+DECLARE l_date DATE;
+DECLARE recordnotfound INT DEFAULT 0;
+
+DECLARE curCriteria CURSOR FOR SELECT b.name AS `name`, b.b_id AS `id` FROM accidents a LEFT JOIN barangay b ON a.brgy=b.b_id WHERE a.stamp BETWEEN (DATE_SUB(CURDATE(), INTERVAL (DAYOFWEEK(CURDATE())-1) DAY)) AND (ADDDATE(DATE_SUB(CURDATE(), INTERVAL (DAYOFWEEK(CURDATE())-1) DAY), INTERVAL 6 DAY)) GROUP BY b.b_id  ORDER BY COUNT(b.name) DESC LIMIT 3;
+DECLARE curBarangay CURSOR FOR SELECT COUNT(a.brgy) AS `count`, b.name AS `name`, DATE(a.stamp) AS `date` FROM accidents a LEFT JOIN barangay b ON a.brgy=b.b_id WHERE (a.brgy IN (SELECT id FROM tmptbl_chart_brgy)) AND (a.stamp BETWEEN (DATE_SUB(CURDATE(), INTERVAL (DAYOFWEEK(CURDATE())-1) DAY)) AND (ADDDATE(DATE_SUB(CURDATE(), INTERVAL (DAYOFWEEK(CURDATE())-1) DAY), INTERVAL 6 DAY))) GROUP BY DATE(a.stamp), a.brgy;
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET recordnotfound = 1;
+
+
+DROP TEMPORARY TABLE IF EXISTS `tmptbl_chart_brgy`;
+CREATE TEMPORARY TABLE `tmptbl_chart_brgy`(
+  id INT NOT NULL,
+  name VARCHAR(255) NULL
+)ENGINE=MEMORY;
+
+DROP TEMPORARY TABLE IF EXISTS `tmptb_chart_brgy_filetered`;
+CREATE TEMPORARY TABLE `tmptb_chart_brgy_filetered`(
+  `count` INT,
+  `name` VARCHAR(255) NULL,
+  `date` DATE
+)ENGINE=MyISAM;
+
+  # opens cursor
+  OPEN curCriteria;
+
+  main_loop:LOOP
+
+    # fetches cursor
+    FETCH curCriteria INTO l_name, l_id;
+
+    IF recordnotfound = 1 THEN
+      LEAVE main_loop;
+    END IF;
+
+    INSERT INTO `tmptbl_chart_brgy` SET id = l_id, name = l_name;
+
+  END LOOP main_loop;
+
+  # closes the cursor
+  CLOSE curCriteria;
+
+  # resets the value of recordnotfound
+  SET recordnotfound = 0;
+
+  OPEN curBarangay;
+
+  secondary_loop: LOOP
+
+    # fetches record
+    FETCH curBarangay INTO l_count, l_name, l_date;
+
+    IF recordnotfound = 1 THEN
+      LEAVE secondary_loop;
+    END IF;
+
+    INSERT INTO `tmptb_chart_brgy_filetered` SET `count` = l_count, `name` = l_bname, `date` =  l_date;
+  END LOOP secondary_loop;
+
+  # closes the curBarangay;
+  CLOSE curBarangay;
+
+END $$
+
+DELIMITER ;
