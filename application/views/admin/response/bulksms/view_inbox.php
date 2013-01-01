@@ -3,6 +3,7 @@
 	<h3>New Messages</h3>
 	<table>
 		<tr>
+			<td>id</td>
 			<td>Message id</td>
 			<td>Sender</td>
 			<td>Message</td>
@@ -12,11 +13,12 @@
 		<tbody>
 			<?php foreach ($newinbox as $caller) :?>
 			<tr>
+				<td class="inb"><?php echo $caller->id;?></td>
 				<td><?php echo $caller->message_id;?></td>
 				<td><?php echo $caller->number;?></td>
 				<td><?php echo $caller->message;?></td>
 				<td><?php echo $caller->txtdate;?></td>
-				<td><a href="<?php echo base_url() . 'response/inbox/updateInboxMessage/' . $caller->id;?>">Read</a></td>
+				<td><a class="bin" href="#">Read</a></td>
 			</tr>
 			<?php endforeach;?>
 		</tbody>
