@@ -29,6 +29,8 @@ if (! function_exists('getFooter')) {
 		$CI =& get_instance();
 		
 		$data['section'] = getSection();
+		
+		call_debug($data['section']);
 		$CI->load->view('includes/footer', $data);
 		
 	}

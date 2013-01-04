@@ -9,7 +9,7 @@ if( ! function_exists('showData')) {
 		$d3 = "";
 		$dataLabel = array();
 		
-		$strQry = sprintf("SELECT COUNT(a.acdnttype) AS `count`, at.at_id, at.name, DATE(a.stamp) AS `Date` FROM accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id WHERE ((DATE(a.stamp) BETWEEN '2013-01-01' AND '2013-01-04') AND at.at_id IN (SELECT a.acdnttype FROM accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id WHERE DATE(a.stamp) BETWEEN '2013-01-01' AND '2013-01-09' GROUP BY a.acdnttype ORDER BY COUNT(a.acdnttype) DESC)) GROUP BY DATE(a.stamp), a.acdnttype ORDER BY at.name DESC");
+		$strQry = sprintf("SELECT COUNT(a.acdnttype) AS `count`, at.at_id, at.name, DATE(a.stamp) AS `Date` FROM accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id WHERE ((DATE(a.stamp) BETWEEN (DATE_SUB(CURDATE(), INTERVAL (DAYOFWEEK(CURDATE())-1) DAY)) AND (ADDDATE(DATE_SUB(CURDATE(), INTERVAL (DAYOFWEEK(CURDATE())-1) DAY), INTERVAL 6 DAY))) AND at.at_id IN (SELECT a.acdnttype FROM accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id WHERE DATE(a.stamp) BETWEEN (DATE_SUB(CURDATE(), INTERVAL (DAYOFWEEK(CURDATE())-1) DAY)) AND (ADDDATE(DATE_SUB(CURDATE(), INTERVAL (DAYOFWEEK(CURDATE())-1) DAY), INTERVAL 6 DAY)) GROUP BY a.acdnttype ORDER BY COUNT(a.acdnttype) DESC)) GROUP BY DATE(a.stamp), a.acdnttype ORDER BY at.name DESC");
 		
 		$record = $CI->db->query($strQry)->result();
 		
@@ -46,14 +46,14 @@ if( ! function_exists('showData')) {
 						
 		endforeach;
 		
-		$label = sprintf("var d1Label = '%s'\n; var d2Label = '%s'\n; var d3Label = '%s'\n;", $dataLabel[0], $dataLabel[1], $dataLabel[2]);
-		$d1 = sprintf("var d1 = [%s];", trim($d1, ','));
-		$d2 = sprintf("var d2 = [%s];", trim($d2, ','));
-		$d3 = sprintf("var d3 = [%s];", trim($d3, ','));
+		$label = sprintf("var d1Label = '%s'; var d2Label = '%s'; var d3Label = '%s';", $dataLabel[0], $dataLabel[1], $dataLabel[2]);
+		$d1 = sprintf(" var d1 = [%s];", trim($d1, ','));
+		$d2 = sprintf(" var d2 = [%s];", trim($d2, ','));
+		$d3 = sprintf(" var d3 = [%s];", trim($d3, ','));
 		
-		echo $d1 . "\n";
-		echo $d2 . "\n";
-		echo $d3 . "\n";
+		echo $d1 ;
+		echo $d2 ;
+		echo $d3 ;
 		echo $label;
 	}
 }

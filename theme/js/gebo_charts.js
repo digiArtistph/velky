@@ -7,10 +7,13 @@
 		//gebo_charts.fl_b();
 		//* bars
 		gebo_charts.fl_c();
+		//alert('here');
 		//* combined
 		//gebo_charts.fl_d();
 		//* pyramid
-		// gebo_charts.fl_e();
+		//gebo_charts.fl_e();
+		
+
 	});
 	
 	//* charts
@@ -224,6 +227,7 @@
             });
 		},
 		
+		 		
 		fl_c : function() {
 			var elem = $('#fl_c');
 		

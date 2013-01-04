@@ -77,8 +77,8 @@
                     <?php $this->load->view($main_content); ?>
                         
                 </div>
+
             </div>
-            
 			<!-- sidebar -->
             <a href="javascript:void(0)" class="sidebar_switch on_switch ttip_r" title="Hide Sidebar">Sidebar switch</a>
             <?php $this->load->view('includes/sidebar'); ?>
