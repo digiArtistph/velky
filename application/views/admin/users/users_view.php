@@ -36,6 +36,6 @@
                 </tbody>
             </table>
 		</div>
-        <a href="#" class="btn velkyGetJson">Get JSON here</a>
+        
 	</div>
 </div>
