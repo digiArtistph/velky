@@ -1,5 +1,7 @@
 # ignores files
 .buildpath
 .project
-.df
+df
+tatu
+tq
 license.txt
