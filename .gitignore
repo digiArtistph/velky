@@ -1,0 +1,5 @@
+# ignores files
+.buildpath
+.project
+.df
+license.txt
