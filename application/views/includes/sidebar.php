@@ -150,16 +150,16 @@
 							<div class="sidebar_info">
 								<ul class="unstyled">
 									<li>
-										<span class="act act-warning">2</span>
+										<span class="act act-warning"><?php echo getsideBarAccidents(1); ?></span>
 										<strong>Today's accidents</strong>
 									</li>
 									<li>
-										<span class="act act-success">65</span>
-										<strong>Accidents last week</strong>
+										<span class="act act-success"><?php echo getsideBarAccidents(2); ?></span>
+										<strong>Last week's accidents</strong>
 									</li>
 									<li>
-										<span class="act act-danger">137</span>
-										<strong>Accidents last 2 months</strong>
+										<span class="act act-danger"><?php echo getsideBarAccidents(3); ?></span>
+										<strong>Last 2 months' accidents</strong>
 									</li>
 								</ul>
 							</div> 

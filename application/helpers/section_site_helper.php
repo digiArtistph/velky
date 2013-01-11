@@ -143,3 +143,32 @@ if ( ! function_exists('paginate_helper')) {
 		return $page;
 	}
 }
+
+if ( ! function_exists('getsideBarAccidents')) {
+	function getsideBarAccidents($flag) {
+		
+		$CI =& get_instance();
+		
+		switch($flag) {
+			case 1: // today's accidents
+				$strQry = sprintf("SELECT IF(ASCII(COUNT(a.acdntdate)), COUNT(a.acdntdate), 0) AS `count`  FROM accidents a WHERE a.acdntdate=CURDATE()");
+				break;
+				
+			case 2: // last week's accidents
+				$strQry = sprintf("SELECT IF(ASCII(COUNT(a.acdntdate)),COUNT(a.acdntdate), 0) AS `count`  FROM accidents a WHERE stamp BETWEEN DATE_SUB(a.stamp, INTERVAL 1 WEEK) AND CURDATE()");
+				break;
+				
+			case 3:
+				$strQry = sprintf("SELECT IF(ASCII(COUNT(a.acdntdate)), COUNT(a.acdntdate), 0) AS `count`  FROM accidents a WHERE stamp BETWEEN DATE_SUB(a.stamp, INTERVAL 2 MONTH) AND CURDATE()");	
+				break;
+				
+			default:
+				$strQry = sprintf("SELECT IF(ASCII(COUNT(a.acdntdate)), COUNT(a.acdntdate), 0) AS `count`  FROM accidents a WHERE a.acdntdate=CURDATE()");
+		}
+		
+		// executes query
+		$rec =  $CI->db->query($strQry)->result();
+		
+		return $rec[0]->count;
+	}
+}
