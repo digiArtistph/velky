@@ -42,24 +42,26 @@ $(document).ready(function(){
 	
 	
 	$('.caller').click(function(){
-		$('.modal-body table thead').empty().html('<tr><th>Message Id</th><th>Number</th><th>Message</th><th>Date</th></tr>');
+		$('.modal-body table thead').empty().html('<tr><th>Message Id</th><th>Number</th><th>Message</th><th>Date</th></th><th>Mark as</th></tr>');
 		$('.modal-body table tbody').empty();
 		$('.modal-body table tbody').append('<p>Gathering Data</p>');
 		$.post(base_url + "response/inbox/viewNewMessage")
 		.success(function(data) {
 			$('.modal-body table tbody').empty().html(data);
+			
 		});
 		
 		
 	});
 	
 	$('.entity').click(function(){
-		$('.modal-body table thead').empty().html('<tr><th>Message Id</th><th>Number</th><th>Message</th><th>Date</th></tr>');
+		$('.modal-body table thead').empty().html('<tr><th>Message Id</th><th>Number</th><th>Message</th><th>Date</th><th>Mark as</th></tr>');
 		$('.modal-body table tbody').empty();
 		$('.modal-body table tbody').append('<p>Gathering Data</p>');
 		$.post(base_url + "response/inbox/viewEntityMessage")
 		.success(function(data) {
 			$('.modal-body table tbody').empty().html(data);
+			
 		});
 		
 		
@@ -70,14 +72,22 @@ $(document).ready(function(){
 		.success(function(data) {
 			$('.caller').empty().append(data + '<i class="splashy-map"></i>');
 		});
-	}, 5000);
+	}, 2000);
 	
 	setInterval(function() { 
 		$.post(base_url + "response/inbox/getResponseCount")
 		.success(function(data) {
 			$('.entity').empty().append(data + '<i class="splashy-comments_reply"></i>');
 		});
-	}, 5000);
+	}, 2000);
+	
+	setInterval(function() { 
+		$.post(base_url + "response/inbox/autoResponse")
+		.success(function(data) {
+			
+		});
+	}, 2000);
+	
 	
 	$("#add_report").submit(function(){
 		//return true;
