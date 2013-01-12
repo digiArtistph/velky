@@ -9,6 +9,7 @@ if( ! function_exists('showData')) {
 		$d3 = "";
 		$dataLabel = array();
 		
+
 		$strQry = sprintf("SELECT COUNT(a.acdnttype) AS `count`, at.at_id, at.name, DATE(a.stamp) AS `Date` FROM accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id WHERE ((DATE(a.stamp) BETWEEN (DATE_SUB(CURDATE(), INTERVAL (DAYOFWEEK(CURDATE())-1) DAY)) AND (ADDDATE(DATE_SUB(CURDATE(), INTERVAL (DAYOFWEEK(CURDATE())-1) DAY), INTERVAL 6 DAY))) AND at.at_id IN (SELECT a.acdnttype FROM accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id WHERE DATE(a.stamp) BETWEEN (DATE_SUB(CURDATE(), INTERVAL (DAYOFWEEK(CURDATE())-1) DAY)) AND (ADDDATE(DATE_SUB(CURDATE(), INTERVAL (DAYOFWEEK(CURDATE())-1) DAY), INTERVAL 6 DAY)) GROUP BY a.acdnttype ORDER BY COUNT(a.acdnttype) DESC)) GROUP BY DATE(a.stamp), a.acdnttype ORDER BY at.name DESC");
 		
 		$record = $CI->db->query($strQry)->result();

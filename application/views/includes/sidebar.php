@@ -10,7 +10,7 @@
 								</form>
 								<div class="accordion" id="side_accordion">
 									
-									<div class="accordion-group">
+									<!--<div class="accordion-group">
 										<div class="accordion-heading">
 											<a class="accordion-toggle" data-toggle="collapse" data-parent="#side_accordion" href="#collapseOne">
 												<i class="icon-folder-close"></i> Content
@@ -26,7 +26,7 @@
 												</ul>
 											</div>
 										</div>
-									</div>
+									</div>-->
                                     <div class="accordion-group">
 										<div class="accordion-heading">
 											<a class="accordion-toggle" data-toggle="collapse" data-parent="#side_accordion" href="#collapseTwo">
@@ -36,7 +36,7 @@
 										<div id="collapseTwo" class="accordion-body  <?php echo toggleButton('accident', TRUE); ?> collapse">
 											<div class="accordion-inner">
 												<ul class="nav nav-list">
-													<li><a href="javascript:void(0)">Dashboard</a></li>
+													<!--<li><a href="javascript:void(0)">Dashboard</a></li>-->
 													<li <?php echo toggleButton('accident/accident'); ?>><a class="ext_disabled" href="<?php echo base_url('accident/accident'); ?>">Accident Report</a></li>
                                                     <li <?php echo toggleButton('response/inbox'); ?>><a class="ext_disabled" href="<?php echo base_url('response/inbox/section/bulksms'); ?>">Response SMSBulk</a></li>												
 												</ul>
@@ -63,7 +63,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="accordion-group">
+									<!--<div class="accordion-group">
 										<div class="accordion-heading">
 											<a class="accordion-toggle" data-toggle="collapse" data-parent="#side_accordion" href="#collapseFour">
 												<i class="icon-cog"></i> Configuration
@@ -82,7 +82,7 @@
 												
 											</div>
 										</div>
-									</div>
+									</div>-->
 									<div class="accordion-group">
 										<div class="accordion-heading sdb_h_active">
 											<a class="accordion-toggle" data-toggle="collapse" data-parent="#side_accordion" href="#collapseFive">
@@ -93,7 +93,7 @@
 											<div class="accordion-inner">
 												<ul class="nav nav-list">
 													<li class="nav-header">Master Files</li>
-													<li <?php echo toggleButton('master/hospitals'); ?>><a href="<?php echo base_url('master/hospitals'); ?>" class="ext_disabled">Hospitals</a></li>                                                    <li <?php echo toggleButton('master/ambulances'); ?>><a href="<?php echo base_url('master/ambulances'); ?>" class="ext_disabled">Ambulances</a></li>										
+													<li <?php echo toggleButton('master/hospitals'); ?>><a href="<?php echo base_url('master/hospitals'); ?>" class="ext_disabled">Hospitals</a></li>                                                    <!--<li <?php echo toggleButton('master/ambulances'); ?>><a href="<?php echo base_url('master/ambulances'); ?>" class="ext_disabled">Ambulances</a></li>-->										
                                                     <li <?php echo toggleButton('master/police'); ?>><a href="<?php echo base_url('master/police'); ?>" class="ext_disabled">Police</a></li>
                                                     <li <?php echo toggleButton('master/rta'); ?>><a href="<?php echo base_url('master/rta'); ?>" class="ext_disabled">RTA</a></li>
                                                     <li <?php echo toggleButton('master/barangay'); ?>><a href="<?php echo base_url('master/barangay'); ?>" class="ext_disabled">Barangay</a></li>

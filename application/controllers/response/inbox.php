@@ -277,10 +277,10 @@ class Inbox extends CI_Controller{
 	}
 	
 	public function updateInboxMessage(){
-		$id = ($this->uri->segment(4)) ? $this->uri->segment(4) : show_404();
-		$this->load->model('mdldata');
-		$params['querystring'] = 'UPDATE inbox SET status="1" WHERE id=' . $id;
-		$this->mdldata->update($params);
+		
+			$this->load->model('mdldata');
+			$params['querystring'] = 'UPDATE inbox SET status="1"  WHERE id=' . $this->input->post('message_id');
+			$this->mdldata->update($params);
 	}
 	
 

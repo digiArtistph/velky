@@ -45,34 +45,74 @@ $(document).ready(function(){
 	
 	
 	$('.caller').click(function(){
-		$('.modal-body table thead').empty().html('<tr><th>Message Id</th><th>Number</th><th>Message</th><th>Date</th></th><th>Mark as</th></tr>');
+		$('.modal-body table thead').empty().html('<tr><th>id</th><th>Message Id</th><th>Number</th><th>Message</th><th>Date</th></th><th>Mark as</th></tr>');
 		$('.modal-body table tbody').empty();
 		$('.modal-body table tbody').append('<p>Gathering Data</p>');
 		$.post(base_url + "response/inbox/viewNewMessage")
 		.success(function(data) {
 			$('.modal-body table tbody').empty().html(data);
+			$('.messages_gen').bind('click', function() {
+				var t = $(this).closest('tr');
+				inputm = {
+						 'message_id' : $(this).closest('tr').find('.val_message').text()
+				 		}
+				
+				$.post(base_url + "response/inbox/updateInboxMessage", inputm)
+				.success(function(data) {
+					t.remove();
+				});	
+				
+			}); 
 			
 		});
 		
 		
 	});
 	
+	
+	
 	$('.entity').click(function(){
 		$('.modal-body table thead').empty().html('<tr><th>Message Id</th><th>Number</th><th>Message</th><th>Date</th><th>Mark as</th></tr>');
 		$('.modal-body table tbody').empty();
 		$('.modal-body table tbody').append('<p>Gathering Data</p>');
+		
 		$.post(base_url + "response/inbox/viewEntityMessage")
 		.success(function(data) {
 			if(data == 1){
 				// this returns false
 			}else{
 				$('.modal-body table tbody').empty().html(data);
+				$('.messages_gen').bind('click', function() {
+					var t = $(this).closest('tr');
+					inputm = {
+							 'message_id' : $(this).closest('tr').find('.val_message').text()
+					 		}
+					
+					$.post(base_url + "response/inbox/updateInboxMessage", inputm)
+					.success(function(data) {
+						t.remove();
+					});	
+					
+				});
 			}
 		});
 		
 		
 	});
 
+	
+	$('.bin').bind('click', function() {
+		var t = $(this).closest('tr');
+		inputm = {
+				 'message_id' : $(this).closest('tr').find('.inb').text()
+		 		}
+		
+		$.post(base_url + "response/inbox/updateInboxMessage", inputm)
+		.success(function(data) {
+			t.remove();
+		});	
+		
+	});
 
 	setInterval(function() { 
 		$.get(base_url + "response/inbox/getCallerCount")
@@ -94,7 +134,7 @@ $(document).ready(function(){
 	}, 2000);
 	
 	setInterval(function() { 
-		$.post(base_url + "response/inbox/autoResponse")
+		$.get(base_url + "response/inbox/autoResponse")
 		.success(function() {
 		});
 
