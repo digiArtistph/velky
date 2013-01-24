@@ -1,0 +1,11 @@
+CREATE TABLE ambulances(
+amb_id INT NOT NULL AUTO_INCREMENT,
+plateno VARCHAR(32) NULL,
+capacity TINYINT,
+active ENUM('0', '1') DEFAULT '1',
+PRIMARY KEY(amb_id))engine=INNODB;
+
+CREATE TABLE hospitals_ambulances(
+h_id INT NOT NULL,
+amb_id INT NOT NULL,
+PRIMARY KEY(h_id,amb_id))engine=INNODB COMMENT 'cardinality: many to many';
