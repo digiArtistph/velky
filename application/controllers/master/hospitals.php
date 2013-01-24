@@ -38,8 +38,8 @@ class Hospitals extends CI_Controller{
 		$validation = $this->form_validation;
 		
 		$validation->set_rules('name', 'name', 'required');
-		$validation->set_rules('address', 'address');
-		$validation->set_rules('phone', 'phone');
+		$validation->set_rules('address', 'address', 'required');
+		$validation->set_rules('phone', 'phone', 'required');
 		
 		if($validation->run() ===  FALSE) {
 			$this->_addhospital();
@@ -71,9 +71,9 @@ class Hospitals extends CI_Controller{
 		$validation = $this->form_validation;
 		
 		$validation->set_rules('id', 'id', 'required');
-		$validation->set_rules('name', 'name');
-		$validation->set_rules('address', 'address');
-		$validation->set_rules('phone', 'phone');
+		$validation->set_rules('name', 'name', 'required');
+		$validation->set_rules('address', 'address', 'required');
+		$validation->set_rules('phone', 'phone', 'required');
 		$validation->set_rules('status', 'status', 'integer');
 		
 		if($validation->run() ===  FALSE) {

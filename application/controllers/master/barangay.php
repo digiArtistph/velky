@@ -67,8 +67,8 @@ class Barangay extends CI_Controller{
 		$validation = $this->form_validation;
 		
 		$validation->set_rules('id', 'id', 'required');
-		$validation->set_rules('name', 'name');
-		$validation->set_rules('status', 'status', 'integer');
+		$validation->set_rules('name', 'name', 'required');
+		$validation->set_rules('status', 'status', 'integer', 'required');
 		
 		if($validation->run() ===  FALSE) {
 			$this->_editbarangay();
