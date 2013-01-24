@@ -37,9 +37,9 @@ class Rta extends CI_Controller{
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
 		
-		$validation->set_rules('office', 'office', 'required');
-		$validation->set_rules('address', 'address', 'required');
-		$validation->set_rules('phone', 'phone', 'required|alpha_dash');
+		$validation->set_rules('office', 'Office', 'required');
+		$validation->set_rules('address', 'Address', 'required');
+		$validation->set_rules('phone', 'Phone', 'required|alpha_dash');
 		
 		if($validation->run() ===  FALSE) {
 			$this->_addoffice();
@@ -71,15 +71,15 @@ class Rta extends CI_Controller{
 		$validation = $this->form_validation;
 		
 		$validation->set_rules('id', 'id', 'required');
-		$validation->set_rules('office', 'office', 'required');
-		$validation->set_rules('address', 'address', 'required');
-		$validation->set_rules('phone', 'phone', 'required|alpha_dash');
+		$validation->set_rules('office', 'Office', 'required');
+		$validation->set_rules('address', 'Address', 'required');
+		$validation->set_rules('phone', 'Phone', 'required|alpha_dash');
 		
 		if($validation->run() ===  FALSE) {
 			$this->_editoffice();
 		} else {
 			
-			$strqry = sprintf('UPDATE rta SET office="%s", address="%s", phone="%s", contactperson="%s" WHERE r_id="%s"', $this->input->post('office'), $this->input->post('address'), $this->input->post('phone'), $this->input->post('contactperson'), strdecode($this->input->post('id') ));
+			$strqry = mysql_real_escape_string('UPDATE rta SET office="%s", address="%s", phone="%s", contactperson="%s" WHERE r_id="%s"', $this->input->post('office'), $this->input->post('address'), $this->input->post('phone'), $this->input->post('contactperson'), strdecode($this->input->post('id') ));
 			
 			if(!$this->db->query($strqry))
 				echo 'update failed';
@@ -126,7 +126,7 @@ class Rta extends CI_Controller{
 	private function _selectoffice($config){
 		
 		$rid = strdecode($config);
-		$params['querystring'] = sprintf("SELECT * FROM rta WHERE r_id=%d", $rid);
+		$params['querystring'] = mysql_real_escape_string("SELECT * FROM rta WHERE r_id=%d", $rid);
 		
 		$this->load->model('mdldata');
 		if(!$this->mdldata->select($params))
@@ -139,7 +139,7 @@ class Rta extends CI_Controller{
 		
 		$id = ($this->uri->segment(5)) ? $this->uri->segment(5) : show_404();
 		
-		$strqry = sprintf('DELETE FROM rta WHERE r_id = %d ', strdecode($id));
+		$strqry = mysql_real_escape_string('DELETE FROM rta WHERE r_id = %d ', strdecode($id));
 			
 		if(!$this->db->query($strqry))
 			echo 'delete failed';
