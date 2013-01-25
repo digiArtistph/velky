@@ -6,8 +6,20 @@
             <li><a href="#">Broadcast</a></li>
         </ul>
     </li>
-    <li><a href="#">Reports</a></li>
-    <li><a href="#">Configurations</a></li>
+    <li><a href="#">Reports</a>
+    	<ul class="menu">
+        	<li><a href="#">Accidents</a></li>
+            <li><a href="#">Hospitals and Ambulances</a></li>
+            <li><a href="#">Nearest Respondents</a></li>
+        </ul>
+    </li>
+    <li><a href="#">Configurations</a>
+    	<ul class="menu">
+        	<li><a href="#">Settings</a></li>
+            <li><a href="#">Cron</a></li>
+            <li><a href="#">Help</a></li>
+        </ul>
+    </li>
     <li><a href="#">Utility</a>
     	<ul class="menu">
         	<li><a href="<?php echo base_url('master/hospitals'); ?>">Hospitals</a></li>
