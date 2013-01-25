@@ -16,6 +16,7 @@
             <li><a href="<?php echo base_url('master/barangay'); ?>">Barangay</a></li>
             <li><a href="<?php echo base_url('master/accident_type'); ?>">Accident Type</a></li>
         	<li><a href="<?php echo base_url('master/users'); ?>">Users</a></li>            
+
         </ul>
     </li>
 </ul>
