@@ -37,9 +37,9 @@ class Police extends CI_Controller{
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
 		
-		$validation->set_rules('station', 'station', 'required');
-		$validation->set_rules('address', 'address', 'required');
-		$validation->set_rules('phone', 'phone', 'required');
+		$validation->set_rules('station', 'Station', 'required');
+		$validation->set_rules('address', 'Address', 'required');
+		$validation->set_rules('phone', 'Phone No.', 'required|is_natural');
 		
 		if($validation->run() ===  FALSE) {
 			$this->_addoffice();
@@ -70,10 +70,10 @@ class Police extends CI_Controller{
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
 		
-		$validation->set_rules('id', 'id', 'required');
-		$validation->set_rules('station', 'station', 'required');
-		$validation->set_rules('address', 'address', 'required');
-		$validation->set_rules('phone', 'phone', 'required');
+		$validation->set_rules('id', 'form Id', 'required');
+		$validation->set_rules('station', 'Station', 'required');
+		$validation->set_rules('address', 'Address', 'required');
+		$validation->set_rules('phone', 'Phone No', 'required|is_natural');
 		
 		if($validation->run() ===  FALSE) {
 			$this->_editoffice();

@@ -24,13 +24,15 @@ class Password_recovery extends CI_Controller {
 	
 	
 	public function validate_reset_password(){
-	
+		
+		
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
-	
-		$validation->set_rules('email', 'email', 'required|valid_email|xss_clean');
-		$validation->set_rules('email_conf', 'email_conf', 'required|valid_email|xss_clean|matches[email]');
+		$validation->set_message('matches', 'Please match Email');
 		
+		$validation->set_rules('email', 'Email', 'required|valid_email|xss_clean');
+		$validation->set_rules('email_conf', 'Email Confirmation', 'required|xss_clean|matches[email]');
+		$validation->set_message('matches[email]', 'Please match Email');
 		
 		
 		if($validation->run() === FALSE) {
@@ -110,9 +112,10 @@ class Password_recovery extends CI_Controller {
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
 	
-		$validation->set_rules('pass', 'pass', 'required|xss_clean');
-		$validation->set_rules('pass_conf', 'pass_conf', 'required|matches[pass]|xss_clean');
-	
+		$validation->set_rules('pass', 'Password', 'required|xss_clean');
+		$validation->set_rules('pass_conf', 'Password Confirmation', 'required|matches[pass]|xss_clean');
+		
+		
 		if($validation->run() === FALSE) {
 			$this->_passView('');
 		} else {
@@ -148,4 +151,6 @@ class Password_recovery extends CI_Controller {
 		else 
 			return false;
 	}
+	
+
 }
