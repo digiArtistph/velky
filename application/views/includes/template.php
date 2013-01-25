@@ -9,6 +9,10 @@
     
 <body>
     <div class="MainContainer">
+    	<div id="userLog">Hello User! <a href="#">Logout</a></div>
+    	<div id="left">
+        	<?php getSideBar(); ?>
+        </div>
         <?php $this->load->view($main_content); ?>
     </div>
 	<div id="footer"><?php getFooter(); ?></div>

@@ -13,6 +13,18 @@ if (! function_exists('getHeader')) {
 	}
 }
 
+if(! function_exists('getSideBar')) {
+	function getSideBar() {
+		$CI =& get_instance();
+		
+		$data['section'] = '';
+		
+		$data['section'] = '';
+		$CI->load->view('includes/sidebar', $data);
+		
+	}
+}
+
 if (! function_exists('getFooter')) {
 	function getFooter() {
 		
