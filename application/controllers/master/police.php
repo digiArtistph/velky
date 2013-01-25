@@ -79,7 +79,7 @@ class Police extends CI_Controller{
 			$this->_editoffice();
 		} else {
 			
-			$strqry = sprintf('UPDATE police SET station="%s", address="%s", phone="%s", contactperson="%s" WHERE p_id="%s"', $this->input->post('station'), $this->input->post('address'), $this->input->post('phone'), $this->input->post('contactperson'), strdecode($this->input->post('id') ));
+			$strqry = mysql_real_escape_string('UPDATE police SET station="%s", address="%s", phone="%s", contactperson="%s" WHERE p_id="%s"', $this->input->post('station'), $this->input->post('address'), $this->input->post('phone'), $this->input->post('contactperson'), strdecode($this->input->post('id') ));
 			
 			if(!$this->db->query($strqry))
 				echo 'update failed';
@@ -125,7 +125,7 @@ class Police extends CI_Controller{
 	private function _selectoffice($config){
 		
 		$pid = strdecode($config);
-		$params['querystring'] = sprintf("SELECT * FROM police WHERE p_id=%d", $pid);
+		$params['querystring'] = mysql_real_escape_string("SELECT * FROM police WHERE p_id=%d", $pid);
 		
 		$this->load->model('mdldata');
 		if(!$this->mdldata->select($params))
@@ -138,7 +138,7 @@ class Police extends CI_Controller{
 		
 		$id = ($this->uri->segment(5)) ? $this->uri->segment(5) : show_404();
 		
-		$strqry = sprintf('DELETE FROM police WHERE p_id = %d ', strdecode($id));
+		$strqry = mysql_real_escape_string('DELETE FROM police WHERE p_id = %d ', strdecode($id));
 			
 		if(!$this->db->query($strqry))
 			echo 'delete failed';
