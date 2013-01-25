@@ -27,7 +27,7 @@
 				<?php echo 'Inactive'; ?>
 				</td>
 				<?php endif;?>
-				<td><a href="<?php echo base_url() . 'master/hospitals/section/edithospital/' . strencode($name->h_id);?>">Edit</a>|<a href="<?php echo base_url() . 'master/hospitals/section/deletehospital/' . strencode($name->h_id);?>">Delete</a></td>
+				<td><a href="<?php echo base_url() . 'report/ambulance/section/addambulance/' . strencode($name->h_id);?>">Add Ambulance</a> | <a href="<?php echo base_url() . 'master/hospitals/section/edithospital/' . strencode($name->h_id);?>">Edit</a> |<a href="<?php echo base_url() . 'master/hospitals/section/deletehospital/' . strencode($name->h_id);?>">Delete</a></td>
 			</tr>
 		</tbody>
 		<?php endforeach;?>
