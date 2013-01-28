@@ -16,7 +16,7 @@ class Loginad extends CI_Controller {
 	
 	public function index() {
 		$data['main_content'] = 'admin/login/login_view';
-		$this->load->view('includes/template', $data);
+		$this->load->view('includes/template_login', $data);
 	}
 	
 	
@@ -24,8 +24,8 @@ class Loginad extends CI_Controller {
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
 
-		$validation->set_rules('email', 'Email',  'required');
-		$validation->set_rules('pword', 'Password', 'required');
+		$validation->set_rules('username', 'Email',  'required');
+		$validation->set_rules('password', 'Password', 'required');
 
 		//call_debug($_POST);
 
@@ -34,7 +34,7 @@ class Loginad extends CI_Controller {
 		} else {
 			if($this->__isAdminExists()) {
 				$params = array(
-						'sadmin_uname' => $this->input->post('email'),
+						'sadmin_uname' => $this->input->post('username'),
 						'sadmin_islog' => TRUE,
 						'sadmin_fullname' => $this->_mfullname
 				);
@@ -64,7 +64,7 @@ class Loginad extends CI_Controller {
 
 	private function __isAdminExists() {
 
-		$strQry = sprintf("SELECT * FROM `users` WHERE email='%s' AND password='%s' AND utype LIKE '0'", $this->input->post('email'), MD5($this->input->post('pword')));
+		$strQry = sprintf("SELECT * FROM `users` WHERE email='%s' AND password='%s' AND utype LIKE '0'", $this->input->post('username'), MD5($this->input->post('password')));
 
 		$this->load->model('mdldata');
 		$params['querystring'] = $strQry;
