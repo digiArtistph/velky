@@ -80,4 +80,16 @@ class Loginad extends CI_Controller {
 		return TRUE;
 	}
 	
+	public function admin_signout() {
+		
+		$params = array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname');
+		$this->sessionbrowser->getInfo($params); // returns TRUE if successful, otherwise FALSE
+		$arr = $this->sessionbrowser->mData;
+
+		$this->sessionbrowser->destroy($params);
+		
+		redirect(base_url() . 'admin/loginad');
+		
+	}
+	
 }

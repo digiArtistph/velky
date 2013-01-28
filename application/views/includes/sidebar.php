@@ -8,7 +8,7 @@
     </li>
     <li><a href="#">Reports</a>
     	<ul class="menu">
-        	<li><a href="#">Accidents</a></li>
+        	<li><a href="<?php echo base_url('reports/accidents'); ?>">Accidents</a></li>
             <li><a href="#">Hospitals and Ambulances</a></li>
             <li><a href="#">Nearest Respondents</a></li>
         </ul>
