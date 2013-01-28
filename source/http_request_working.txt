@@ -1,0 +1,5 @@
+working http: request
+
+http://192.168.2.1:81/sendmsg?user=admin&passwd=admin&cat=1&to=9352689566&text=This%20is%20a%20test%20message
+
+http://192.168.2.1:81/sendmsg?user=admin&passwd=admin&cat=1&to=%2209352689566%22,%2209067363442%22,%2209175493206%22&text=This%20is%20a%20test%20message%20from%20tongbens
