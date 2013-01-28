@@ -52,7 +52,6 @@ class Loginad extends CI_Controller {
 
 				redirect(base_url() . 'master/users');
 				
-
 			} else {
 				echo"This email has not been registered or the password did not match.";
 				$this->index();
