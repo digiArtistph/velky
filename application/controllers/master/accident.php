@@ -162,4 +162,65 @@ class Accident extends CI_Controller{
 		else
 			redirect(base_url("master/accident"));
 	}
+	
+	public function validatesendsms(){
+		$this->load->library('form_validation');
+		$validation = $this->form_validation;
+		
+		$validation->set_rules('broadcastto', 'Checkbox', 'required');
+		$validation->set_rules('message', 'Message', 'required');
+		
+		if($validation->run() ===  FALSE) {
+			$this->_addaccident();
+		} else {
+			$arrentity = $this->input->post('broadcastto');
+			$sqltemp = '';
+			foreach ($arrentity as $table){
+				//call_debug($table);
+				if($table == 'rta'){
+					$sqltemp .= ' SELECT mobile FROM rta UNION';
+				}
+				if($table == 'hospitals'){
+					$sqltemp .= ' SELECT mobile FROM hospitals UNION';
+				}
+				if($table == 'police'){
+					$sqltemp .= ' SELECT mobile FROM police UNION';
+				}
+			}
+			$sql = substr_replace($sqltemp, "", -5);
+			
+			$params = array(
+					'recepient'	=> $this->_selectentities($sql),
+					'message'	=> $this->input->post('message')
+			);
+				
+			$this->load->library('smsutil', $params);
+				
+			if( $this->smsutil->send() )
+				echo 'success';
+			else
+				echo 'not sent';
+		}
+	}
+	
+	private function _selectentities($sql){
+		$this->load->model('mdldata');
+		$params['querystring'] = mysql_escape_string($sql);
+		
+		if(!$this->mdldata->select($params)){
+			return false;
+		}
+		else{
+			$to = '';
+			foreach ( $this->mdldata->_mRecords as $temp){
+	
+				$recepient = explode(',', $temp->mobile);
+				foreach ($recepient as $rec){
+					$to .= $rec .',';
+				}
+				
+			}
+			return substr_replace($to, "", -1);
+		}
+	}
 }

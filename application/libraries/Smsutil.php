@@ -2,6 +2,7 @@
 class Smsutil {
 
 	private $CI;
+	private $_mConfig;
 	private $_mRecepient;
 	private  $_mMessage;
 	private $_mTo;
@@ -10,6 +11,7 @@ class Smsutil {
 		
 		$this->CI =& get_instance();
 		$this->_mTo = array();
+		
 		if(!empty($params)) // config of sms function
 			$this->_configuration($params);
 	}
@@ -29,6 +31,14 @@ class Smsutil {
 		$this->_mRecepient = $params['recepient'];
 		$this->_mMessage = $params['message'];
 		
+		//SMS Configuration Variables
+		$this->_mConfig = array(
+				'ip_address' => '192.168.2.1',
+				'port' => '5000',
+				'username' => 'admin',
+				'password' => 'admin'
+		);
+		
 		return true;
 	}
 	
@@ -36,15 +46,14 @@ class Smsutil {
 		
 		if($this->_exploderecepient()){
 			//send protocol
-			return true;
+			
 		}else{
 			return false;
 		}
 	}
 	
 	private function _exploderecepient(){
-		$recepients = explode(';', $this->_mRecepient);
-		
+		$recepients = explode(',', $this->_mRecepient);
 		foreach ($recepients as $temp){
 			
 			if ( (strlen($temp) == 11) || (strlen($temp) == 13) )
@@ -55,5 +64,6 @@ class Smsutil {
 		
 		return true;
 	}
+	
 	
 }

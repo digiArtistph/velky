@@ -16,3 +16,15 @@
 		<p><input class="button" type="submit" value="Create Report"/></p>
 	<?php echo form_close();?>
 </div>
+
+<div>
+	<h3>Broadcast to:</h3>
+	<?php echo form_open( base_url() . 'master/accident/validatesendsms' ); ?>
+	<p><span><?php echo form_error('broadcastto'); ?></span></p>
+	<p><input type="checkbox" name="broadcastto[]" value="rta"/><label>RTA</label></p>
+	<p><input type="checkbox" name="broadcastto[]" value="police"/><label>Police</label></p>
+	<p><input type="checkbox" name="broadcastto[]" value="hospitals"/><label>Hospitals</label></p>
+	<p><label>Message: </label><textarea class="textarea" rows="4" cols="20" name="message"></textarea><span><?php echo form_error('message'); ?></span></p>
+	<p><input class="button" type="submit" value="Send Sms"/></p>
+	<?php echo form_close();?>
+</div>
