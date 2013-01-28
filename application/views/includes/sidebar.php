@@ -52,7 +52,7 @@
 										<div class="accordion-body collapse" id="collapseThree">
 											<div class="accordion-inner">
 												<ul class="nav nav-list">
-													<li><a href="javascript:void(0)">Accidents</a></li>
+													<li><a href="<?php echo base_url('master/accident'); ?>">Accidents</a></li>
 													<li><a href="javascript:void(0)">Hospitals and Ambulances</a></li>
 													<li><a href="javascript:void(0)">Nearest Respondents</a></li>
 													

@@ -38,6 +38,7 @@ class Accident extends CI_Controller{
 	private function _accidentview(){
 		$data['accidents'] = $this->_getaccidentlist();
 		//call_debug($data['accidents']);
+		
 		$data['main_content'] = 'admin/accident/accident_view';
 		$this->load->view('includes/template', $data);
 	}
