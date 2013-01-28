@@ -44,23 +44,17 @@ class Ambulance extends CI_Controller{
 			$this->_addambulance();
 		} else {
 			
-			$this->load->model('mdldata');
+		$params= array (
+			'plateno' => $this->input->post('plateno'),
+			'capacity' => $this->input->post('capacity'),
+				'h_id' => $this->input->post('h_id')
 			
-			$params = array(
-					'table' => array('name' => 'ambulances'),
-					'fields' => array(
-						'plateno' => $this->input->post('plateno'),
-						'capacity' => $this->input->post('capacity'),
-						'active' => 1
-						)
-					);
-			$this->mdldata->reset();
+		);
 				
-			if(! $this->mdldata->insert($params))
-				echo 'Insert new record failed.';
-			else
-				redirect(base_url("reports/ambulance"));
+		$this->db->query("CALL sp_insert_ambulance(?,?,?)", $params);
+		
 		}
+		redirect(base_url("reports/ambulance"));
 	}
 
 	public function validateupdateambulance(){
@@ -82,42 +76,55 @@ class Ambulance extends CI_Controller{
 			if(!$this->db->query($strqry))
 				echo 'update failed';
 			else
-				redirect(base_url("master/ambulances"));
+				redirect(base_url("reports/ambulance"));
 		}
 	}
 	
 	private function _viewambulance(){
 		
-		$data['ambulances'] = $this->_getambulance();
+	
+		$data['hospitals_ambulances'] = $this->_getambulanceandhospital();
 		$data['main_content'] = 'admin/ambulance/ambulance_view';
-		$this->load->view('includes/template', $data);
+			$this->load->view('includes/template', $data);
 	}
 	
-	private function _getambulance(){
-		
+	private function _getambulanceandhospital(){
+	
 		$this->load->model('mdldata');
-		$params['table'] = array('name' => 'ambulances');
-		$params['table']['order_by'] = 'amb_id:asc';
-		
+		$params['querystring'] = "SELECT h.name, h.address, h.phone, a.amb_id, a.plateno, a.capacity, a.active FROM (hospitals_ambulances ha LEFT JOIN hospitals h ON ha.h_id = h.h_id) LEFT JOIN ambulances a ON ha.amb_id = a.amb_id ORDER BY h.name ASC";
+	
+	
 		if(!$this->mdldata->select($params))
-			echo 'getting ambulance plateno failed';
-		else 
+			echo 'getting ambulance and hospital records failed';
+		else
 			return $this->mdldata->_mRecords;
 	}
 	
 	private function _addambulance(){
 		
+		$data['types'] = $this->_gethospitallist();
 		$data['main_content'] = 'admin/ambulance/addambulance_view';
-		$this->load->view('includes/template', $data);
+		$this->load->view('includes/template', $data);		
+	}
+	
+	
+	private function _gethospitallist(){
+		$this->load->model('mdldata');
+		$params['querystring'] = 'SELECT * FROM hospitals WHERE status="1"';
+	
+		if(!$this->mdldata->select($params))
+			return false;
+		else
+			return $this->mdldata->_mRecords;
 	}
 	
 	private function _editambulance(){
 		
 		$id = ($this->uri->segment(5)) ? $this->uri->segment(5) : (($this->input->post('id')) ? $this->input->post('id'): 0);
-		
+		$data['types'] = $this->_gethospitallist();
 		$data['plateno'] = $this->_selectambulance($id);
 		
-		$data['main_content'] = 'admin/ambulances/editambulance_view';
+		$data['main_content'] = 'admin/ambulance/editambulance_view';
 		$this->load->view('includes/template', $data);
 	}
 	
