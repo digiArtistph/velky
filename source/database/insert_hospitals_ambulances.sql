@@ -11,8 +11,10 @@ BEGIN
 	
 	# inserts new record in the table ambulances
 	INSERT INTO ambulances SET plateno = m_plateno, capacity = m_capacity;
-	
-	SET lst_id = LAST_INSERT_ID(); 
+
+
+	SET lst_id = LAST_INSERT_ID();
+
 	
 	# inserts new record in the hospitals_ambulances table
 	INSERT INTO hospitals_ambulances SET h_id = m_hospital, amb_id = lst_id;

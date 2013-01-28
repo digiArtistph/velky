@@ -3,6 +3,7 @@
 class Home extends CI_Controller {
 	
 	private $title;
+	private $_mConfig;
 	
 	public function __construct() {
 		
@@ -11,6 +12,17 @@ class Home extends CI_Controller {
 		// initiates values on some variables
 		$this->title = 'Home Page';
 		
+		$params = array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname');
+		$this->sessionbrowser->getInfo($params);
+		$arr = $this->sessionbrowser->mData;
+		
+		//call_debug($arr);
+		
+		// authorizes access
+		authUser(array('section' => 'admin/loginad', 'sessvar' => array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname')));
+				
+		// sets default prefs
+		$this->_mConfig = array('full_tag_open' => '<div class="pagination">', 'full_tag_close' => '</div>', 'first_link' => 'First', 'last_link' => 'Last', 'next_link' => '»', 'prev_link' => '«');
 	}
 	
 	public function index() {
