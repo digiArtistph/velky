@@ -9,10 +9,8 @@
     
 <body>
 
-
-
-<div id="loading_layer" style="display:none"><img src="<?php echo base_url('theme/img/ajax_loader.gif'); ?>" alt="" /></div>
-<div class="style_switcher">
+<div id="loading_layer" style="display:none"><img src="img/ajax_loader.gif" alt="" /></div>
+		<div class="style_switcher">
 			<div class="sepH_c">
 				<p>Colors:</p>
 				<div class="clearfix">
@@ -67,44 +65,34 @@
 					<li class="small ssw_lColor sepH_a" style="display:none">a { color: #<span></span> }</li>
 				</ul>
 			</div>
-		</div>		
-
-      <div id="maincontainer" class="clearfix">
+		</div>
+		
+		<div id="maincontainer" class="clearfix">
 			<!-- header -->
             <header>
                 <div class="navbar navbar-fixed-top">
                     <div class="navbar-inner">
                         <div class="container-fluid">
-                            <a class="brand" href="dashboard.html"><i class="icon-home icon-white"></i> VELKY System</a>
+                            <a class="brand" href="dashboard.html"><i class="icon-home icon-white"></i> Gebo Admin</a>
                             <ul class="nav user_menu pull-right">
-                                <!--<li class="hidden-phone hidden-tablet">
+                                <li class="hidden-phone hidden-tablet">
                                     <div class="nb_boxes clearfix">
                                         <a data-toggle="modal" data-backdrop="static" href="#myMail" class="label ttip_b" title="New messages">25 <i class="splashy-mail_light"></i></a>
                                         <a data-toggle="modal" data-backdrop="static" href="#myTasks" class="label ttip_b" title="New tasks">10 <i class="splashy-calendar_week"></i></a>
                                     </div>
-                                </li>-->
-								<!--<li class="divider-vertical hidden-phone hidden-tablet"></li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle nav_condensed" data-toggle="dropdown"><i class="flag-gb"></i> <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-										<li><a href="javascript:void(0)"><i class="flag-de"></i> Deutsch</a></li>
-										<li><a href="javascript:void(0)"><i class="flag-fr"></i> Français</a></li>
-										<li><a href="javascript:void(0)"><i class="flag-es"></i> Español</a></li>
-										<li><a href="javascript:void(0)"><i class="flag-ru"></i> Pусский</a></li>
-                                    </ul>
-                                </li>-->
+                                </li>
                                 <li class="divider-vertical hidden-phone hidden-tablet"></li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="<?php echo base_url('theme/img/user_avatar.png'); ?>" alt="" class="user_avatar" /> Johny Smith <b class="caret"></b></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Johny Smith <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-										<li><a href="user_profile.html">Configuration Settings</a></li>
-										
-										<li class="divider"></li>
-										<li><a href="<?php echo base_url('admin/loginad/admin_signout'); ?>">Log Out</a></li>
+                                    <li><a href="user_profile.html">My Profile</a></li>
+                                    <li><a href="javascrip:void(0)">Another action</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="login.html">Log Out</a></li>
                                     </ul>
                                 </li>
                             </ul>
-							<!-- <ul class="nav" id="mobile-nav">
+							<ul class="nav" id="mobile-nav">
 								<li class="dropdown">
 									<a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-list-alt icon-white"></i> Forms <b class="caret"></b></a>
 									<ul class="dropdown-menu">
@@ -173,7 +161,7 @@
 								<li>
 									<a href="documentation.html"><i class="icon-book icon-white"></i> Help</a>
 								</li>
-							</ul>  -->
+							</ul>
                         </div>
                     </div>
                 </div>
@@ -283,16 +271,180 @@
             <!-- main content -->
             <div id="contentwrapper">
                 <div class="main_content">
-                    
-					<?php $this->load->view($main_content); ?>
+                    <?php $this->load->view($main_content); ?>
                         
                 </div>
             </div>
             
 			<!-- sidebar -->
             <a href="javascript:void(0)" class="sidebar_switch on_switch ttip_r" title="Hide Sidebar">Sidebar switch</a>
-            <!-- sidebar section here -->
-            <?php getSideBar(); ?>
+            <div class="sidebar">
+				<div class="antiScroll">
+					<div class="antiscroll-inner">
+						<div class="antiscroll-content">
+							<div class="sidebar_inner">
+								<form action="search_page.html" class="input-append" method="post" >
+									<input autocomplete="off" name="query" class="search_query input-medium" size="16" type="text" placeholder="Search..." /><button type="submit" class="btn"><i class="icon-search"></i></button>
+								</form>
+								<div id="side_accordion" class="accordion">
+									
+									<div class="accordion-group">
+										<div class="accordion-heading">
+											<a href="#collapseOne" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
+												<i class="icon-folder-close"></i> Content
+											</a>
+										</div>
+										<div class="accordion-body collapse" id="collapseOne">
+											<div class="accordion-inner">
+												<ul class="nav nav-list">
+													<li><a href="javascript:void(0)">Articles</a></li>
+													<li><a href="javascript:void(0)">News</a></li>
+													<li><a href="javascript:void(0)">Newsletters</a></li>
+													<li><a href="javascript:void(0)">Comments</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="accordion-group">
+										<div class="accordion-heading">
+											<a href="#collapseTwo" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
+												<i class="icon-th"></i> Modules
+											</a>
+										</div>
+										<div class="accordion-body collapse" id="collapseTwo">
+											<div class="accordion-inner">
+												<ul class="nav nav-list">
+													<li><a href="javascript:void(0)">Content blocks</a></li>
+													<li><a href="javascript:void(0)">Tags</a></li>
+													<li><a href="javascript:void(0)">Blog</a></li>
+													<li><a href="javascript:void(0)">FAQ</a></li>
+													<li><a href="javascript:void(0)">Formbuilder</a></li>
+													<li><a href="javascript:void(0)">Location</a></li>
+													<li><a href="javascript:void(0)">Profiles</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="accordion-group">
+										<div class="accordion-heading">
+											<a href="#collapseThree" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
+												<i class="icon-user"></i> Account manager
+											</a>
+										</div>
+										<div class="accordion-body collapse" id="collapseThree">
+											<div class="accordion-inner">
+												<ul class="nav nav-list">
+													<li><a href="javascript:void(0)">Members</a></li>
+													<li><a href="javascript:void(0)">Members groups</a></li>
+													<li><a href="javascript:void(0)">Users</a></li>
+													<li><a href="javascript:void(0)">Users groups</a></li>
+												</ul>
+												
+											</div>
+										</div>
+									</div>
+									<div class="accordion-group">
+										<div class="accordion-heading">
+											<a href="#collapseFour" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
+												<i class="icon-cog"></i> Configuration
+											</a>
+										</div>
+										<div class="accordion-body collapse" id="collapseFour">
+											<div class="accordion-inner">
+												<ul class="nav nav-list">
+													<li class="nav-header">People</li>
+													<li class="active"><a href="javascript:void(0)">Account Settings</a></li>
+													<li><a href="javascript:void(0)">IP Adress Blocking</a></li>
+													<li class="nav-header">System</li>
+													<li><a href="javascript:void(0)">Site information</a></li>
+													<li><a href="javascript:void(0)">Actions</a></li>
+													<li><a href="javascript:void(0)">Cron</a></li>
+													<li class="divider"></li>
+													<li><a href="javascript:void(0)">Help</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="accordion-group">
+										<div class="accordion-heading">
+											<a href="#collapseLong" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
+												<i class="icon-leaf"></i> Long content (scrollbar)
+											</a>
+										</div>
+										<div class="accordion-body collapse" id="collapseLong">
+											<div class="accordion-inner">
+												Some text to show sidebar scroll bar<br>
+												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus rhoncus, orci ac fermentum imperdiet, purus sapien pharetra diam, at varius nibh tellus tristique sem. Nulla congue odio ut augue volutpat congue. Nullam id nisl ut augue posuere ullamcorper vitae eget nunc. Quisque justo turpis, tristique non fermentum ac, feugiat quis lorem. Ut pellentesque, turpis quis auctor laoreet, nibh erat volutpat est, id mattis mi elit non massa. Suspendisse diam dui, fringilla id pretium non, dapibus eget enim. Duis fermentum quam a leo luctus tincidunt euismod sit amet arcu. Duis bibendum ultricies libero sed feugiat. Duis ut sapien risus. Morbi non nulla sit amet eros fringilla blandit id vel augue. Nam placerat ligula lacinia tellus molestie molestie vestibulum leo tincidunt.
+												Duis auctor varius risus vitae commodo. Fusce nec odio massa, ut dapibus justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dapibus, mauris sit amet feugiat tempor, nulla diam gravida magna, in facilisis sapien tellus non ligula. Mauris sapien turpis, sodales ac lacinia sit amet, porttitor in lacus. Pellentesque tincidunt malesuada magna, in egestas augue sodales vel. Praesent iaculis sapien at ante sodales facilisis.
+											</div>
+										</div>
+									</div>
+									<div class="accordion-group">
+										<div class="accordion-heading">
+											<a href="#collapse7" data-parent="#side_accordion" data-toggle="collapse" class="accordion-toggle">
+											   <i class="icon-th"></i> Calculator
+											</a>
+										</div>
+										<div class="accordion-body collapse in" id="collapse7">
+											<div class="accordion-inner">
+												<form name="Calc" id="calc">
+													<div class="formSep control-group input-append">
+														<input type="text" style="width:130px" name="Input" /><button type="button" class="btn" name="clear" value="c" onclick="Calc.Input.value = ''"><i class="icon-remove"></i></button>
+													</div>
+													<div class="control-group">
+														<input type="button" class="btn btn-large" name="seven" value="7" onclick="Calc.Input.value += '7'" />
+														<input type="button" class="btn btn-large" name="eight" value="8" onclick="Calc.Input.value += '8'" />
+														<input type="button" class="btn btn-large" name="nine" value="9" onclick="Calc.Input.value += '9'" />
+														<input type="button" class="btn btn-large" name="div" value="/" onclick="Calc.Input.value += ' / '">
+													</div>
+													<div class="control-group">
+														<input type="button" class="btn btn-large" name="four" value="4" onclick="Calc.Input.value += '4'" />
+														<input type="button" class="btn btn-large" name="five" value="5" onclick="Calc.Input.value += '5'" />
+														<input type="button" class="btn btn-large" name="six" value="6" onclick="Calc.Input.value += '6'" />
+														<input type="button" class="btn btn-large" name="times" value="x" onclick="Calc.Input.value += ' * '" />
+													</div>
+													<div class="control-group">
+														<input type="button" class="btn btn-large" name="one" value="1" onclick="Calc.Input.value += '1'" />
+														<input type="button" class="btn btn-large" name="two" value="2" onclick="Calc.Input.value += '2'" />
+														<input type="button" class="btn btn-large" name="three" value="3" onclick="Calc.Input.value += '3'" />
+														<input type="button" class="btn btn-large" name="minus" value="-" onclick="Calc.Input.value += ' - '" />
+													</div>
+													<div class="formSep control-group">
+														<input type="button" class="btn btn-large" name="dot" value="." onclick="Calc.Input.value += '.'" />
+														<input type="button" class="btn btn-large" name="zero" value="0" onclick="Calc.Input.value += '0'" />
+														<input type="button" class="btn btn-large" name="DoIt" value="=" onclick="Calc.Input.value = Math.round( eval(Calc.Input.value) * 1000)/1000" />
+														<input type="button" class="btn btn-large" name="plus" value="+" onclick="Calc.Input.value += ' + '" />
+													</div>
+													Contributed by <a href="http://themeforest.net/user/maumao">maumao</a>
+												</form>
+											</div>
+										 </div>
+									</div>
+								</div>
+								
+								<div class="push"></div>
+							</div>
+							   
+							<div class="sidebar_info">
+								<ul class="unstyled">
+									<li>
+										<span class="act act-warning">65</span>
+										<strong>New comments</strong>
+									</li>
+									<li>
+										<span class="act act-success">10</span>
+										<strong>New articles</strong>
+									</li>
+									<li>
+										<span class="act act-danger">85</span>
+										<strong>New registrations</strong>
+									</li>
+								</ul>
+							</div> 
+						</div>
+					</div>
+				</div>
+			</div>
             
             <script src="<?php echo base_url('theme/js/jquery.min.js'); ?>"></script>
 			<!-- smart resize event -->
@@ -303,48 +455,22 @@
 			<script src="<?php echo base_url('theme/js/jquery_cookie.min.js'); ?>"></script>
 			<!-- main bootstrap js -->
 			<script src="<?php echo base_url('theme/bootstrap/js/bootstrap.min.js'); ?>"></script>
-			<!-- bootstrap plugins -->
-			<script src="<?php echo base_url('theme/js/bootstrap.plugins.min.js'); ?>"></script>
 			<!-- tooltips -->
 			<script src="<?php echo base_url('theme/lib/qtip2/jquery.qtip.min.js'); ?>"></script>
 			<!-- jBreadcrumbs -->
 			<script src="<?php echo base_url('theme/lib/jBreadcrumbs/js/jquery.jBreadCrumb.1.1.min.js'); ?>"></script>
-			<!-- lightbox -->
-            <script src="<?php echo base_url('theme/lib/colorbox/jquery.colorbox.min.js'); ?>"></script>
-            <!-- fix for ios orientation change -->
+			<!-- fix for ios orientation change -->
 			<script src="<?php echo base_url('theme/js/ios-orientationchange-fix.js'); ?>"></script>
 			<!-- scrollbar -->
 			<script src="<?php echo base_url('theme/lib/antiscroll/antiscroll.js'); ?>"></script>
 			<script src="<?php echo base_url('theme/lib/antiscroll/jquery-mousewheel.js'); ?>"></script>
-			<!-- to top -->
-			<script src="<?php echo base_url('theme/lib/UItoTop/jquery.ui.totop.min.js'); ?>"></script>
+			<!-- lightbox -->
+            <script src="<?php echo base_url('theme/lib/colorbox/jquery.colorbox.min.js'); ?>"></script>
 			<!-- mobile nav -->
 			<script src="<?php echo base_url('theme/js/selectNav.js'); ?>"></script>
-			<!-- common functions -->
+            <!-- common functions -->
 			<script src="<?php echo base_url('theme/js/gebo_common.js'); ?>"></script>
-			
-			<script src="<?php echo base_url('theme/lib/jquery-ui/jquery-ui-1.8.23.custom.min.js'); ?>"></script>
-            <!-- touch events for jquery ui-->
-            <script src="<?php echo base_url('theme/js/forms/jquery.ui.touch-punch.min.js'); ?>"></script>
-            <!-- multi-column layout -->
-            <script src="<?php echo base_url('theme/js/jquery.imagesloaded.min.js'); ?>"></script>
-            <script src="<?php echo base_url('theme/js/jquery.wookmark.js'); ?>"></script>
-            <!-- responsive table -->
-            <script src="<?php echo base_url('theme/js/jquery.mediaTable.min.js'); ?>"></script>
-            <!-- small charts -->
-            <script src="<?php echo base_url('theme/js/jquery.peity.min.js'); ?>"></script>
-            <!-- charts -->
-            <script src="<?php echo base_url('theme/lib/flot/jquery.flot.min.js'); ?>"></script>
-            <script src="<?php echo base_url('theme/lib/flot/jquery.flot.resize.min.js'); ?>"></script>
-            <script src="<?php echo base_url('theme/lib/flot/jquery.flot.pie.min.js'); ?>"></script>
-            <!-- calendar -->
-            <script src="<?php echo base_url('theme/lib/fullcalendar/fullcalendar.min.js'); ?>"></script>
-            <!-- sortable/filterable list -->
-            <script src="<?php echo base_url('theme/lib/list_js/list.min.js'); ?>"></script>
-            <script src="<?php echo base_url('theme/lib/list_js/plugins/paging/list.paging.js'); ?>"></script>
-            <!-- dashboard functions -->
-            <script src="<?php echo base_url('theme/js/gebo_dashboard.js'); ?>"></script>
-    
+	
 			<script>
 				$(document).ready(function() {
 					//* show all elements & remove preloader
@@ -352,6 +478,6 @@
 				});
 			</script>
 		
-		</div>  
+		</div>
 </body>
 </html>
