@@ -177,6 +177,7 @@ class Users extends CI_Controller {
 		$params = array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname');
 		$this->sessionbrowser->getInfo($params);
 		$arr = $this->sessionbrowser->mData;
+		//call_debug($arr);
 		$data['userlogin'] = $arr;
 		
 		$data['main_content'] = 'admin/users/users_view';
