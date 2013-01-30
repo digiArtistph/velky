@@ -1,7 +1,8 @@
+<?php getBreadcrumbs(); ?>
 <div class="toolbar">
                 	<div class="titlebar">
                 	  <h1>Users</h1></div>
-                    <div class="actionbutton"><a href="<?php echo base_url("master/users/section/newuser"); ?>">Add New</a></div>
+                    <div class="actionbutton"><a class="ext_disabled" href="<?php echo base_url("master/users/section/newuser"); ?>">Add New</a></div>
                     <div class="extrabar"></div>
                 </div>                
 <div class="runninglist">
