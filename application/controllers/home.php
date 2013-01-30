@@ -33,4 +33,15 @@ class Home extends CI_Controller {
 
 	}
 	
+	public function test() {
+		
+		$links = preg_split('/\//', uri_string());
+		$links2 = preg_split('/\//', "");
+		
+		var_dump($links);
+		var_dump($links2);
+		
+		echo ">>> " . $this->uri->segment(1);
+	}
+	
 }

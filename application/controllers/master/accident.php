@@ -38,7 +38,8 @@ class Accident extends CI_Controller{
 	private function _accidentview(){
 		$data['accidents'] = $this->_getaccidentlist();
 		//call_debug($data['accidents']);
-		$data['main_content'] = 'admin/accident/accident_view';
+		
+		$data['main_content'] = 'admin/accident/accident_view';	
 		$this->load->view('includes/template', $data);
 	}
 	
@@ -81,7 +82,7 @@ class Accident extends CI_Controller{
 		$validation->set_rules('rptdate', 'acdntdarptdatete', 'required');
 		
 		if($validation->run() ===  FALSE) {
-			$this->_addaccident();
+			echo '1';
 		} else {
 				
 		$this->load->model('mdldata');
@@ -102,7 +103,7 @@ class Accident extends CI_Controller{
 			if(! $this->mdldata->insert($params))
 				echo 'Insert new record failed.';
 			else
-				redirect(base_url("master/accident"));
+				echo 'Record saved.';
 		}
 	}
 	
@@ -174,32 +175,23 @@ class Accident extends CI_Controller{
 		if($validation->run() ===  FALSE) {
 			$this->_addaccident();
 		} else {
-			$sql = $this->_prepsql($this->input->post('broadcastto') );
 			
+			$query = $this->_prepsql($this->input->post('broadcastto') ); // returns sql statement from selected recepient
 			$smstype = $this->input->post('smstype');
 			
-			if($smstype == 'isms'){
-				
-				$params = array(
-						'recepient'	=> $this->_selectentities($sql),
-						'message'	=> $this->input->post('message')
-						);
-				
-				$this->load->library('smsutil', $params);
-				
-				if( $this->smsutil->send() )
-					echo 'success';
-				else
-					echo 'not sent';
-				
-			}elseif($smstype == 'bulk'){
-				call_debug('false');
+			$params = array(
+					'recepient'	=> $this->_getnumbers($query),
+					'message'	=> $this->input->post('message')
+			);
+			
+			$this->load->library('smsutil', $params);
+			if( $this->smsutil->send($smstype) ) {
+				echo $this->smsutil->mData;
 			}
-			
-			
 		}
 	}
 	
+	//returns sql statement
 	private function _prepsql($arrentity){
 		$sqltemp = '';
 		foreach ($arrentity as $table){
@@ -215,27 +207,34 @@ class Accident extends CI_Controller{
 			}
 		}
 		$sql = substr_replace($sqltemp, "", -5);
+	
 		return $sql;
 	}
 	
-	private function _selectentities($sql){
+	// returns numbers
+	private function _getnumbers($sql){
 		$this->load->model('mdldata');
 		$params['querystring'] = mysql_escape_string($sql);
 		
-		if(!$this->mdldata->select($params)){
-			return false;
-		}
-		else{
-			$to = '';
-			foreach ( $this->mdldata->_mRecords as $temp){
-	
-				$recepient = explode(',', $temp->mobile);
-				foreach ($recepient as $rec){
-					$to .= $rec .',';
-				}
-				
+			if(!$this->mdldata->select($params)){
+				return false;
 			}
-			return substr_replace($to, "", -1);
-		}
+			else{
+				$to = '';
+				foreach ( $this->mdldata->_mRecords as $temp){
+		
+					$recepient = explode(',', $temp->mobile);
+					foreach ($recepient as $rec){
+						$to .= $rec .',';
+					}
+					
+				}
+				$numbers = substr_replace($to, "", -1);
+			
+				return $numbers; // returns numbers
+			}
+
+		return true;
 	}
+	
 }
