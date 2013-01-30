@@ -25,6 +25,10 @@
 	<p><input type="checkbox" name="broadcastto[]" value="police"/><label>Police</label></p>
 	<p><input type="checkbox" name="broadcastto[]" value="hospitals"/><label>Hospitals</label></p>
 	<p><label>Message: </label><textarea class="textarea" rows="4" cols="20" name="message"></textarea><span><?php echo form_error('message'); ?></span></p>
+	
+	<p><input type="radio" name="smstype" value="isms"/>Multi Modem iSMS<span><?php echo form_error('smstype');?></span></p>
+	<p><input type="radio" name="smstype" value="bulk">Bulk SMS<span><?php echo form_error('smstype');?></span></p>
 	<p><input class="button" type="submit" value="Send Sms"/></p>
+	
 	<?php echo form_close();?>
 </div>

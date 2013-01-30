@@ -92,4 +92,10 @@ class Loginad extends CI_Controller {
 		
 	}
 	
+	public function testingsession(){
+		$params = array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname');
+		$this->sessionbrowser->getInfo($params); // returns TRUE if successful, otherwise FALSE
+		$arr = $this->sessionbrowser->mData;
+		call_debug($arr['sadmin_uname'] );
+	}
 }

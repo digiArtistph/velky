@@ -169,38 +169,53 @@ class Accident extends CI_Controller{
 		
 		$validation->set_rules('broadcastto', 'Checkbox', 'required');
 		$validation->set_rules('message', 'Message', 'required');
+		$validation->set_rules('smstype', 'SMS Type', 'required');
 		
 		if($validation->run() ===  FALSE) {
 			$this->_addaccident();
 		} else {
-			$arrentity = $this->input->post('broadcastto');
-			$sqltemp = '';
-			foreach ($arrentity as $table){
-				//call_debug($table);
-				if($table == 'rta'){
-					$sqltemp .= ' SELECT mobile FROM rta UNION';
-				}
-				if($table == 'hospitals'){
-					$sqltemp .= ' SELECT mobile FROM hospitals UNION';
-				}
-				if($table == 'police'){
-					$sqltemp .= ' SELECT mobile FROM police UNION';
-				}
-			}
-			$sql = substr_replace($sqltemp, "", -5);
+			$sql = $this->_prepsql($this->input->post('broadcastto') );
 			
-			$params = array(
-					'recepient'	=> $this->_selectentities($sql),
-					'message'	=> $this->input->post('message')
-			);
+			$smstype = $this->input->post('smstype');
+			
+			if($smstype == 'isms'){
 				
-			$this->load->library('smsutil', $params);
+				$params = array(
+						'recepient'	=> $this->_selectentities($sql),
+						'message'	=> $this->input->post('message')
+						);
 				
-			if( $this->smsutil->send() )
-				echo 'success';
-			else
-				echo 'not sent';
+				$this->load->library('smsutil', $params);
+				
+				if( $this->smsutil->send() )
+					echo 'success';
+				else
+					echo 'not sent';
+				
+			}elseif($smstype == 'bulk'){
+				call_debug('false');
+			}
+			
+			
 		}
+	}
+	
+	private function _prepsql($arrentity){
+		$sqltemp = '';
+		foreach ($arrentity as $table){
+			//call_debug($table);
+			if($table == 'rta'){
+				$sqltemp .= ' SELECT mobile FROM rta UNION';
+			}
+			if($table == 'hospitals'){
+				$sqltemp .= ' SELECT mobile FROM hospitals UNION';
+			}
+			if($table == 'police'){
+				$sqltemp .= ' SELECT mobile FROM police UNION';
+			}
+		}
+		$sql = substr_replace($sqltemp, "", -5);
+		return $sql;
 	}
 	
 	private function _selectentities($sql){
