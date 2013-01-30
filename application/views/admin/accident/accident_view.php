@@ -1,30 +1,6 @@
-<nav>
-                        <div id="jCrumbs" class="breadCrumb module">
-                            <ul>
-                                <li>
-                                    <a href="#"><i class="icon-home"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#">Sports & Toys</a>
-                                </li>
-                                <li>
-                                    <a href="#">Toys & Hobbies</a>
-                                </li>
-                                <li>
-                                    <a href="#">Learning & Educational</a>
-                                </li>
-                                <li>
-                                    <a href="#">Astronomy & Telescopes</a>
-                                </li>
-                                <li>
-                                    Telescope 3735SX 
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                                        			
-                    <div class="row-fluid">
-                    	<div class="span12">
-                        	<h3 class="heading">Accident</h3>
-                        </div>
-                    </div>
+<?php getBreadcrumbs(); ?>
+<div class="row-fluid">
+	<div class="span12">
+    	<h3 class="heading">Accidents</h3>
+    </div>
+</div>

@@ -73,3 +73,43 @@ if (! function_exists('getSection')) {
 		return $section;
 	}
 }
+
+if(! function_exists('getBreadcrumbs')) {
+	function getBreadcrumbs() {
+		$CI =& get_instance();
+		
+		$data['section'] = getSection();
+		
+		$CI->load->view('includes/breadcrumbs', $data);
+	}
+}
+
+if(! function_exists('isSection')) {
+		
+		function isSection($section, $part = 1) {
+			$CI =& get_instance();	
+			
+			if(strtolower($CI->uri->segment($part)) != strtolower($section))
+				return FALSE;
+						
+			return TRUE;
+		}		
+}
+
+if(! function_exists('toggleButton')) {
+	function toggleButton($section, $tab = FALSE) {
+		$CI =& get_instance();
+		$val = '';
+		$url = sprintf("%s/%s", $CI->uri->segment(1), $CI->uri->segment(2));
+		
+		if($tab) {
+			if(strtolower($section) == strtolower($CI->uri->segment(1)))
+				$val = " in ";
+		} else {
+			if(strtolower($section) == strtolower($url))
+				$val = ' class="active" ';
+		}
+		
+		return $val;	
+	}
+}

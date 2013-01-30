@@ -173,8 +173,8 @@ class Users extends CI_Controller {
 		$params['querystring'] = $strQry;
 		$this->mdldata->select($params);
 		$data['users'] = $this->mdldata->_mRecords;
-				
 		
+		$url = sprintf("%s/%s", $this->uri->segment(1), $this->uri->segment(2));
 		$data['main_content'] = 'admin/users/users_view';
 		$this->load->view('includes/template', $data);
 	}
