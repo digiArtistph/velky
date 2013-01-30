@@ -47,7 +47,7 @@
 												<i class="icon-signal"></i> Reports
 											</a>
 										</div>
-										<div class="accordion-body collapse" id="collapseThree">
+										<div class="accordion-body <?php echo toggleButton('reports', TRUE); ?> collapse" id="collapseThree">
 											<div class="accordion-inner">
 												<ul class="nav nav-list">
 													<li <?php echo toggleButton('reports/accidents'); ?>><a class="ext_disabled" href="<?php echo base_url('reports/accidents'); ?>">Accidents</a></li>

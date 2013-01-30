@@ -5,7 +5,7 @@
                             <ul class="nav user_menu pull-right">
                                 <li class="divider-vertical hidden-phone hidden-tablet"></li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Johny Smith <b class="caret"></b></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo retrieveUserFullName();?> <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                     <li><a class="ext_disabled" href="user_profile.html">My Profile</a></li>
                                     <li><a class="ext_disabled" href="javascrip:void(0)">System Settings</a></li>

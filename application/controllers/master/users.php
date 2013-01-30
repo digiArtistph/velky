@@ -178,6 +178,7 @@ class Users extends CI_Controller {
 		$this->sessionbrowser->getInfo($params);
 		$arr = $this->sessionbrowser->mData;
 		$data['userlogin'] = $arr;
+		//call_debug($arr);
 
 		$url = sprintf("%s/%s", $this->uri->segment(1), $this->uri->segment(2));
 		$data['main_content'] = 'admin/users/users_view';

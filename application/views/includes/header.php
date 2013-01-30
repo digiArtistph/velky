@@ -1,4 +1,4 @@
-<?php if($section == 'home' || $section == "master"):; ?>
+<?php if($section == 'home' || $section == "master" || $section == 'reports'): ?>
     <!-- Bootstrap framework -->
         <link rel="stylesheet" href="<?php echo base_url('theme/bootstrap/css/bootstrap.min.css'); ?>" />
         <link rel="stylesheet" href="<?php echo base_url('theme/bootstrap/css/bootstrap-responsive.min.css'); ?>" />
