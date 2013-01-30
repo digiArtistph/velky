@@ -57,7 +57,7 @@ class Accidents extends CI_Controller{
 	private function _getdayaccidentslist(){
 		
 		$this->load->model('mdldata');
-		$params['querystring'] = 'SELECT * FROM accidents a LEFT JOIN accidenttype acct on acct.at_id = a.acdnttype';
+		$params['querystring'] = 'SELECT * FROM accidents WHERE acdntdate BETWEEN "" AND ""';
 		
 		$today=getdate();
 		print_r($today);
@@ -78,7 +78,7 @@ class Accidents extends CI_Controller{
 	private function _getweekaccidentslist(){
 		
 		$this->load->model('mdldata');
-		$params['querystring'] = 'SELECT * FROM accidents a LEFT JOIN accidenttype acct on acct.at_id = a.acdnttype WHERE acdntdate ';
+		$params['querystring'] = 'SELECT * FROM accidents a LEFT JOIN accidenttype acct on acct.at_id = a.acdnttype WHERE BETWEEN acdntdate="2013-01-01" AND acdntdate="2013-01-02"';
 		
 		if(!$this->mdldata->select($params))
 			return false;
@@ -114,7 +114,7 @@ class Accidents extends CI_Controller{
 	private function _getyearaccidentslist(){
 		
 		$this->load->model('mdldata');
-		$params['querystring'] = 'SELECT * FROM accidents a LEFT JOIN accidenttype acct on acct.at_id = a.acdnttype WHERE acdntdate ';
+		$params['querystring'] = 'SELECT * FROM accidents WHERE acdntdate= ';
 		
 		if(!$this->mdldata->select($params))
 			return false;
@@ -132,7 +132,7 @@ class Accidents extends CI_Controller{
 	private function _getbarangayaccidentslist(){
 		
 		$this->load->model('mdldata');
-		$params['querystring'] = 'SELECT * FROM accidents a LEFT JOIN accidenttype acct on acct.at_id = a.acdnttype WHERE brgy=%d';
+		$params['querystring'] = 'SELECT * FROM accidents WHERE brgy=%d';
 		
 		if(!$this->mdldata->select($params))
 			return false;

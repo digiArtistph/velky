@@ -9,8 +9,9 @@
     
 <body>
     <div class="MainContainer">
-    	<div id="userLog">Hello <?php echo 'User'?>! <a href="<?php echo base_url('admin/loginad/admin_signout'); ?>">Logout</a></div>
+    	<div id="userLog">Hello <?php echo $userlogin['sadmin_uname'];?>! <a href="<?php echo base_url('admin/loginad/admin_signout'); ?>">Logout</a></div>
     	<div id="left">
+        
         	<?php getSideBar(); ?>
         </div>
         <?php $this->load->view($main_content); ?>
