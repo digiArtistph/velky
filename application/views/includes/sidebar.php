@@ -50,9 +50,9 @@
 										<div class="accordion-body collapse" id="collapseThree">
 											<div class="accordion-inner">
 												<ul class="nav nav-list">
-													<li><a class="ext_disabled" href="<?php echo base_url('master/accident'); ?>">Accidents</a></li>
-													<li><a class="ext_disabled" href="javascript:void(0)">Hospitals and Ambulances</a></li>
-													<li><a class="ext_disabled" href="javascript:void(0)">Nearest Respondents</a></li>
+													<li <?php echo toggleButton('reports/accidents'); ?>><a class="ext_disabled" href="<?php echo base_url('reports/accidents'); ?>">Accidents</a></li>
+													<li <?php echo toggleButton('reports/hospitalsambulances'); ?>><a class="ext_disabled" href="<?php echo base_url('reports/hospitalsambulances'); ?>">Hospitals and Ambulances</a></li>
+													<li <?php echo toggleButton('reports/nearestrespondents'); ?>><a class="ext_disabled" href="<?php echo base_url('reports/nearestrespondents'); ?>">Nearest Respondents</a></li>
 													
 												</ul>
 											</div>
@@ -88,11 +88,9 @@
 											<div class="accordion-inner">
 												<ul class="nav nav-list">
 													<li class="nav-header">Master Files</li>
-													<li><a href="javascript:void(0)">Hospitals</a></li>
-                                                    
-													<li><a href="javascript:void(0)">Cron</a></li>
-                                                    <li><a href="javascript:void(0)">Police</a></li>
-                                                    <li><a href="javascript:void(0)">RTA</a></li>
+													<li <?php echo toggleButton('master/hospitals'); ?>><a class="ext_disabled" href="<?php echo base_url('master/hospitals'); ?>">Hospitals</a></li>                                                    													
+                                                    <li <?php echo toggleButton('master/police'); ?>><a class="ext_disabled" href="<?php echo base_url('master/police'); ?>">Police</a></li>
+                                                    <li <?php echo toggleButton('master/rta'); ?>><a class="ext_disabled" href="<?php echo base_url('master/rta'); ?>">RTA</a></li>
                                                     <li <?php echo toggleButton('master/barangay'); ?>><a class="ext_disabled" href="<?php echo base_url('master/barangay'); ?>">Barangay</a></li>
                                                     <li <?php echo toggleButton('master/accident_type'); ?>><a class="ext_disabled" href="<?php echo base_url('master/accident_type'); ?>">Accident Type</a></li>
                                                     <li <?php echo toggleButton('master/users'); ?>><a class="ext_disabled" href="<?php echo base_url('master/users'); ?>">Users</a></li>                                                    
