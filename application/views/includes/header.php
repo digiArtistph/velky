@@ -1,4 +1,5 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="<?php echo base_url('js/utility.js'); ?>"></script>
 <!-- Bootstrap framework -->
     <link rel="stylesheet" href="<?php echo base_url('theme/bootstrap/css/bootstrap.min.css'); ?>" />
     <link rel="stylesheet" href="<?php echo base_url('theme/bootstrap/css/bootstrap-responsive.min.css'); ?>" />
