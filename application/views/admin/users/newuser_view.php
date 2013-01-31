@@ -14,31 +14,31 @@
                 <div class="row-fluid">
                 
                     <div class="span6">
-                    <label>First Name</label> <input  type="text" name="fname" value="<?php echo set_value('fname'); ?>" class="span12"/><span class="help-inline"><?php echo form_error('fname'); ?></span></div>
+                    <label>First Name<span class="f_req">*</span></label> <input  type="text" name="fname" value="<?php echo set_value('fname'); ?>" class="span12"/><span class="help-inline error"><?php echo form_error('fname'); ?></span></div>
                     
                 </div>                
                                                 
                 <div class="row-fluid">
                     <div class="span6">
-                     <label>Middle Name</label> <input type="text" value="<?php echo set_value('mname'); ?>" name="mname" class="span12"/><span class="help-inline"><?php echo form_error('mname'); ?></span>    
+                     <label>Middle Name<span class="f_req">*</span></label> <input type="text" value="<?php echo set_value('mname'); ?>" name="mname" class="span12"/><span class="help-inline"><?php echo form_error('mname'); ?></span>    
                     </div>
                     
                 </div><div class="row-fluid">
-                    <div class="span6"><label>Last Name</label> <input type="text"  value="<?php echo set_value('lname'); ?>" name="lname" class="span12"/><span class="help-inline"><?php echo form_error('lname'); ?></span></div>
+                    <div class="span6"><label>Last Name<span class="f_req">*</span></label> <input type="text"  value="<?php echo set_value('lname'); ?>" name="lname" class="span12"/><span class="help-inline"><?php echo form_error('lname'); ?></span></div>
                 </div>                
                 <div class="row-fluid">
                     <div class="span6">
-                <label>Password</label> <input type="password" value="<?php echo set_value('pword'); ?>" name="pword" class="span12"/><span class="help-inline"><?php echo form_error('pword'); ?></span>
+                <label>Password<span class="f_req">*</span></label> <input type="password" value="<?php echo set_value('pword'); ?>" name="pword" class="span12"/><span class="help-inline"><?php echo form_error('pword'); ?></span>
                 </div>
                 </div>                
                 <div class="row-fluid">
                     <div class="span6">
-                <label>Confirm Password</label> <input type="password" value="<?php echo set_value('pword2'); ?>" name="pword2" class="span12"/><span class="help-inline"><?php echo form_error('pword2'); ?></span>
+                <label>Confirm Password<span class="f_req">*</span></label> <input type="password" value="<?php echo set_value('pword2'); ?>" name="pword2" class="span12"/><span class="help-inline"><?php echo form_error('pword2'); ?></span>
                     </div>
                 </div>                
                 <div class="row-fluid">
                     <div class="span6">
-                <label>Email</label> <input type="text" value="<?php echo set_value('email'); ?>" name="email" class="span12"/><span class="help-inline"><?php echo form_error('email'); ?></span>
+                <label>Email<span class="f_req">*</span></label> <input type="text" value="<?php echo set_value('email'); ?>" name="email" class="span12"/><span class="help-inline"><?php echo form_error('email'); ?></span>
                     </div>
                 </div>                
                 <div class="row-fluid">

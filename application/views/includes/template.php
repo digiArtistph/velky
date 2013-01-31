@@ -11,7 +11,7 @@
 <body>
 	<div id="loading_layer" style="display:none"><img src="<?php echo base_url('theme/img/ajax_loader.gif'); ?>" alt="" /></div>
 		<div class="style_switcher">
-			<div class="sepH_c">
+			<!--<div class="sepH_c">
 				<p>Colors:</p>
 				<div class="clearfix">
 					<a href="javascript:void(0)" class="style_item jQclr blue_theme style_active" title="blue">blue</a>
@@ -21,7 +21,7 @@
 					<a href="javascript:void(0)" class="style_item jQclr eastern_blue_theme" title="eastern_blue">eastern blue</a>
 					<a href="javascript:void(0)" class="style_item jQclr tamarillo_theme" title="tamarillo">tamarillo</a>
 				</div>
-			</div>
+			</div>-->
 			<div class="sepH_c">
 				<p>Backgrounds:</p>
 				<div class="clearfix">
