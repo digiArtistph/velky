@@ -37,7 +37,7 @@
 											<div class="accordion-inner">
 												<ul class="nav nav-list">
 													<li><a href="javascript:void(0)">Dashboard</a></li>
-													<li><a href="javascript:void(0)">Accident Report</a></li>													
+													<li <?php echo toggleButton('accident/accident'); ?>><a class="ext_disabled" href="<?php echo base_url('accident/accident'); ?>">Accident Report</a></li>													
 												</ul>
 											</div>
 										</div>
