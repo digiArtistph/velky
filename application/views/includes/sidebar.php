@@ -147,22 +147,22 @@
 								<div class="push"></div>
 							</div>
 							   
-							<!--<div class="sidebar_info">
+							<div class="sidebar_info">
 								<ul class="unstyled">
 									<li>
-										<span class="act act-warning">65</span>
-										<strong>New comments</strong>
+										<span class="act act-warning">2</span>
+										<strong>Today's accidents</strong>
 									</li>
 									<li>
-										<span class="act act-success">10</span>
-										<strong>New articles</strong>
+										<span class="act act-success">65</span>
+										<strong>Accidents last week</strong>
 									</li>
 									<li>
-										<span class="act act-danger">85</span>
-										<strong>New registrations</strong>
+										<span class="act act-danger">137</span>
+										<strong>Accidents last 2 months</strong>
 									</li>
 								</ul>
-							</div>--> 
+							</div> 
 						
 						</div>
 					</div>

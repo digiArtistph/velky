@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta name="url" content="<?php echo base_url();?>" />
-    <title><?php echo (isset($title)) ? $title : ''; ?></title>
+    <title>VELKY || Traffic Accident Management Information System</title>
     <?php getHeader(); ?>
 </head>
     
@@ -125,6 +125,17 @@
 			<!-- user profile functions -->
 			<script src="<?php echo base_url('theme/js/gebo_user_profile.js'); ?>"></script> 
 			
+           <!-- jQuery UI -->
+			<script src="<?php echo base_url('theme/lib/jquery-ui/jquery-ui-1.8.23.custom.min.js'); ?>"></script>
+			<!-- touch events for jQuery UI -->
+			<script src="<?php echo base_url('theme/js/forms/jquery.ui.touch-punch.min.js'); ?>"></script>
+			<!-- calendar -->
+			<script src="<?php echo base_url('theme/lib/fullcalendar/fullcalendar.min.js'); ?>"></script>
+			<script src="<?php echo base_url('theme/lib/fullcalendar/gcal.js'); ?>"></script>
+			
+			<!-- calendar functions -->
+			<script src="<?php echo base_url('theme/js/gebo_calendar.js'); ?>"></script>
+            
 			<script>
 				$(document).ready(function() {
 					//* show all elements & remove preloader

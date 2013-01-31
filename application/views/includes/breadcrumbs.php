@@ -30,15 +30,30 @@
     
 <?php elseif(isSection('accident', 1)): ?>
      <ul>
-            <li>
-                <a class="ext_disabled" href="<?php echo base_url(); ?>"><i class="icon-home"></i></a>
-            </li>
-            <li>
-                <?php echo toggleBcrumbs('Dashboard', 'master/dashboard'); ?>
-            </li>
-            <li>
-                <?php echo toggleBcrumbs('Accident Report', 'accident/accident'); ?>
-            </li>
+        <li>
+            <a class="ext_disabled" href="<?php echo base_url(); ?>"><i class="icon-home"></i></a>
+        </li>
+        <li>
+            <?php echo toggleBcrumbs('Dashboard', 'master/dashboard'); ?>
+        </li>
+        <li>
+            <?php echo toggleBcrumbs('Accident Report', 'accident/accident'); ?>
+        </li>
+	</ul>
+<?php elseif(isSection('reports', 1)): ?>
+	<ul>
+        <li>
+            <a class="ext_disabled" href="<?php echo base_url(); ?>"><i class="icon-home"></i></a>
+        </li>
+        <li>
+            <?php echo toggleBcrumbs('Accidents', 'reports/accidents'); ?>
+        </li>
+        <li>
+            <?php echo toggleBcrumbs('Hospitals and Ambulances', 'reports/hospitalsambulances'); ?>
+        </li>
+        <li>
+            <?php echo toggleBcrumbs('Nearest Respondents', 'reports/nearestrespondents'); ?>
+        </li>
 	</ul>
 <?php endif; ?>
 </div>
