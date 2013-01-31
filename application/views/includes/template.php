@@ -11,17 +11,17 @@
 <body>
 	<div id="loading_layer" style="display:none"><img src="<?php echo base_url('theme/img/ajax_loader.gif'); ?>" alt="" /></div>
     <div class="style_switcher">
-			<div class="sepH_c">
+			<!--<div class="sepH_c">
 				<p>Colors:</p>
 				<div class="clearfix">
-					<a href="javascript:void(0)" class="style_item jQclr blue_theme style_active" title="blue">blue</a>
-					<a href="javascript:void(0)" class="style_item jQclr dark_theme" title="dark">dark</a>
+					<a href="javascript:void(0)" class="style_item jQclr blue_theme " title="blue">blue</a>
+					<a href="javascript:void(0)" class="style_item jQclr dark_theme style_active" title="dark">dark</a>
 					<a href="javascript:void(0)" class="style_item jQclr green_theme" title="green">green</a>
 					<a href="javascript:void(0)" class="style_item jQclr brown_theme" title="brown">brown</a>
 					<a href="javascript:void(0)" class="style_item jQclr eastern_blue_theme" title="eastern_blue">eastern blue</a>
 					<a href="javascript:void(0)" class="style_item jQclr tamarillo_theme" title="tamarillo">tamarillo</a>
 				</div>
-			</div>
+			</div>-->
 			<div class="sepH_c">
 				<p>Backgrounds:</p>
 				<div class="clearfix">
@@ -67,11 +67,14 @@
 			</div>
 		</div>
     <div id="maincontainer">
+    <header>
         <div class="navbar navbar-fixed-top">
         	<!--//top fixed navigation bar-->            
             <?php $this->load->view('includes/navigation'); ?>
-
+			
         </div>
+        
+     </header>
         
         <div id="contentwrapper">
             <div class="main_content">
@@ -106,6 +109,7 @@
 			<!-- scrollbar -->
 			<script src="<?php echo base_url('theme/lib/antiscroll/antiscroll.js'); ?>"></script>
 			<script src="<?php echo base_url('theme/lib/antiscroll/jquery-mousewheel.js'); ?>"></script>
+ 
 			<!-- lightbox -->
             <script src="<?php echo base_url('theme/lib/colorbox/jquery.colorbox.min.js'); ?>"></script>
 			<!-- mobile nav -->

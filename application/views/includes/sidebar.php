@@ -105,7 +105,7 @@
 								<div class="push"></div>
 							</div>
 							   
-							<!--<div class="sidebar_info">
+							<div class="sidebar_info">
 								<ul class="unstyled">
 									<li>
 										<span class="act act-warning">65</span>
@@ -120,7 +120,7 @@
 										<strong>New registrations</strong>
 									</li>
 								</ul>
-							</div>--> 
+							</div> 
 						
 						</div>
     </div>

@@ -15,9 +15,9 @@
 	$sTable = "ajax";
 	
 	/* Database connection information */
-	$gaSql['user']       = "";
+	$gaSql['user']       = "root";
 	$gaSql['password']   = "";
-	$gaSql['db']         = "";
+	$gaSql['db']         = "velkydb";
 	$gaSql['server']     = "localhost";
 	
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

@@ -1,5 +1,4 @@
-<div class="navbar navbar-fixed-top">
-                    <div class="navbar-inner">
+<div class="navbar-inner">
                         <div class="container-fluid">
                             <a class="brand" href="dashboard.html"><i class="icon-home icon-white"></i> VELKY System</a>
                             <ul class="nav user_menu pull-right">
@@ -17,4 +16,6 @@
 							
                         </div>
                     </div>
-                </div>
+
+
+               

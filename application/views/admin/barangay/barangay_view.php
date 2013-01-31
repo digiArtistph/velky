@@ -1,4 +1,4 @@
-
+<?php getBreadcrumbs(); ?>
 <p> <a href="<?php echo base_url() . 'master/barangay/section/addbarangay';?>" >Add Barangay</a></p>
 
 <div>

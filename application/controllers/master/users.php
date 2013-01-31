@@ -156,7 +156,8 @@ class Users extends CI_Controller {
 	}
 	
 	private function _users() {
-		
+		//on_watch(toggleBcrumbs('Users', 'master/users'));
+		 
 		// pagination
 		$this->load->library('pagination');
 		$config['base_url'] = base_url("master/users");
