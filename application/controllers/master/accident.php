@@ -173,7 +173,7 @@ class Accident extends CI_Controller{
 		$validation->set_rules('smstype', 'SMS Type', 'required');
 		
 		if($validation->run() ===  FALSE) {
-			echo '1';
+			$this->_addaccident();
 		} else {
 			
 			$query = $this->_prepsql($this->input->post('broadcastto') ); // returns sql statement from selected recepient
