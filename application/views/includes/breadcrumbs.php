@@ -1,8 +1,10 @@
 <nav>
-    <div id="jCrumbs" class="breadCrumb module">
+
+<div id="jCrumbs" class="breadCrumb module">
+<?php if(isSection('master', 1)): ?>
         <ul>
             <li>
-                <a href="#"><i class="icon-home"></i></a>
+                <a class="ext_disabled" href="<?php echo base_url(); ?>"><i class="icon-home"></i></a>
             </li>
             <li>
                 <?php echo toggleBcrumbs('Hospitals', 'master/hospitals'); ?>
@@ -24,5 +26,20 @@
             </li>
                        
         </ul>
-    </div>
+   
+    
+<?php elseif(isSection('accident', 1)): ?>
+     <ul>
+            <li>
+                <a class="ext_disabled" href="<?php echo base_url(); ?>"><i class="icon-home"></i></a>
+            </li>
+            <li>
+                <?php echo toggleBcrumbs('Dashboard', 'master/dashboard'); ?>
+            </li>
+            <li>
+                <?php echo toggleBcrumbs('Accident Report', 'accident/accident'); ?>
+            </li>
+	</ul>
+<?php endif; ?>
+</div>
 </nav>                              
