@@ -1,7 +1,7 @@
 <div class="row-fluid">
 	<div class="span12">
       <h2 class="heading">Users</h2></div>
-<a class="ext_disabled btn" href="<?php echo base_url("master/users/section/newuser"); ?>">Add New</a>
+<a class="ext_disabled btn" href="<?php echo base_url("master/users/section/newuser"); ?>">Add New User</a>
 
 
         </div>     
