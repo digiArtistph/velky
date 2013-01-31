@@ -31,7 +31,7 @@ class Accident extends CI_Controller{
 				$this->_deletereport();
 				break;
 			default:
-				$this->_accidentview();
+				$this->_addaccident();
 		}
 	}
 	
