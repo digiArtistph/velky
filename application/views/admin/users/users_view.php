@@ -1,4 +1,3 @@
-<?php getBreadcrumbs(); ?>
 <div class="row-fluid">
 	<div class="span12">
       <h2 class="heading">Users</h2></div>

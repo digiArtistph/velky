@@ -14,13 +14,13 @@
                  <?php echo toggleBcrumbs('RTA', 'master/rta'); ?>
             </li>
             <li>
-                <a href="#">Barangay</a>
+                <?php echo toggleBcrumbs('Barangay', 'master/barangay'); ?>
             </li>
             <li>
-                <a href="#">Accident Type</a>
+                <?php echo toggleBcrumbs('Accident Type', 'master/accident_type'); ?>
             </li>
             <li>
-                <a href="#">Users</a>
+                <?php echo toggleBcrumbs('Users', 'master/users'); ?>
             </li>
                        
         </ul>
