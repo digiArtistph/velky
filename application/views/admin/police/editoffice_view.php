@@ -1,15 +1,45 @@
-<div>
-	<p>Your are editing station id: No. <?php echo $office[0]->station;?></p>
-	<p><a href="<?php echo base_url() . 'master/police';?>">Back</a></p>
+<div class="row-fluid">
+	<div class="span12">
+    	<h2 class="heading">Add Office</h2>
+    </div>	
+</div>
 	
-	<h3>Add Office</h3>
-	
-	<?php echo form_open( base_url() . 'master/police/validateupdateoffice' );?>
-		<input type="hidden" name="id" value=<?php echo strencode($office[0]->p_id);?>>
-		<p><label>Station: </label><input class="textboxA" type="text" name="station" value="<?php echo $office[0]->station;?>" /><span><?php echo form_error('station'); ?></span></p>
-		<p><label>Address: </label><input class="textboxB" type="text" name="address" value="<?php echo $office[0]->address;?>" /><span><?php echo form_error('address'); ?></span></p>
-		<p><label>Phone: </label><input class="textboxC" type="text" name="phone" value="<?php echo $office[0]->phone;?>" /><span><?php echo form_error('phone'); ?></span></p>
-		<p><label>Contact Person: </label><input class="textboxD" type="text" name="contactperson" value="<?php echo $office[0]->contactperson;?>" /><span><?php echo form_error('contactperson'); ?></span></p>
-		<p><input class="button" type="submit" value="Update Office"/></p>
-	<?php echo form_close();?>
+<div class="row-fluid">
+	<div class="span6">
+
+        <?php echo form_open( base_url() . 'master/police/validateupdateoffice', array('class' => 'form-vertical'));?>
+        <input type="hidden" name="id" value=<?php echo strencode($office[0]->p_id);?> />
+        <div class="control-group formSep"><label>Station<span class="f_req">*</span></label>
+        	<div class="controls">
+            	<input class="input-xlarge" type="text" name="station" value="<?php echo $office[0]->station;?>" /><span class="help-inline"><?php echo form_error('station'); ?></span>
+            </div>
+        </div>
+        
+        
+        <div class="control-group formSep">
+        	<label>Address: </label>
+        	<div class="controls">
+            	<input class="input-xlarge" type="text" name="address" value="<?php echo $office[0]->address;?>" /><span><?php echo form_error('address'); ?></span>
+            </div>
+        </div>
+        
+        <div class="control-group formSep">
+        	<label>Phone: </label>
+        	<div class="controls">
+            	<input class="textboxC" type="text" name="phone" value="<?php echo $office[0]->phone;?>" /><span><?php echo form_error('phone'); ?></span>
+            </div>
+        </div>
+        
+        <div class="control-group formSep">
+        	<label>Contact Person: </label>
+        	<div class="controls">
+            	<input class="textboxD" type="text" name="contactperson" value="<?php echo $office[0]->contactperson;?>" /><span><?php echo form_error('contactperson'); ?></span>
+            </div>
+        </div>
+        
+        <div class="control-group">
+        	<input class="btn btn-gebo span3" type="submit" value="Save"/> <a class="ext_disabled btn" href="<?php echo base_url() . 'master/police';?>">Cancel</a>
+		</div>
+        <?php echo form_close();?>
+        </div>
 </div>

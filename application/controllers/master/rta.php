@@ -126,7 +126,7 @@ class Rta extends CI_Controller{
 	private function _selectoffice($config){
 		
 		$rid = strdecode($config);
-		$params['querystring'] = mysql_real_escape_string("SELECT * FROM rta WHERE r_id=%d", $rid);
+		$params['querystring'] = printf("SELECT * FROM rta WHERE r_id=%d", $rid);
 		
 		$this->load->model('mdldata');
 		if(!$this->mdldata->select($params))
@@ -139,7 +139,7 @@ class Rta extends CI_Controller{
 		
 		$id = ($this->uri->segment(5)) ? $this->uri->segment(5) : show_404();
 		
-		$strqry = mysql_real_escape_string('DELETE FROM rta WHERE r_id = %d ', strdecode($id));
+		$strqry = printf('DELETE FROM rta WHERE r_id = %d ', strdecode($id));
 			
 		if(!$this->db->query($strqry))
 			echo 'delete failed';

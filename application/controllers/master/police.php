@@ -79,7 +79,7 @@ class Police extends CI_Controller{
 			$this->_editoffice();
 		} else {
 			
-			$strqry = mysql_real_escape_string('UPDATE police SET station="%s", address="%s", phone="%s", contactperson="%s" WHERE p_id="%s"', $this->input->post('station'), $this->input->post('address'), $this->input->post('phone'), $this->input->post('contactperson'), strdecode($this->input->post('id') ));
+			$strqry = printf('UPDATE police SET station="%s", address="%s", phone="%s", contactperson="%s" WHERE p_id="%d"', $this->input->post('station'), $this->input->post('address'), $this->input->post('phone'), $this->input->post('contactperson'), strdecode($this->input->post('id') ));
 			
 			if(!$this->db->query($strqry))
 				echo 'update failed';
@@ -125,7 +125,7 @@ class Police extends CI_Controller{
 	private function _selectoffice($config){
 		
 		$pid = strdecode($config);
-		$params['querystring'] = mysql_real_escape_string("SELECT * FROM police WHERE p_id=%d", $pid);
+		$params['querystring'] = sprintf("SELECT * FROM police WHERE p_id=%d", $pid);
 		
 		$this->load->model('mdldata');
 		if(!$this->mdldata->select($params))
