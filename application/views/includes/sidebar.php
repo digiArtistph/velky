@@ -33,7 +33,7 @@
 												<i class="icon-fire"></i> Modules
 											</a>
 										</div>
-										<div id="collapseTwo" class="accordion-body  <?php echo toggleButton('admin', TRUE); ?>  collapse">
+										<div id="collapseTwo" class="accordion-body  <?php echo toggleButton('accident', TRUE); ?> collapse">
 											<div class="accordion-inner">
 												<ul class="nav nav-list">
 													<li><a href="javascript:void(0)">Dashboard</a></li>
@@ -49,12 +49,12 @@
 												<i class="icon-signal"></i> Reports
 											</a>
 										</div>
-										<div id="collapseThree" class="accordion-body  collapse">
+										<div id="collapseThree" class="accordion-body <?php echo toggleButton('reports', TRUE); ?> collapse">
 											<div class="accordion-inner">
 												<ul class="nav nav-list">
-													<li><a href="http://localhost/velky/reports/accidents" class="ext_disabled">Accidents</a></li>
-													<li><a href="http://localhost/velky/reports/hospitalsambulances" class="ext_disabled">Hospitals and Ambulances</a></li>
-													<li><a href="http://localhost/velky/reports/nearestrespondents" class="ext_disabled">Nearest Respondents</a></li>
+													<li <?php echo toggleButton('reports/accidents'); ?>><a href="<?php echo base_url('reports/accidents'); ?>" class="ext_disabled">Accidents</a></li>
+													<li <?php echo toggleButton('reports/hospitalsambulances'); ?>><a href="<?php echo base_url('reports/hospitalsambulances'); ?>" class="ext_disabled">Hospitals and Ambulances</a></li>
+													<li <?php echo toggleButton('accident/nearestrespondents'); ?>><a href="<?php echo base_url('reports/nearestrespondents'); ?>" class="ext_disabled">Nearest Respondents</a></li>
 													
 												</ul>
 											</div>
