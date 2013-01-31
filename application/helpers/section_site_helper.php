@@ -113,3 +113,18 @@ if(! function_exists('toggleButton')) {
 		return $val;	
 	}
 }
+
+if(! function_exists('toggleBcrumbs')) {
+	function toggleBcrumbs($section, $path) {
+		$CI =& get_instance();
+		$val = '';
+		$url = sprintf("%s/%s", $CI->uri->segment(1), $CI->uri->segment(2));
+
+		if(strtolower($path) == strtolower($url))
+			$val = $section; 
+		else
+			$val = sprintf('<a class="ext_disabled" href="%s">%s</a>', base_url(strtolower($path)), $section); 
+
+		return $val;	
+	}
+}

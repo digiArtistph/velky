@@ -186,7 +186,11 @@ class Accident extends CI_Controller{
 			
 			$this->load->library('smsutil', $params);
 			if( $this->smsutil->send($smstype) ) {
-				echo $this->smsutil->mData;
+				$mData = $this->smsutil->mData;
+				echo 'Sms Status:   ' . $mData->status_code . ' , ' .$mData->status_message;
+			}else{
+				$mData = $this->smsutil->mData;
+				echo 'Sms Status: ' . $mData->status_code;
 			}
 		}
 	}

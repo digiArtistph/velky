@@ -5,20 +5,24 @@
                 <a href="#"><i class="icon-home"></i></a>
             </li>
             <li>
-                <a href="#">Sports & Toys</a>
+                <?php echo toggleBcrumbs('Hospitals', 'master/hospitals'); ?>
             </li>
             <li>
-                <a href="#">Toys & Hobbies</a>
+                 <?php echo toggleBcrumbs('Police', 'master/police'); ?>
             </li>
             <li>
-                <a href="#">Learning & Educational</a>
+                 <?php echo toggleBcrumbs('RTA', 'master/rta'); ?>
             </li>
             <li>
-                <a href="#">Astronomy & Telescopes</a>
+                <?php echo toggleBcrumbs('Barangay', 'master/barangay'); ?>
             </li>
             <li>
-                Telescope 3735SX 
+                <?php echo toggleBcrumbs('Accident Type', 'master/accident_type'); ?>
             </li>
+            <li>
+                <?php echo toggleBcrumbs('Users', 'master/users'); ?>
+            </li>
+                       
         </ul>
     </div>
 </nav>                              
