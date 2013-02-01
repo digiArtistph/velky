@@ -1,34 +1,34 @@
-<div class="row-fluid">
-	<div class="span12">
-    	<h2 class="heading">RTA Offices</h2>
-        <a class="ext_disabled btn" href="<?php echo base_url() . 'master/rta/section/addoffice';?>" >Create RTA Office</a>
-    </div>
-</div>
+<?php getBreadcrumbs(); ?>
+<p> <a href="<?php echo base_url() . 'master/rta/section/addoffice';?>" >Create RTA Office</a></p>
 
-<div class="row-fluid">
-	<div class="span6">
-    	<table class="table table-striped" data-provides="rowlink">
+<div>
+	<h3>RTA Offices</h3>
+	<table>
 		<thead>
 			<tr>
 		      <th>Office</th>
 		      <th>Address</th>
 		      <th>Phone</th>
-		      <!--<th>Contact Person</th>-->
+		      <th>Contact Person</th>
 		      <th>Action</th>
 		    </tr>
 		 </thead>
-		 
+		 <tbody>
 		<?php foreach ($offices as $office):?>
-		<tbody>
-			<tr class="rowlink">
+		
+			<tr>
 				<td><?php echo $office->office;?></td>
 				<td><?php echo $office->address;?></td>
 				<td><?php echo $office->phone;?></td>
-				<!--<td><?php echo $office->contactperson;?></td>-->
-				<td><a class="ext_disabled" href="<?php echo base_url() . 'master/rta/section/editoffice/' . strencode($office->r_id);?>">Edit</a> | <a class="ext_disabled" href="<?php echo base_url() . 'master/rta/section/deleteoffice/' . strencode($office->r_id);?>">Delete</a></td>
+				<td><?php echo $office->contactperson;?></td>
+				<td><a href="<?php echo base_url() . 'master/rta/section/editoffice/' . strencode($office->r_id);?>">Edit</a>|<a href="<?php echo base_url() . 'master/rta/section/deleteoffice/' . strencode($office->r_id);?>">Delete</a></td>
+			</tr>
+		
+		<?php endforeach;?>
+			<tr>
+				<td><?php echo $links; ?></td>
 			</tr>
 		</tbody>
-		<?php endforeach;?>
 	</table>
-    </div>
+	
 </div>

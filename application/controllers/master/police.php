@@ -18,6 +18,9 @@ class Police extends CI_Controller{
 		$section = ($this->uri->segment(4)) ? $this->uri->segment(4) : '';
 		
 		switch($section){
+			case 'viewoffice':
+				$this->_viewoffice();
+				break;
 			case 'addoffice':
 				$this->_addoffice();
 				break;
@@ -79,7 +82,7 @@ class Police extends CI_Controller{
 			$this->_editoffice();
 		} else {
 			
-			$strqry = printf('UPDATE police SET station="%s", address="%s", phone="%s", contactperson="%s" WHERE p_id="%d"', $this->input->post('station'), $this->input->post('address'), $this->input->post('phone'), $this->input->post('contactperson'), strdecode($this->input->post('id') ));
+			$strqry = sprintf('UPDATE police SET station="%s", address="%s", phone="%s", contactperson="%s" WHERE p_id="%s"', $this->input->post('station'), $this->input->post('address'), $this->input->post('phone'), $this->input->post('contactperson'), strdecode($this->input->post('id') ));
 			
 			if(!$this->db->query($strqry))
 				echo 'update failed';
@@ -90,20 +93,44 @@ class Police extends CI_Controller{
 	
 	private function _viewoffice(){
 		
-		$data['offices'] = $this->_getoffice();
+		$config = array();
+		$config["base_url"] = base_url() . "master/rta/section/viewoffice/";
+		$config["total_rows"] = $this->_totaloffice();
+		$config["per_page"] = 10;
+		$config["uri_segment"] = 5;
+		
+		$this->load->library("pagination");
+		$this->pagination->initialize($config);
+		
+		$page = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
+		$data["links"] = $this->pagination->create_links();
+		
+		$data['offices'] = $this->_getoffice($config["per_page"], $page);
 		$data['main_content'] = 'admin/police/police_view';
 		$this->load->view('includes/template', $data);
 	}
 	
-	private function _getoffice(){
+	private function _getoffice($limit, $start){
 		
 		$this->load->model('mdldata');
 		$params['table'] = array('name' => 'police');
 		$params['table']['order_by'] = 'p_id:asc';
+		$params['table']['limit'] = $start . ':' . $limit;
+		
 		if(!$this->mdldata->select($params))
 			echo 'getting police office failed';
 		else 
 			return $this->mdldata->_mRecords;
+	}
+	
+	private function _totaloffice(){
+		$this->load->model('mdldata');
+		$params['table'] = array('name' => 'police');
+	
+		if(!$this->mdldata->select($params))
+			echo 'getting rta office failed';
+		else
+			return $this->mdldata->_mRowCount;
 	}
 	
 	private function _addoffice(){
@@ -138,7 +165,7 @@ class Police extends CI_Controller{
 		
 		$id = ($this->uri->segment(5)) ? $this->uri->segment(5) : show_404();
 		
-		$strqry = mysql_real_escape_string('DELETE FROM police WHERE p_id = %d ', strdecode($id));
+		$strqry = sprintf('DELETE FROM police WHERE p_id = %d ', strdecode($id));
 			
 		if(!$this->db->query($strqry))
 			echo 'delete failed';

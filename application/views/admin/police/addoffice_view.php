@@ -1,42 +1,10 @@
-<div class="row-fluid">
-	<div class="span12">
-		<h2 class="heading">Add New Police Office</h2>
-    </div>
-
+<div>
+	<h3>Add Office</h3>
+	<?php echo form_open( base_url() . 'master/police/validatenewoffice' );?>
+		<p><label>Station: </label><input class="textboxA" type="text" name="station" /><span><?php echo form_error('station'); ?></span></p>
+		<p><label>Address: </label><input class="textboxB" type="text" name="address" /><span><?php echo form_error('address'); ?></span></p>
+		<p><label>Phone: </label><input class="textboxC" type="text" name="phone" /><span><?php echo form_error('phone'); ?></span></p>
+		<p><label>Contact Person: </label><input class="textboxD" type="text" name="contactperson" /><span><?php echo form_error('contactperson'); ?></span></p>
+		<p><input class="button" type="submit" value="Add Office"/></p>
+	<?php echo form_close();?>
 </div>
-
-<div class="row-fluid">
-	<div class="span6">
-
-		<?php echo form_open( base_url() . 'master/police/validatenewoffice', array('class' => 'form-vertical'));?>
-            	<div class="control-group formSep">
-                	<label>Station<span class="f_req">*</span></label>
-                	<div class="controls">
-                    	<input class="input-xlarge" type="text" name="station" /><span class="help-inline error"><?php echo form_error('station'); ?></span>
-                    </div>
-                </div>
-            
-            	<div class="control-group formSep">
-            		<label>Address<span class="f_req">*</span></label>
-                    <div class="controls">
-                    	<input class="input-xlarge" type="text" name="address" /><span class="help-inline error"><?php echo form_error('address'); ?></span>
-                        </div>
-                   </div>
-            	<div class="control-group formSep">
-            	<label>Phone<span class="f_req">*</span></label>
-                <div class="controls">
-                	<input class="input-xlarge" type="text" name="phone" /><span class="help-inline error"><?php echo form_error('phone'); ?></span>
-                    </div>
-               </div>
-               
-            	<div class="control-group formSep">
-            <label>Contact Person</label>
-            <div class="controls">
-            	<input class="input-xlarge" type="text" name="contactperson" /><span class="help-inline error"><?php echo form_error('contactperson'); ?></span></div>
-            </div>
-            
-            <div class="control-group"><input class="btn btn-gebo span3" type="submit" value="Save"/> <a class="ext_disabled btn" href="<?php echo base_url("master/police"); ?>">Cancel</a></div>
-            </div>
-        <?php echo form_close();?>
-        </div>
-    </div>
