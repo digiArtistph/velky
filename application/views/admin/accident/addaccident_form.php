@@ -6,7 +6,7 @@
 
 <div class="row-fluid">
 	<div class="span6">
-    <?php $attrib = array('id' => 'add_report', 'class' => 'form-vertical well'); echo form_open( base_url() . 'master/accident/validateaddreport', $attrib);?>
+    <?php $attrib = array('id' => 'add_report', 'class' => 'form-vertical well'); echo form_open( base_url() . 'accident/accident/validateaddreport', $attrib);?>
     	
         <div class="conrol-group formSep"><label>Accident Type</label>
         	<div class="controls">
@@ -62,14 +62,14 @@
     
     	
         <span class="checkboxinfo"><?php echo form_error('broadcastto'); ?></span>
-    	<?php $attrib2 = array('id' => 'submitsms', 'class' => 'form-vertical well'); echo form_open( base_url() . 'master/accident/validatesendsms', $attrib2); ?>
+    	<?php $attrib2 = array('id' => 'submitsms', 'class' => 'form-vertical well'); echo form_open( base_url() . 'accident/accident/validatesendsms', $attrib2); ?>
         
         <div class="control-group formSep">
         	<div class="controls">
             <h3 class="heading">Broadcast to</h3>
-            <label for="rta" class="checkbox"> <input id="rta" type="checkbox" name="broadcastto[]" value="rta" class="checkbox"/> RTA</label>
-            <label for="police" class="checkbox"><input id="police" type="checkbox" name="broadcastto[]" value="police" class="checkbox" /> Police</label>
-            <label for="hospital" class="checkbox"><input id="hospital" type="checkbox" name="broadcastto[]" value="hospitals" class="checkbox"/>Hospitals</label>
+            <label for="rta" class="checkbox"> <input id="rta" type="checkbox" name="broadcastto[]" value="rta" class="checkboxsms"/> RTA</label>
+            <label for="police" class="checkbox"><input id="police" type="checkbox" name="broadcastto[]" value="police" class="checkboxsms" /> Police</label>
+            <label for="hospital" class="checkbox"><input id="hospital" type="checkbox" name="broadcastto[]" value="hospitals" class="checkboxsms"/>Hospitals</label>
             </div>
         </div>
         

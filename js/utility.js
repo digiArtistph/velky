@@ -7,17 +7,17 @@ $(document).ready(function(){
 	//global vars
 	var form = $("#add_report");
 	
-	var barangay = $(".textboxA");
+	var barangay = $("input[name=barangay]");
 	var barangayInfo = $(".barangayInfo");
-	var details = $(".textareaA");
+	var details = $("textarea[name=details]");
 	var detailsInfo = $(".detailsInfo");
-	var caller = $(".textboxB");
+	var caller = $("input[name=caller]");
 	var callersInfo = $(".callersInfo");
-	var accdate = $(".textboxC");
+	var accdate = $("input[name=acdntdate]");
 	var accdatesInfo = $(".accdatesInfo");
-	var rptdate = $(".textboxD");
+	var rptdate = $("input[name=rptdate]");
 	var rptdatesInfo = $(".rptdatesInfo");
-	var message = $(".textarea");
+	var message = $("textarea[name=message]");
 	var messagesInfo = $(".messagesInfo");
 	var checkboxinfo = $(".checkboxinfo"); 
 	var radioinfo = $(".radioinfo"); 
@@ -39,20 +39,20 @@ $(document).ready(function(){
 	message.blur(validatemessage);
 	
 	_disableattr(2);
-	
+
 	//On Submitting
 	$("#add_report").submit(function(){
 		if( validatebarangay() & validatedetails() & validatecaller() & validateaccdate() & validaterptdate() ){
 			input = {
-					'accidenttype' : $('.select').val(),
-					'barangay' : $('.textboxA').val(),
-					'details' : $('.textareaA').val(),
-					'caller' : $('.textboxB').val(),
-					'acdntdate' : $('.textboxC').val(),
-					'rptdate' : $('.textboxD').val()
+					'accidenttype' : $('select[name=accidenttype]').val(),
+					'barangay' : $('input[name=barangay]').val(),
+					'details' : $('textarea[name=details]').val(),
+					'caller' : $('input[name=caller]').val(),
+					'acdntdate' : $('input[name=acdntdate]').val(),
+					'rptdate' : $('input[name=rptdate]').val()
 			}
 			
-			$.post(base_url + "master/accident/validateaddreport", input)
+			$.post(base_url + "accident/accident/validateaddreport", input)
 				.success(function(data) {
 					if(data == '1') {
 						alert('Please fill up form correctly');
@@ -71,16 +71,16 @@ $(document).ready(function(){
 
 		if( validatemessage() & validatecheckbox() & validateradio() ){ 
 			var bc = [];
-			 $.each($('.checkbox:checked'), function() {
+			 $.each($('.checkboxsms:checked'), function() {
 				 bc.push($(this).val()); 
 			 });
 			 input2 = {
 					'broadcastto' : bc,
-					'message' : $('.textareaA').val(),
+					'message' : $('textarea[name=message]').val(),
 					'smstype' : $('input[name=smstype]:checked', '#submitsms').val()
 			 		}
 
-			$.post(base_url + "master/accident/validatesendsms", input2)
+			$.post(base_url + "accident/accident/validatesendsms", input2)
 				.success(function(data) {
 					if(data == '1') {
 						alert('Please fill up form correctly');
@@ -213,7 +213,7 @@ $(document).ready(function(){
 	}
 	
 	function validatecheckbox(){
-		if($('.checkbox:checkbox:checked').length <1){
+		if($('.checkboxsms:checkbox:checked').length <1){
 			checkboxinfo.text("Please check 1 of the checkbox");
 			checkboxinfo.addClass("error");
 			return false;
