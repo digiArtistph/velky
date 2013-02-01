@@ -31,6 +31,9 @@
         <script src="<?php echo base_url('theme/js/ie/respond.min.js'); ?>"></script>
     <![endif]-->
     
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url('js/utility.js'); ?>"></script>
+    
     <script>
         //* hide all elements & show preloader
         document.documentElement.className += 'js';

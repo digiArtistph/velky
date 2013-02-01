@@ -4,7 +4,6 @@ $(document).ready(function(){
 	var base_url = l.protocol + "//" + l.host + "/" + l.pathname.split('/')[1] + "/";
 	
 	_disableattr(2);
-	
 	$('#add_report').submit(function(){
 		
 		input = {
@@ -63,7 +62,11 @@ $(document).ready(function(){
 		
 			$.post(base_url + "master/accident/validatesendsms", input2)
 				.success(function(data) {
-					alert(data);
+					if(data == '1') {
+						alert('Please fill up form correctly');
+					} else {
+						alert(data);
+					}
 					
 			});
 		

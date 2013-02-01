@@ -59,18 +59,69 @@ class Smsutil {
 				$url = 'http://'. $this->_mConfig1['ip_address'] .':'. $this->_mConfig1['port'] .'/sendmsg?';
 				$data = 'user='. $this->_mConfig1['username'] .'&passwd='. $this->_mConfig1['password'] .'&cat=1&to='. $this->_mTo .'&text="' . $this->_mMessage. '"';
 				
-				$this->mData = $this->_requestiSMS($url, $data);
+				$qry = $this->_requestiSMS($url, $data);
 				
+				if($this->_splistResponse($qry, 2))
+					return true;
+				else
+					return false;
 		}
 			
 		if ($smsType == 'bulk'){
 				$this->_exploderecepient(2);
 				$data = 'username='. $this->_mConfig2['username'] .'&password='. $this->_mConfig2['password'] . '&message='.urlencode($this->_mMessage).'&msisdn='. $this->_mTo;
 				
-				$this->mData = $this->__requestBulk($this->_mConfig2['header'], $data);
+				$qry = $this->__requestBulk($this->_mConfig2['header'], $data);
 				
+				if($this->_splistResponse($qry, 1))
+					return true;
+				else
+					return false;
 		}
 		
+		return true;
+	}
+	
+	private function _splistResponse($params, $type){
+		if($type == 1){
+			$param = explode('|', $params);
+			
+			if(!empty($param[0] )){
+				$this->mData->status_code = $param[0];
+			}
+			
+			if(!empty($param[1] )){
+				$this->mData->status_message = $param[1];
+			}
+			
+			if(!empty($param[2] )){
+				$this->mData->status_description = $param[2];
+			}
+			
+			if(!is_numeric(substr($params, 0, 1))){
+				$this->mData->status_code = $params;
+				return false;
+			}
+		}else{
+			$param = explode(':', $params);
+			
+			if(!empty($param[0] )){
+				$this->mData->status_code = $param[0];
+			}
+				
+			if(!empty($param[1] )){
+				$this->mData->status_message = $param[1];
+			}
+				
+			if(!empty($param[2] )){
+				$this->mData->status_description = $param[2];
+			}
+			
+			if(!is_numeric(substr($params, 0, 1))){
+				$this->mData->status_code = $params;
+				return false;
+			}
+		}
 		return true;
 	}
 	
