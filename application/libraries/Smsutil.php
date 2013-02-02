@@ -43,8 +43,8 @@ class Smsutil {
 		//Bulk Configuration Variables
 		$this->_mConfig2 = array(
 				'header' => 'http://bulksms.vsms.net/eapi/submission/send_sms/2/2.0',
-				'username' => 'tongbens01',
-				'password' => 'tongbens0101'
+				'username' => 'nebula',
+				'password' => '12345678'
 		);
 		
 		//private $_mConfig1;

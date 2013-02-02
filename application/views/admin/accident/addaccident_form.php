@@ -7,7 +7,7 @@
 <div class="row-fluid">
 	<div class="span6">
     <?php $attrib = array('id' => 'add_report', 'class' => 'form-vertical well'); echo form_open( base_url() . 'accident/accident/validateaddreport', $attrib);?>
-    	
+    	  <input class="indexid" type="hidden" name="indexid" value="0" />
         <div class="conrol-group formSep"><label>Accident Type</label>
         	<div class="controls">
                 <select class="select span7" name="accidenttype">
@@ -20,10 +20,13 @@
         
         <div class="conrol-group formSep"><label>Barangay: </label>
         	<div class="controls">
-            <input class="input-xlarge" type="text" name="barangay" /><span class="barangayInfo"><?php echo form_error('barangay'); ?></span>
+                <select class="select span7" name="barangay">
+                <?php foreach ($barangaytypes as $barangays):?>
+                <option value="<?php echo $barangays->b_id;?>"><?php echo $barangays->name;?></option>
+                <?php endforeach;?>
+                </select>
             </div>
         </div>
-        
         
         <div class="conrol-group formSep"><label>Details: </label>
         	<div class="controls">
@@ -51,7 +54,7 @@
         </div>
 
         <div class="controls">
-            <input class="btn btn-gebo span3" type="submit" value="Create Report"/>
+            <input class="btn btn-gebo span3" type="submit" id="submitr" value="Create Report"/>
         </div>
 
     		<?php echo form_close();?>

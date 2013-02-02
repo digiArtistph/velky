@@ -37,10 +37,19 @@ class Accident extends CI_Controller{
 	
 	private function _accidentview(){
 		$data['accidents'] = $this->_getaccidentlist();
-		//call_debug($data['accidents']);
 		
 		$data['main_content'] = 'admin/accident/accident_view';	
 		$this->load->view('includes/template', $data);
+	}
+	
+	private function _getbarangaytype(){
+		$this->load->model('mdldata');
+		$params['querystring'] = 'SELECT * FROM  barangay';
+		
+		if(!$this->mdldata->select($params))
+			return false;
+		else
+			return $this->mdldata->_mRecords;
 	}
 	
 	private function _getaccidentlist(){
@@ -56,6 +65,7 @@ class Accident extends CI_Controller{
 	
 	private function _addaccident(){
 		$data['types'] = $this->_getaccidenttypelist();
+		$data['barangaytypes'] = $this->_getbarangaytype();
 		$data['main_content'] = 'admin/accident/addaccident_form';
 		$this->load->view('includes/template', $data);
 	}
@@ -75,6 +85,7 @@ class Accident extends CI_Controller{
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
 		
+		//$validation->set_rules('indexid', 'error', 'required');
 		$validation->set_rules('accidenttype', 'accidenttype', 'required');
 		$validation->set_rules('barangay', 'barangay', 'required');
 		$validation->set_rules('caller', 'caller', 'required');
@@ -84,26 +95,21 @@ class Accident extends CI_Controller{
 		if($validation->run() ===  FALSE) {
 			echo '1';
 		} else {
-				
-		$this->load->model('mdldata');
-			
-			$params = array(
-					'table' => array('name' => 'accidents'),
-					'fields' => array(
-						'acdnttype' => $this->input->post('accidenttype'),
-						'brgy' => $this->input->post('barangay'),
-						'details' => $this->input->post('details'),
-						'caller' => $this->input->post('caller'),
-						'acdntdate' => $this->input->post('acdntdate'),
-						'rptdate' => $this->input->post('rptdate'),
-					)
-				);
-			$this->mdldata->reset();
-				
-			if(! $this->mdldata->insert($params))
+		
+			$strQry = 'INSERT INTO accidents (a_id, acdnttype, brgy, details, caller, acdntdate, rptdate) VALUES ("' . $this->input->post("indexid") . '","' .  $this->input->post("accidenttype") . '","' .  $this->input->post("barangay") .  '","' .  $this->input->post("details") . '","' .  $this->input->post("caller") . '","' .  $this->input->post("acdntdate") . '","' .  $this->input->post("rptdate") .'") 
+			ON DUPLICATE KEY UPDATE acdnttype="' . $this->input->post("accidenttype") .'", brgy="'. $this->input->post("barangay") .'", details="'. $this->input->post("details")  .'", caller="'. $this->input->post("caller") .'", acdntdate="'. $this->input->post("acdntdate") .'", rptdate="' .$this->input->post("rptdate") . '"';
+			//call_debug($strQry);
+			if(!$this->db->query($strQry)){
 				echo 'Insert new record failed.';
-			else
-				echo 'Record saved.';
+			}
+			else{
+				if ($this->db->insert_id() == 0){
+					echo $this->input->post("indexid");
+				}
+				else{
+					echo $this->db->insert_id();
+				}
+			}
 		}
 	}
 	
