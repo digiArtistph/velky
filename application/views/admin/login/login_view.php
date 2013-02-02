@@ -2,9 +2,14 @@
 			<?php echo form_open(base_url() . 'admin/loginad/validate_admin_login', array('id' => 'login_form')); ?>
 
 				<div class="top_b">Sign in to VELKY System</div>    
-				<div class="alert alert-info alert-login">
+				<!--<div class="alert alert-info alert-login">
 					Clear username and password field to see validation.
+				</div>-->
+                
+                <div class="<?php echo ($loginerror == "") ? "hide" : ''; ?> alert alert-error alert-login"><i class="splashy-error"></i>
+					<?php echo $loginerror; ?>
 				</div>
+                
 				<div class="cnt_b">
 					<div class="formRow">
 						<div class="input-prepend">
