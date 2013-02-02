@@ -7,8 +7,6 @@ $(document).ready(function(){
 	//global vars
 	var form = $("#add_report");
 	
-	var barangay = $("input[name=barangay]");
-	var barangayInfo = $(".barangayInfo");
 	var details = $("textarea[name=details]");
 	var detailsInfo = $(".detailsInfo");
 	var caller = $("input[name=caller]");
@@ -23,7 +21,6 @@ $(document).ready(function(){
 	var radioinfo = $(".radioinfo"); 
 	
 	//On blur
-	barangay.blur(validatebarangay);
 	details.blur(validatedetails);
 	caller.blur(validatecaller);
 	accdate.blur(validateaccdate);
@@ -31,7 +28,6 @@ $(document).ready(function(){
 	message.blur(validatemessage);
 	
 	//On key press
-	barangay.keyup(validatebarangay);
 	details.keyup(validatedetails);
 	caller.keyup(validatecaller);
 	accdate.keyup(validateaccdate);
@@ -42,10 +38,12 @@ $(document).ready(function(){
 
 	//On Submitting
 	$("#add_report").submit(function(){
-		if( validatebarangay() & validatedetails() & validatecaller() & validateaccdate() & validaterptdate() ){
+		//return true;
+		if( validatedetails() & validatecaller() & validateaccdate() & validaterptdate() ){
 			input = {
+					'indexid' : $('input[name=indexid]').val(),
 					'accidenttype' : $('select[name=accidenttype]').val(),
-					'barangay' : $('input[name=barangay]').val(),
+					'barangay' : $('select[name=barangay]').val(),
 					'details' : $('textarea[name=details]').val(),
 					'caller' : $('input[name=caller]').val(),
 					'acdntdate' : $('input[name=acdntdate]').val(),
@@ -54,12 +52,16 @@ $(document).ready(function(){
 			
 			$.post(base_url + "accident/accident/validateaddreport", input)
 				.success(function(data) {
+				
 					if(data == '1') {
 						alert('Please fill up form correctly');
 					} else {
 						_disableattr(1);
-						alert(data);
-					}
+						//$('.span6').append('<input class="indexid" type="text" name="indexid" value="' + data + '" />  ');
+						$('input[name=indexid]').val(data);
+						$('#submitr').val('Update Record');
+						alert('Record saved');
+					} 
 			});
 			return false;
 		}
@@ -85,7 +87,7 @@ $(document).ready(function(){
 					if(data == '1') {
 						alert('Please fill up form correctly');
 					} else {
-						alert(data);
+						alert('Record Successfully saved');
 					}
 			});		
 			return false;
@@ -97,33 +99,16 @@ $(document).ready(function(){
 	
 	function _disableattr(param){
 		if(param == 1){
-			$(".checkbox").removeAttr('disabled');
+			$(".checkboxsms").removeAttr('disabled');
 			$(".textarea").removeAttr('disabled');
 			$(".radiobtn").removeAttr('disabled');
 			$("#sendsms").removeAttr('disabled');
 		}else{
 
-			$(".checkbox").attr("disabled", true);
+			$(".checkboxsms").attr("disabled", true);
 			$(".textarea").attr("disabled", true);
 			$(".radiobtn").attr("disabled", true);
 			$("#sendsms").attr("disabled", true);
-		}
-	}
-	
-	function validatebarangay(){
-		//if it's NOT valid
-		if(barangay.val().length < 1){
-			barangay.addClass("error");
-			barangayInfo.text("*required");
-			barangayInfo.addClass("error");
-			return false;
-		}
-		//if it's valid
-		else{
-			barangay.removeClass("error");
-			barangayInfo.text("");
-			barangayInfo.removeClass("error");
-			return true;
 		}
 	}
 	
