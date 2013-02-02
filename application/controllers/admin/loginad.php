@@ -14,7 +14,10 @@ class Loginad extends CI_Controller {
 		$this->_mMyLoginError = null;
 	}
 	
-	public function index() {
+	public function index($error = '') {
+		
+		$data['loginerror'] = $error;
+		
 		$data['main_content'] = 'admin/login/login_view';
 		$this->load->view('includes/template_login', $data);
 	}
@@ -53,8 +56,9 @@ class Loginad extends CI_Controller {
 				redirect(base_url() . 'master/users');
 				
 			} else {
-				echo"This email has not been registered or the password did not match.";
-				$this->index();
+					
+				$this->index("This email has not been registered or the password did not match.");
+				
 			}
 
 		}

@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="<?php echo base_url('theme/css/style.css'); ?>" />
         
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans" />
-
+    
     <!-- Favicon -->
         <link rel="shortcut icon" href="<?php echo base_url('theme/img/favicon.ico'); ?>" />
     
@@ -55,7 +55,8 @@
     <link rel="stylesheet" href="<?php echo base_url('theme/lib/qtip2/jquery.qtip.min.css'); ?>" />
     <!-- main styles -->
     <link rel="stylesheet" href="<?php echo base_url('theme/css/style.css'); ?>" />
-    
+    <!-- splashy icons -->
+	<link rel="stylesheet" href="<?php echo base_url('theme/img/splashy/splashy.css'); ?>" />
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?php echo base_url('theme/img/favicon.ico'); ?>" />
     
