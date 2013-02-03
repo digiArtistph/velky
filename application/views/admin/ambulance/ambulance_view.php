@@ -1,5 +1,5 @@
 
-<p> <a href="<?php echo base_url() . 'reports/ambulance/section/addambulance';?>" >Add Ambulance</a></p>
+<p> <a href="<?php echo base_url() . 'reports/hospitalsambulances/section/addambulance';?>" >Add Ambulance</a></p>
 
 <div>
 	<h3>Ambulance</h3>
@@ -28,7 +28,7 @@
 				<?php echo 'Inactive'; ?>
 				</td>
 				<?php endif;?>
-				<td><a href="<?php echo base_url() . 'reports/ambulance/section/editambulance/' . strencode($name->amb_id);?>">Edit</a> |<a href="<?php echo base_url() . 'reports/ambulance/section/deleteambulance/' . strencode($name->amb_id);?>">Delete</a></td>
+				<td><a href="<?php echo base_url() . 'reports/hospitalsambulances/section/editambulance/' . strencode($name->amb_id);?>">Edit</a> |<a href="<?php echo base_url() . 'reports/hospitalsambulances/section/deleteambulance/' . strencode($name->amb_id);?>">Delete</a></td>
 			</tr>
 		</tbody>
 		
