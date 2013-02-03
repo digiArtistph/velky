@@ -1,6 +1,6 @@
 <div>
 	<h3>Add Ambulance</h3>
-	<?php echo form_open( base_url() . 'reports/ambulance/validatenewambulance' );?>
+	<?php echo form_open( base_url() . 'reports/hospitalsambulances/validatenewambulance' );?>
 	<p><label>Hospitals: </label>
 			<select class="select" name="h_id">
 			<?php foreach ($types as $type):?>

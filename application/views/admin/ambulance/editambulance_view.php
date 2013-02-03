@@ -1,7 +1,7 @@
 <div>
-	<p><a href="<?php echo base_url() . 'reports/ambulance';?>">Back</a></p>
+	<p><a href="<?php echo base_url() . 'reports/hospitalsambulances';?>">Back</a></p>
 	<h3>Edit Ambulance</h3>
-	<?php echo form_open( base_url() . 'reports/ambulance/validateupdateambulance' );?>
+	<?php echo form_open( base_url() . 'reports/hospitalsambulances/validateupdateambulance' );?>
 		<input type="hidden" name="id" value=<?php echo strencode($plateno[0]->amb_id);?>>
 		<p><label>Hospitals: </label>
 			<select class="select" name="hospitals">
