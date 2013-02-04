@@ -48,19 +48,22 @@ class Accidents extends CI_Controller{
 	
 	
 	private function _dayaccidents(){
-		$data['accidents'] = $this->_getdayaccidentslist();
-		//call_debug($data['accidents']);
-		$data['main_content'] = 'admin/accidents/accidents_view';
+		$data['accident_monday'] = $this->_getdayaccidentslist(2);
+		$data['accident_tuesday'] = $this->_getdayaccidentslist(3);
+		$data['accident_wednesday'] = $this->_getdayaccidentslist(4);
+		$data['accident_thursday'] = $this->_getdayaccidentslist(5);
+		$data['accident_friday'] = $this->_getdayaccidentslist(6);
+		$data['accident_saturday'] = $this->_getdayaccidentslist(7);
+		$data['accident_sunday'] = $this->_getdayaccidentslist(1);
+		//call_debug( $data['accident_tuesday'] );
+		$data['main_content'] = 'admin/accidents/view_by_day';
 		$this->load->view('includes/template', $data);
 	}
 	
-	private function _getdayaccidentslist(){
+	private function _getdayaccidentslist($weekday){
 		
 		$this->load->model('mdldata');
-		$params['querystring'] = 'SELECT * FROM accidents WHERE acdntdate BETWEEN "" AND ""';
-		
-		$today=getdate();
-		call_debug($today);
+		$params['querystring'] = 'SELECT * FROM  accidents WHERE DAYOFWEEK(acdntdate ) = ' . $weekday;
 		
 		if(!$this->mdldata->select($params))
 			return false;
