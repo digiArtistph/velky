@@ -60,7 +60,7 @@ class Accidents extends CI_Controller{
 		$params['querystring'] = 'SELECT * FROM accidents WHERE acdntdate BETWEEN "" AND ""';
 		
 		$today=getdate();
-		print_r($today);
+		call_debug($today);
 		
 		if(!$this->mdldata->select($params))
 			return false;
