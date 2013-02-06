@@ -126,10 +126,21 @@ class Accidents extends CI_Controller{
 	}	
 	
 	private function _barangayaccidents(){
-		$data['accidents'] = $this->_getbarangayaccidentslist();
+		//$data['accidents'] = $this->_getbarangayaccidentslist();
 		//call_debug($data['accidents']);
-		$data['main_content'] = 'admin/accidents/accidents_view';
+		$data['barangaytypes'] = $this->_getbarangaytype();
+		$data['main_content'] = 'admin/accidents/view_by_barangay';
 		$this->load->view('includes/template', $data);
+	}
+	
+	private function _getbarangaytype(){
+		$this->load->model('mdldata');
+		$params['querystring'] = 'SELECT * FROM  barangay';
+		
+		if(!$this->mdldata->select($params))
+			return false;
+		else
+			return $this->mdldata->_mRecords;
 	}
 	
 	private function _getbarangayaccidentslist(){
