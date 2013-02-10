@@ -174,6 +174,7 @@ class Accident extends CI_Controller{
 		$this->load->library('form_validation');
 		$validation = $this->form_validation;
 		
+		$validation->set_rules('lst_id', 'ID', 'required');
 		$validation->set_rules('broadcastto', 'Checkbox', 'required');
 		$validation->set_rules('message', 'Message', 'required');
 		$validation->set_rules('smstype', 'SMS Type', 'required');
@@ -182,15 +183,16 @@ class Accident extends CI_Controller{
 			$this->_addaccident();
 		} else {
 			
-			$query = $this->_prepsql($this->input->post('broadcastto') ); // returns sql statement from selected recepient
+			$query = $this->_prepsql($this->input->post('broadcastto'), $this->input->post('lst_id')); // returns sql statement from selected recepient
 			$smstype = $this->input->post('smstype');
 			
 			$params = array(
 					'recepient'	=> $this->_getnumbers($query),
 					'message'	=> $this->input->post('message')
-			);
+						);
 			
 			$this->load->library('smsutil', $params);
+			
 			if( $this->smsutil->send($smstype) ) {
 				$mData = $this->smsutil->mData;
 				echo 'Sms Status:   ' . $mData->status_code . ' , ' .$mData->status_message;
@@ -202,22 +204,28 @@ class Accident extends CI_Controller{
 	}
 	
 	//returns sql statement
-	private function _prepsql($arrentity){
+	private function _prepsql($arrentity, $lstid){
 		$sqltemp = '';
+		$broadcasted = 0;
 		foreach ($arrentity as $table){
-			//call_debug($table);
+			
+			if($table == 'police'){
+				$sqltemp .= ' SELECT mobile FROM police UNION';
+				$broadcasted += 4;
+			}
 			if($table == 'rta'){
 				$sqltemp .= ' SELECT mobile FROM rta UNION';
+				$broadcasted += 2;
 			}
 			if($table == 'hospitals'){
 				$sqltemp .= ' SELECT mobile FROM hospitals UNION';
-			}
-			if($table == 'police'){
-				$sqltemp .= ' SELECT mobile FROM police UNION';
+				$broadcasted += 1;
 			}
 		}
+		
+		$this->_updatetobroadcasted($broadcasted, $lstid);
+		
 		$sql = substr_replace($sqltemp, "", -5);
-	
 		return $sql;
 	}
 	
@@ -245,6 +253,14 @@ class Accident extends CI_Controller{
 			}
 
 		return true;
+	}
+	
+	private function _updatetobroadcasted($value, $id){
+		//$value = $value & 1111;
+		$strqry = sprintf('UPDATE accidents SET broadcasted="%s" WHERE a_id="%d"', $value, $id);
+		
+		if($this->db->query($strqry))
+			return true;
 	}
 	
 }
