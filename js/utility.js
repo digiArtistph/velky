@@ -70,18 +70,19 @@ $(document).ready(function(){
 	});
 
 	$('#submitsms').submit(function(){
-
+		
 		if( validatemessage() & validatecheckbox() & validateradio() ){ 
 			var bc = [];
 			 $.each($('.checkboxsms:checked'), function() {
 				 bc.push($(this).val()); 
 			 });
 			 input2 = {
+					 'lst_id' : $('input[name=indexid]').val(),
 					'broadcastto' : bc,
 					'message' : $('textarea[name=message]').val(),
 					'smstype' : $('input[name=smstype]:checked', '#submitsms').val()
 			 		}
-
+			
 			$.post(base_url + "accident/accident/validatesendsms", input2)
 				.success(function(data) {
 					if(data == '1') {
