@@ -128,3 +128,14 @@ if(! function_exists('toggleBcrumbs')) {
 		return $val;	
 	}
 }
+
+if ( ! function_exists('paginate_helper')) {
+	function paginate_helper($links) {
+		$pattern = '/<li class="disabled"\>([\d])+<\/li>/';
+		$toreplace = '<li class="disabled"><a href="#">$1</a></li>';
+		
+		$page = preg_replace($pattern, $toreplace, $links);
+		
+		return $page;
+	}
+}
