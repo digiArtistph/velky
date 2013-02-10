@@ -72,9 +72,9 @@ class Accidents extends CI_Controller{
 	}	
 	
 	private function _weekaccidents(){
-		$data['accidents'] = $this->_getweekaccidentslist();
+		//$data['accidents'] = $this->_getweekaccidentslist();
 		//call_debug($data['accidents']);
-		$data['main_content'] = 'admin/accidents/accidents_view';
+		$data['main_content'] = 'admin/accidents/view_by_week';
 		$this->load->view('includes/template', $data);
 	}
 	
