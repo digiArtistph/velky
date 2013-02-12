@@ -24,7 +24,14 @@
         </div>
         
         <div class="control-group formSep">
-        	<label>Phone: </label>
+        	<label>Mobile No.: </label>
+        	<div class="controls">
+            	<input class="input-xlarge" type="text" name="mobile" value="<?php echo $office[0]->mobile;?>" /><span><?php echo form_error('mobile'); ?></span>
+            </div>
+        </div>
+        
+        <div class="control-group formSep">
+        	<label>Telephone No.: </label>
         	<div class="controls">
             	<input class="textboxC" type="text" name="phone" value="<?php echo $office[0]->phone;?>" /><span><?php echo form_error('phone'); ?></span>
             </div>
