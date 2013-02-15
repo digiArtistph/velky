@@ -1,0 +1,3 @@
+/* caller sending sms to the system*/
+
+(tamis)(\s)+([\w]+)(\2([\w\s]+))?
