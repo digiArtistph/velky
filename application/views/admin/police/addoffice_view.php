@@ -8,7 +8,7 @@
 <div class="row-fluid">
 	<div class="span6">
 
-		<?php echo form_open( base_url() . 'master/police/validatenewoffice', array('class' => 'form-vertical'));?>
+		<?php echo form_open( base_url() . 'master/police/validatenewoffice', array('class' => 'form-vertical', 'id' => 'velkyAddPolice'));?>
             	<div class="control-group formSep">
                 	<label>Station<span class="f_req">*</span></label>
                 	<div class="controls">
