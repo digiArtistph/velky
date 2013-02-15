@@ -79,9 +79,8 @@ class Accidents extends CI_Controller{
 	}
 	
 	private function _getweekaccidentslist(){
-		
 		$this->load->model('mdldata');
-		$params['querystring'] = 'SELECT * FROM accidents a LEFT JOIN accidenttype acct on acct.at_id = a.acdnttype WHERE BETWEEN acdntdate="2013-01-01" AND acdntdate="2013-01-02"';
+		$params['querystring'] = 'SELECT * FROM  accidents WHERE WEEKOFYEAR(acdntdate ) = ' . $i;
 		
 		if(!$this->mdldata->select($params))
 			return false;
@@ -90,16 +89,27 @@ class Accidents extends CI_Controller{
 	}	
 	
 	private function _monthaccidents(){
-		$data['accidents'] = $this->_getmonthaccidentslist();
+		$data['accident_january'] = $this->_getmonthaccidentslist(2);
+		$data['accident_february'] = $this->_getmonthaccidentslist(3);
+		$data['accident_march'] = $this->_getmonthaccidentslist(4);
+		$data['accident_april'] = $this->_getmonthaccidentslist(5);
+		$data['accident_may'] = $this->_getmonthaccidentslist(6);
+		$data['accident_june'] = $this->_getmonthaccidentslist(7);
+		$data['accident_july'] = $this->_getmonthaccidentslist(1);
+		$data['accident_august'] = $this->_getmonthaccidentslist(1);
+		$data['accident_september'] = $this->_getmonthaccidentslist(1);
+		$data['accident_october'] = $this->_getmonthaccidentslist(1);
+		$data['accident_november'] = $this->_getmonthaccidentslist(1);
+		$data['accident_december'] = $this->_getmonthaccidentslist(1);
 		//call_debug($data['accidents']);
-		$data['main_content'] = 'admin/accidents/accidents_view';
+		$data['main_content'] = 'admin/accidents/view_by_month';
 		$this->load->view('includes/template', $data);
 	}
 	
-	private function _getmonthaccidentslist(){
+	private function _getmonthaccidentslist($month){
 		
 		$this->load->model('mdldata');
-		$params['querystring'] = 'SELECT * FROM accidents a LEFT JOIN accidenttype acct on acct.at_id = a.acdnttype WHERE acdntdate ';
+		$params['querystring'] = 'SELECT * FROM  accidents WHERE DAYOFWEEK(acdntdate ) = ' . $month;
 		
 		if(!$this->mdldata->select($params))
 			return false;
@@ -108,16 +118,15 @@ class Accidents extends CI_Controller{
 	}	
 	
 	private function _yearaccidents(){
-		$data['accidents'] = $this->_getyearaccidentslist();
+		//$data['accidents'] = $this->_getyearaccidentslist();
 		//call_debug($data['accidents']);
-		$data['main_content'] = 'admin/accidents/accidents_view';
+		$data['main_content'] = 'admin/accidents/view_by_year';
 		$this->load->view('includes/template', $data);
 	}
 	
 	private function _getyearaccidentslist(){
-		
 		$this->load->model('mdldata');
-		$params['querystring'] = 'SELECT * FROM accidents WHERE acdntdate= ';
+		$params['querystring'] = 'SELECT * FROM  accidents WHERE YEAR(acdntdate ) = ' . $i;
 		
 		if(!$this->mdldata->select($params))
 			return false;

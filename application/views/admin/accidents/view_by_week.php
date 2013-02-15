@@ -3,14 +3,16 @@
     	<h2 class="heading">Select a Week</h2>
     </div>
 </div>
- <?php $attrib = array('id' => 'add_report', 'class' => 'form-vertical well'); echo form_open( base_url() . 'accident/accident/validateaddreport', $attrib);?>
+ <?php echo form_open( base_url() . 'reports/accidents/section/getweekaccidentslist');?>
 <div class="conrol-group formSep"><label>Week: </label>
         	<div class="controls">
+            <?php echo getDateArr("2013-02-11 08:00:00"); ?> 
                 <select class="select span7" name="week">
-                <?php for ($i=1;$i>60;$i++){?>
-                <option value="<?php echo $i;?>"><?php echo '$i';?></option>
-                <?php }?>
-                </select>
+					<?php $upper = 1; $lower = 53;  ?>
+					<?php for($i = $upper; $i <= $lower; $i++): ?>
+				<option value="<?php echo $i;?>" >Week <?php echo $i; ?></option>
+					<?php endfor; ?>
+		</select>
             </div>
         </div>
         <div class="controls">
