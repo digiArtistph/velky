@@ -34,7 +34,31 @@ class Inbox extends CI_Controller{
 		$params = array('recepient'	=> '1','message'	=> '1');
 		$this->load->library('smsutil', $params);
 		$this->smsutil->inbox();
-		
+		/*
+		if(!$msgs){
+			echo 'no message';
+		}else{
+			echo count($msgs)." inbox messages, as follows:"; 
+		}
+			foreach($msgs as $item){
+				echo "Message ID: ".$item[0]."";?></td>
+				echo "Sender: ".$item[1]."";?></td>
+						</tr>
+						<tr>
+							<td><?php echo "Message: ".$item[2]."";?></td>
+						</tr>
+						<tr>
+							<td><?php echo "Date & Time: ".$item[3]."";?></td>
+						</tr>
+						<tr>
+							<td><?php echo "MSISDN: ".$item[4].""; ?></td>
+						</tr>
+						<tr>
+							<td><?php echo "Referring message ID: ".$item[5]."";?></td>
+						</tr>
+						<?php endforeach;?>
+			<?php endif;?>
+			*/
 		$data['msgs'] = $this->smsutil->mData;
 		$data['main_content'] = 'admin/response/bulksms/view_inbox';
 		$this->load->view('includes/template', $data);

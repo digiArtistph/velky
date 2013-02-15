@@ -7,6 +7,8 @@ $(document).ready(function(){
 	//global vars
 	var form = $("#add_report");
 	
+	var stationInfo = $('.velkyStationValidation');
+	var mobileInfo = $('.velkyMobileNumValidation');
 	var details = $("textarea[name=details]");
 	var detailsInfo = $(".detailsInfo");
 	var caller = $("input[name=caller]");
@@ -100,11 +102,57 @@ $(document).ready(function(){
 	
 	
 	$('#velkyAddPolice').submit(function(){
-		alert('click function activated');
-		return false;
+		
+		if( validateMobile() & validateStation() ){
+			// valid add
+			return true;
+		}else{
+			// invalid
+			return false;
+		}
 	});
 	
-	//----functions declaration
+	//----function validation declaration
+	function validateMobile(){
+		var pattern = "/((09)[0-9]{9}),?/g";
+		var mobile = $('input[name=mobile]').val();
+		
+		if( pattern.match(mobile) ){
+			
+			mobileInfo.text("* Required");
+			mobileInfo.addClass("error");
+			return false;
+		}
+		//it's valid
+		else{
+			mobileInfo.removeClass("error");
+			mobileInfo.text("");
+			mobileInfo.removeClass("error");
+			return true;
+			
+		}
+	}
+	
+	function validateStation(){
+		var pattern = "/^[\d]+\b/";
+		var station = $('input[name=station]').val();
+		
+		if( pattern.match(station) ){
+			
+			stationInfo.text("* Required");
+			stationInfo.addClass("error");
+			return false;
+		}
+		//it's valid
+		else{
+			stationInfo.removeClass("error");
+			stationInfo.text("");
+			stationInfo.removeClass("error");
+			return true;
+			
+		}
+	}
+	
 	function _disableattr(param){
 		if(param == 1){
 			$(".checkboxsms").removeAttr('disabled');

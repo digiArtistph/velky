@@ -212,7 +212,6 @@ class Smsutil {
 		if($sms->get_inbox() == SUCCESS) {
 		
 			$this->mData = $sms->get_response();
-			return true;
 		} else {
 		
 			$this->mData = $sms->get_status();
