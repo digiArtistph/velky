@@ -43,10 +43,11 @@ class Smsutil {
 		//Bulk Configuration Variables
 		$this->_mConfig2 = array(
 				'header' => 'http://bulksms.vsms.net/eapi/submission/send_sms/2/2.0',
+				'header2' => 'http://bulksms.vsms.net:5567/eapi/reception/get_inbox/1/1.1?',
 				'username' => 'nebula',
 				'password' => '12345678'
 		);
-		
+		include(APPPATH.'libraries/bulksms.php');
 		//private $_mConfig1;
 		return true;
 	}
@@ -203,5 +204,18 @@ class Smsutil {
 		return true;
 	}
 	
-	
+	public function inbox(){
+		//call_debug(APPPATH.'libraries/');
+		
+		$sms = new bulksms;
+		
+		if($sms->get_inbox() == SUCCESS) {
+		
+			$this->mData = $sms->get_response();
+		} else {
+		
+			$this->mData = $sms->get_status();
+			return false;
+		}
+	}
 }

@@ -39,7 +39,8 @@ class Rta extends CI_Controller{
 		
 		$validation->set_rules('office', 'Office', 'required');
 		$validation->set_rules('address', 'Address', 'required');
-		$validation->set_rules('phone', 'Phone', 'required|alpha_dash');
+		$validation->set_rules('mobile', 'Mobile No.', 'required');
+		$validation->set_rules('phone', 'Telephone No.', 'required|alpha_dash');
 		
 		if($validation->run() ===  FALSE) {
 			$this->_addoffice();
@@ -52,6 +53,7 @@ class Rta extends CI_Controller{
 					'fields' => array(
 						'office' => $this->input->post('office'),
 						'address' => $this->input->post('address'),
+						'mobile' => $this->input->post('mobile'),
 						'phone' => $this->input->post('phone'),
 						'contactperson' => $this->input->post('contactperson')
 						)
@@ -72,7 +74,8 @@ class Rta extends CI_Controller{
 		
 		$validation->set_rules('id', 'id', 'required');
 		$validation->set_rules('office', 'Office', 'required');
-		$validation->set_rules('address', 'Address', 'required');
+		$validation->set_rules('mobile', 'Mobile No.', 'required');
+		$validation->set_rules('address', 'Telephone No.', 'required');
 		$validation->set_rules('phone', 'Phone', 'required|alpha_dash');
 		
 		if($validation->run() ===  FALSE) {

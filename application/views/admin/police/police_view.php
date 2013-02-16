@@ -13,7 +13,8 @@
 			<tr>
 		      <th>Station</th>
 		      <th>Address</th>
-		      <th>Phone</th>
+		      <th>Mobile No.</th>
+		      <th>Telephone No.</th>
 		      <!--<th>Contact Person</th>-->
 		      <th>Action</th>
 		    </tr>
@@ -23,7 +24,8 @@
 		<tbody>
 			<tr class="rowlink">
 				<td><?php echo $office->station;?></td>
-				<td><?php echo $office->address;?></td>
+				<td><?php echo $office->address;?></td> 
+				<td><?php echo $office->mobile;?></td>
 				<td><?php echo $office->phone;?></td>
 				<!--<td><?php echo $office->contactperson;?></td>-->
 				<td><a class="ext_disabled" href="<?php echo base_url() . 'master/police/section/editoffice/' . strencode($office->p_id);?>">Edit</a> | <a class="ext_disabled"  href="<?php echo base_url() . 'master/police/section/deleteoffice/' . strencode($office->p_id);?>">Delete</a></td>
