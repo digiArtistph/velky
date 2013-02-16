@@ -36,7 +36,7 @@ $(document).ready(function(){
 	
 	_disableattr(2);
 
-	//On Submitting
+	//submit form validation
 	$("#add_report").submit(function(){
 		//return true;
 		if( validatedetails() & validatecaller() & validateaccdate() & validaterptdate() ){
@@ -98,6 +98,13 @@ $(document).ready(function(){
 		}
 	});
 	
+	
+	$('#velkyAddPolice').submit(function(){
+		alert('click function activated');
+		return false;
+	});
+	
+	//----functions declaration
 	function _disableattr(param){
 		if(param == 1){
 			$(".checkboxsms").removeAttr('disabled');

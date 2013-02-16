@@ -7,7 +7,7 @@
 <div class="row-fluid">
 	<div class="span6">
 
-        <?php echo form_open( base_url() . 'master/police/validateupdateoffice', array('class' => 'form-vertical'));?>
+        <?php echo form_open( base_url() . 'master/police/validateupdateoffice', array('class' => 'form-vertical', 'id' => 'velkyUpdatePolice'));?>
         <input type="hidden" name="id" value=<?php echo strencode($office[0]->p_id);?> />
         <div class="control-group formSep"><label>Station<span class="f_req">*</span></label>
         	<div class="controls">
