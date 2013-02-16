@@ -32,9 +32,10 @@ class Inbox extends CI_Controller{
 	
 	private function _bulksms(){
 		$params = array('recepient'	=> '1','message'	=> '1');
+		/*
 		$this->load->library('smsutil', $params);
 		$this->smsutil->inbox();
-		/*
+		
 		if(!$msgs){
 			echo 'no message';
 		}else{
@@ -59,7 +60,7 @@ class Inbox extends CI_Controller{
 						<?php endforeach;?>
 			<?php endif;?>
 			*/
-		$data['msgs'] = $this->smsutil->mData;
+		$data['msgs'] = null;  //$this->smsutil->mData;
 		$data['main_content'] = 'admin/response/bulksms/view_inbox';
 		$this->load->view('includes/template', $data);
 	}
