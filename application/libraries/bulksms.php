@@ -29,8 +29,8 @@
 \************************************************************/
 
 // BulkSMS account details
-define('BULKSMS_USERNAME', 'nebula');
-define('BULKSMS_PASSWORD', '12345678');
+define('BULKSMS_USERNAME', 'tongbens01');
+define('BULKSMS_PASSWORD', 'tongbens0101');
 
 // You need to uncomment the relevant line for the country
 // your BulkSMS account is registered in. If you select
