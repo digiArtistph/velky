@@ -15,7 +15,7 @@ class Barangay extends CI_Controller{
 	
 	public function section(){
 		
-		$section = ($this->uri->segment(2)) ? $this->uri->segment(2) : '';
+		$section = ($this->uri->segment(4)) ? $this->uri->segment(4) : '';
 		
 		switch($section){
 			case 'barangay':

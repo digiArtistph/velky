@@ -15,7 +15,8 @@
                 <?php foreach ($types as $type):?>
                 <option value="<?php echo $type->at_id;?>"><?php echo $type->name;?></option>
                 <?php endforeach;?>
-                </select> <a style="margin-top:-2em;" class="ext_disabled btn btn-warning" href="<?php echo base_url() . 'master/accident_type/section/addaccident_type'?>">Add accident type</a>
+                </select> 
+                <a style="margin-top:-2em;" class="ext_disabled btn btn-warning" href="<?php echo base_url() . 'master/accident_type/section/addaccident_type'?>">Add new accident type</a>
             </div>
         </div>
         
@@ -27,6 +28,7 @@
                 <option value="<?php echo $barangays->b_id;?>"><?php echo $barangays->name;?></option>
                 <?php endforeach;?>
                 </select>
+                <a style="margin-top:-2em;" class="ext_disabled btn btn-warning" href="<?php echo base_url() . 'master/barangay/section/addbarangay'?>">Add new barangay</a>
             </div>
         </div>
         
