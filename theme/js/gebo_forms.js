@@ -2,7 +2,7 @@
 
 	$(document).ready(function() {
 		//* masked inputs
-		gebo_mask_input.init();
+		//gebo_mask_input.init();
 		//* datepicker
 		gebo_datepicker.init();
 		//* timepicker
@@ -16,9 +16,9 @@
         //* input spinners
 		gebo_spinners.init();
 		//* nice form elements
-        gebo_uniform.init();
+       	gebo_uniform.init();
 		//* jQuery UI sliders
-		gebo_sliders.init();
+		//gebo_sliders.init(); // causes not to load the entire page
 		//* animated jQuery UI progressbars
 		gebo_progressbars.init();
 		//* 2col multiselect
