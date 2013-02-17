@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Hospitalsambulances extends CI_Controller{
+class Ambulances extends CI_Controller{
 	
 	public function __construct() {
 		parent::__construct();
@@ -44,17 +44,18 @@ class Hospitalsambulances extends CI_Controller{
 			$this->_addambulance();
 		} else {
 			
-		$params= array (
-			'plateno' => $this->input->post('plateno'),
-			'capacity' => $this->input->post('capacity'),
-				'h_id' => $this->input->post('h_id')
-			
-		);
+			$params= array (
+				'plateno' => $this->input->post('plateno'),
+				'capacity' => $this->input->post('capacity'),
+					'h_id' => $this->input->post('h_id')
 				
-		$this->db->query("CALL sp_insert_ambulance(?,?,?)", $params);
-		
+			);
+				
+			$this->db->query("CALL sp_insert_ambulance(?,?,?)", $params);
+			
+			redirect(base_url("master/ambulances"));
 		}
-		redirect(base_url("reports/hospitalsambulances"));
+		
 	}
 
 	public function validateupdateambulance(){
@@ -76,14 +77,14 @@ class Hospitalsambulances extends CI_Controller{
 			if(!$this->db->query($strqry))
 				echo 'update failed';
 			else
-				redirect(base_url("reports/hospitalsambulances"));
+				redirect(base_url("master/ambulances"));
 		}
 	}
 	
 	private function _viewambulance(){
 		
 	
-		$data['hospitals_ambulances'] = $this->_getambulanceandhospital();
+		$data['ambulances'] = $this->_getambulanceandhospital();
 		$data['main_content'] = 'admin/ambulance/ambulance_view';
 			$this->load->view('includes/template', $data);
 	}
@@ -124,6 +125,7 @@ class Hospitalsambulances extends CI_Controller{
 		$data['types'] = $this->_gethospitallist();
 		$data['plateno'] = $this->_selectambulance($id);
 		
+		call_debug($data);
 		$data['main_content'] = 'admin/ambulance/editambulance_view';
 		$this->load->view('includes/template', $data);
 	}
