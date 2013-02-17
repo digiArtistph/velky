@@ -33,15 +33,28 @@ class Inbox extends CI_Controller{
 	private function _bulksms(){
 		$this->load->library('smsutil');
 		$this->smsutil->inbox();
-		$pattern = '/(tamis)(\s)+([\w]+)(\2([\w\s]+))?/';
-		
-		foreach ($this->smsutil->mData as $caller => key){
-			call_debug($this->smsutil->mData);
+		$pattern = '/([t|T]amis)(\s)+([\w]+)(\2([\w\s]+))?/';
+		$pattern2 = '/([r|R]ta|[p|P]olice|[h|H]osp|[h|H]ospital)\s+(confirmed|declined)/';
+		$temp = array();
+		$temp2 = array();
+		//call_debug($this->smsutil->mData);
+		//call_debug(preg_match($pattern2,$this->smsutil->mData[3][2]));
+		foreach ($this->smsutil->mData as $caller => $key){
+			
+			if(preg_match($pattern, $key[2])){
+				//$temp = $key;
+				array_push($temp, $key);
+			}
+			
+			if(preg_match($pattern2, $key[2])){
+				
+				array_push($temp2, $key);
+			}
 			
 		}
 		
-		
-		$data['msgs'] = null;  //;
+		$data['callers'] = $temp;
+		$data['entities'] = $temp2;
 		$data['main_content'] = 'admin/response/bulksms/view_inbox';
 		$this->load->view('includes/template', $data);
 	}
