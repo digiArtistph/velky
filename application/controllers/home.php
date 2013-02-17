@@ -35,6 +35,7 @@ class Home extends CI_Controller {
 	
 	public function test() {
 		
+		/*
 		$links = preg_split('/\//', uri_string());
 		$links2 = preg_split('/\//', "");
 		
@@ -42,6 +43,15 @@ class Home extends CI_Controller {
 		var_dump($links2);
 		
 		echo ">>> " . $this->uri->segment(1);
+		*/
+		
+		$str= '<div class="dataTables_paginate paging_bootstrap pagination"><ul>&nbsp;<a href="http://localhost/velky/master/barangay/section/" class="ext_disabled">&lt;</a><li><a href="http://localhost/velky/master/barangay/section/" class="ext_disabled">1</a></li><li class="disabled">2</li><li><a href="http://localhost/velky/master/barangay/section/20" class="ext_disabled">3</a></li><li><a href="http://localhost/velky/master/barangay/section/30" class="ext_disabled">4</a></li><li class="next"><a href="http://localhost/velky/master/barangay/section/20" class="ext_disabled">Next</a></li>&nbsp;<a href="http://localhost/velky/master/barangay/section/80" class="ext_disabled">Last ›</a></ul></div>';
+		$pattern = '/<li class="disabled"\>([\d])+<\/li>/';
+		$toreplace = '<li class="disabled"\><a href="#">$1</a></li>';
+		
+		$result = preg_replace($pattern, $toreplace, $str);
+		
+		call_debug($result);
 	}
 	
 }

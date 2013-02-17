@@ -1,0 +1,6 @@
+﻿SET @value = "32=>17,1=>2";
+SET @value = func_parse_product(@value, ',');
+SELECT @value;
+SELECT @func_parse_product_productID AS ID, @func_parse_product_productQTY AS QTY; -- @func_parse_product_productID AS ID, @func_parse_product_productQTY are constant. You must refer to these ones every time you insert them into your temporary table inside your sp.
+SET @value = func_parse_product(@value, ',');
+SELECT @func_parse_product_productID AS ID, @func_parse_product_productQTY AS QTY;

@@ -8,19 +8,21 @@
 	<div class="span6">
     <?php $attrib = array('id' => 'add_report', 'class' => 'form-vertical well'); echo form_open( base_url() . 'accident/accident/validateaddreport', $attrib);?>
     	  <input class="indexid" type="hidden" name="indexid" value="0" />
-        <div class="conrol-group formSep"><label>Accident Type</label>
+        <div class="conrol-group formSep"><label class="label label-inverse">Accident Type</label>
         	<div class="controls">
-                <select class="select span7" name="accidenttype">
+                <select class="select span7 chzn_a" name="accidenttype" data-placeholder="Select an accident type...">
+                	<option selected="selected" value=""></option>
                 <?php foreach ($types as $type):?>
                 <option value="<?php echo $type->at_id;?>"><?php echo $type->name;?></option>
                 <?php endforeach;?>
-                </select> <a class="ext_disabled btn btn-warning" href="<?php echo base_url() . 'master/accident_type/section/addaccident_type'?>">Add accident type</a>
+                </select> <a style="margin-top:-2em;" class="ext_disabled btn btn-warning" href="<?php echo base_url() . 'master/accident_type/section/addaccident_type'?>">Add accident type</a>
             </div>
         </div>
         
-        <div class="conrol-group formSep"><label>Barangay: </label>
+        <div class="conrol-group formSep"><label class="label label-inverse">Barangay: </label>
         	<div class="controls">
-                <select class="select span7" name="barangay">
+                <select class="select span7 chzn_a" data-placeholder="Select a barangay..." name="barangay">
+                <option value=""></option>
                 <?php foreach ($barangaytypes as $barangays):?>
                 <option value="<?php echo $barangays->b_id;?>"><?php echo $barangays->name;?></option>
                 <?php endforeach;?>
@@ -28,28 +30,28 @@
             </div>
         </div>
         
-        <div class="conrol-group formSep"><label>Details: </label>
+        <div class="conrol-group formSep"><label class="label label-inverse">Details: </label>
         	<div class="controls">
             <textarea class="span7" rows="4" cols="20" name="details"></textarea> <span class="detailsInfo"><?php echo form_error('details'); ?></span>
             </div>
         </div>
         
-        <div class="conrol-group formSep"><label>Caller: </label>
+        <div class="conrol-group formSep"><label class="label label-inverse">Caller: </label>
         	<div class="controls">
             <input class="input-xlarge" type="text" name="caller" /><span class="callersInfo"><?php echo form_error('caller'); ?></span>
             </div>
         </div>
         
         
-        <div class="conrol-group formSep"><label>Accident Date: </label>
+        <div class="conrol-group formSep"><label class="label label-inverse">Accident Date: </label>
         	<div class="controls">
-            <input class="input-xlarge" type="text" name="acdntdate" /><span class="accdatesInfo"><?php echo form_error('acdntdate'); ?></span>
+            <input id="dp1" class="input-xlarge" type="text" name="acdntdate" readonly="readonly" /><span class="accdatesInfo"><?php echo form_error('acdntdate'); ?></span>
             </div>
         </div>
         
-        <div class="conrol-group formSep"><label>Report Date: </label>
+        <div class="conrol-group formSep"><label class="label label-inverse">Report Date: </label>
         	<div class="controls">
-            <input class="input-xlarge" type="text" name="rptdate" /><span class="rptdatesInfo"><?php echo form_error('rptdate'); ?></span>
+            <input id="dp2" class="input-xlarge" type="text" name="rptdate" readonly="readonly" /><span class="rptdatesInfo"><?php echo form_error('rptdate'); ?></span>
             </div>
         </div>
 
@@ -76,7 +78,7 @@
             </div>
         </div>
         
-        <div class="control-group formSep"><label>Message</label>
+        <div class="control-group formSep"><label class="label label-inverse">Message</label>
         	<div class="controls">
             	<textarea rows="4" cols="20" name="message"  class="textarea"></textarea><span class="messagesInfo"><?php echo form_error('message'); ?></span>
             </div>
