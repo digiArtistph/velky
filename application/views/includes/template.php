@@ -64,6 +64,8 @@
                     <?php $this->load->view('includes/navigation'); ?>
                 </div>
                 
+                <?php $this->load->view('includes/notification'); ?>
+                
             </header>
             
             <!-- main content -->
