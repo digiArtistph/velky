@@ -31,36 +31,17 @@ class Inbox extends CI_Controller{
 	}
 	
 	private function _bulksms(){
-		$params = array('recepient'	=> '1','message'	=> '1');
-		/*
-		$this->load->library('smsutil', $params);
+		$this->load->library('smsutil');
 		$this->smsutil->inbox();
+		$pattern = '/(tamis)(\s)+([\w]+)(\2([\w\s]+))?/';
 		
-		if(!$msgs){
-			echo 'no message';
-		}else{
-			echo count($msgs)." inbox messages, as follows:"; 
+		foreach ($this->smsutil->mData as $caller => key){
+			call_debug($this->smsutil->mData);
+			
 		}
-			foreach($msgs as $item){
-				echo "Message ID: ".$item[0]."";?></td>
-				echo "Sender: ".$item[1]."";?></td>
-						</tr>
-						<tr>
-							<td><?php echo "Message: ".$item[2]."";?></td>
-						</tr>
-						<tr>
-							<td><?php echo "Date & Time: ".$item[3]."";?></td>
-						</tr>
-						<tr>
-							<td><?php echo "MSISDN: ".$item[4].""; ?></td>
-						</tr>
-						<tr>
-							<td><?php echo "Referring message ID: ".$item[5]."";?></td>
-						</tr>
-						<?php endforeach;?>
-			<?php endif;?>
-			*/
-		$data['msgs'] = null;  //$this->smsutil->mData;
+		
+		
+		$data['msgs'] = null;  //;
 		$data['main_content'] = 'admin/response/bulksms/view_inbox';
 		$this->load->view('includes/template', $data);
 	}

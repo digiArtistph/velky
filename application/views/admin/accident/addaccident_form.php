@@ -86,9 +86,9 @@
         	<div class="controls">
             <h4 class="heading">Choose which service</h4>
             <label for="isms" class="radio">
-            <input type="radio" name="smstype" value="isms" class="radiobtn"/>Multi Modem iSMS</label>
+            <input type="radio" name="smstype" value="1" class="radiobtn"/>Multi Modem iSMS</label>
             <label for="bulksms" class="radio">
-            	<input type="radio" name="smstype" value="bulk" class="radiobtn">Bulk SMS
+            	<input type="radio" name="smstype" value="2" class="radiobtn">Bulk SMS
             </label>
             <input class="btn btn-danger span12"  type="submit" value="Send Sms"/>
             </div>

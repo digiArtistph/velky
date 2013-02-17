@@ -1,38 +1,57 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ *
+ * Two way version of sms broadcasting
+ * 	1) using isms - local sms broadcast used only in the philippines
+ *  2) using bulksms - international sms broadcast
+ *
+ * @author Norberto 'junlax' Libago
+ * @since Wednesday, Feb. 13, 2013
+ * @version 1.0.1
+ *
+ * Instructions:
+ *	
+ * 		1) $this->smsutil->send($params)
+ * 					a) 
+ * 						Def'n: $params['sms_type'] = 1, selects isms
+ * 						$params = array(
+ * 								'recepient'	=> '09352689566,09268469576',
+ *								'sms_type' => '1',
+ *								'message'	=> 'tongbens gwapo'
+ * 								);
+ *						$this->smsutil->send($params)
+ *					b) 
+ * 						Def'n: $params['sms_type'] = 2, selects bulks
+ * 						$params = array(
+ * 								'recepient'	=> '+639352689566,+639268469576',
+ *								'sms_type' => '2',
+ *								'message'	=> 'tongbens gwapo'
+ * 								);
+ *						$this->smsutil->send($params)
+ *
+ *
+ *			// DATA:
+ *			$arr = $this->smsutil->mData; // returns array of data
+ *
+ */
+
 class Smsutil {
 
 	private $CI;
 	private $_mConfig1;
 	private $_mConfig2;
-	private $_mRecepient;
-	private  $_mMessage;
 	private $_mTo;
 	public $mData;
 
-	public function __construct($params = array()) {
+	public function __construct() {
 		
 		$this->CI =& get_instance();
 		$this->_mTo = array();
-		
-		if(!empty($params)) // config of sms function
-			$this->_configuration($params);
+		$this->_configuration();
 	}
 	
-	private function _configuration($params){
-		
-		if(empty($params))
-			return FALSE;
-		
-		if(!array_key_exists('recepient', $params))
-			return FALSE;
-		
-		if(!array_key_exists('message', $params)) // blank message
-			return FALSE;
-		
-		$this->_mRecepient = $params['recepient'];
-		$this->_mMessage = $params['message'];
-		
-		//iSMS Configuration Variables
+	private function _configuration(){
+		//isms
 		$this->_mConfig1 = array(
 				'ip_address' => '192.168.2.1',
 				'port' => '81',
@@ -44,40 +63,43 @@ class Smsutil {
 		$this->_mConfig2 = array(
 				'header' => 'http://bulksms.vsms.net/eapi/submission/send_sms/2/2.0',
 				'header2' => 'http://bulksms.vsms.net:5567/eapi/reception/get_inbox/1/1.1?',
-				'username' => 'nebula',
-				'password' => '12345678'
+				'username' => 'tongbens01',
+				'password' => 'tongbens0101'
 		);
-		include(APPPATH.'libraries/bulksms.php');
-		//private $_mConfig1;
-		return true;
+		
+		$this->mData = new STDClass();
+		$this->mData->status_code = null;
+		$this->mData->status_message = null;
+		$this->mData->status_description = null;
 	}
 	
 	//returns response of text
-	public function send($smsType){
+	public function send($params){
+		$param = array(
+				'number_type' => null,
+				'number' => $params['recepient']
+		);
 		
-		if($smsType == 'isms'){
-				$this->_exploderecepient(1);
-				$url = 'http://'. $this->_mConfig1['ip_address'] .':'. $this->_mConfig1['port'] .'/sendmsg?';
-				$data = 'user='. $this->_mConfig1['username'] .'&passwd='. $this->_mConfig1['password'] .'&cat=1&to='. $this->_mTo .'&text="' . $this->_mMessage. '"';
-				
-				$qry = $this->_requestiSMS($url, $data);
-				
-				if($this->_splistResponse($qry, 2))
-					return true;
-				else
-					return false;
-		}
+		if($params['sms_type'] == 1){
+			$param['number_type'] = 1;
+			$this->_exploderecepient($param);
 			
-		if ($smsType == 'bulk'){
-				$this->_exploderecepient(2);
-				$data = 'username='. $this->_mConfig2['username'] .'&password='. $this->_mConfig2['password'] . '&message='.urlencode($this->_mMessage).'&msisdn='. $this->_mTo;
-				
-				$qry = $this->__requestBulk($this->_mConfig2['header'], $data);
-				
-				if($this->_splistResponse($qry, 1))
-					return true;
-				else
-					return false;
+			$url = 'http://'. $this->_mConfig1['ip_address'] .':'. $this->_mConfig1['port'] .'/sendmsg?';
+			$data = 'user='. $this->_mConfig1['username'] .'&passwd='. $this->_mConfig1['password'] .'&cat=1&to='. $this->_mTo .'&text="' . $params['message']. '"';
+			
+			$qry = $this->_requestiSMS($url, $data);
+			
+			$this->_splistResponse($qry, 1);
+		
+		}
+		elseif ($params['sms_type'] == 2){
+			$param['number_type'] = 2;
+			$this->_exploderecepient($param);
+			
+			$data = 'username='. $this->_mConfig2['username'] .'&password='. $this->_mConfig2['password'] . '&message='.urlencode($params['message']).'&msisdn='. $this->_mTo;
+			$qry = $this->__requestBulk($this->_mConfig2['header'], $data);
+			
+			$this->_splistResponse($qry, 2);
 		}
 		
 		return true;
@@ -85,7 +107,7 @@ class Smsutil {
 	
 	private function _splistResponse($params, $type){
 		if($type == 1){
-			$param = explode('|', $params);
+			$param = explode(':', $params);
 			
 			if(!empty($param[0] )){
 				$this->mData->status_code = $param[0];
@@ -104,7 +126,7 @@ class Smsutil {
 				return false;
 			}
 		}else{
-			$param = explode(':', $params);
+			$param = explode('|', $params);
 			
 			if(!empty($param[0] )){
 				$this->mData->status_code = $param[0];
@@ -142,7 +164,7 @@ class Smsutil {
 		$response = @file_get_contents($url, false, $requesting);
 					
 			if ($response === false) {
-						$response = "Problem reading data from $url, No status returned\n";
+						$response = "200:Server Request not found";
 			}
 			
 		return $response;
@@ -163,7 +185,7 @@ class Smsutil {
 		
 			$response = @file_get_contents($url, false, $ctx);
 			if ($response === false) {
-				$response = "Problem reading data from $url, No status returned\n";
+				$response = "200|Server Request not found";
 			}
 		
 		return $response;
@@ -172,9 +194,9 @@ class Smsutil {
 	//preping numbers to format: 1) "09232222222", "09359999999" 2) "+639353333333","+639249999999"
 	private function _exploderecepient($param){
 		
-		if($param == 1){
+		if($param['number_type'] == 1){
 		
-			$recepients = explode(',', $this->_mRecepient);
+			$recepients = explode(',', $param['number']);
 			$temp2 = '"';
 			foreach ($recepients as $temp){
 				if ( (strlen($temp) == 11) || (strlen($temp) == 13) ){
@@ -186,9 +208,9 @@ class Smsutil {
 			}
 		}
 		
-		if($param == 2){
+		if($param['number_type'] == 2){
 			
-			$recepients = explode(',', $this->_mRecepient);
+			$recepients = explode(',', $param['number']);
 			$temp2 = '"';
 			foreach ($recepients as $temp){
 				$rest = substr($temp, 1);
@@ -205,17 +227,41 @@ class Smsutil {
 	}
 	
 	public function inbox(){
-		//call_debug(APPPATH.'libraries/');
+		$url = $this->_mConfig2['header2'];
 		
-		$sms = new bulksms;
+		$data = 'username='. $this->_mConfig2['username'] .'&password='. $this->_mConfig2['password'] .'&cat=1&last_retrieved_id=0';
 		
-		if($sms->get_inbox() == SUCCESS) {
-		
-			$this->mData = $sms->get_response();
-		} else {
-		
-			$this->mData = $sms->get_status();
-			return false;
+		$this->_splitArray($this->__requestInboxBulk($url, $data));
+	}
+	
+	private function _splitArray($qry){
+		$eachArray = preg_split('/(?<=t)\s(?=\d)|(?<=\|\d)\s/', $qry);
+		$this->mData = array();
+		foreach ($eachArray as $var){
+			$variable = explode('|', $var);
+			array_push($this->mData, $variable);
 		}
+	}
+	
+	private function __requestInboxBulk($url, $data, $optional_headers = 'Content-type:application/x-www-form-urlencoded'){
+	
+		$params = array('http'      => array(
+				'method'       => 'POST',
+				'content'      => $data,
+		));
+		
+		if ($optional_headers !== null) {
+			$params['http']['header'] = $optional_headers;
+		}
+	
+		$ctx = stream_context_create($params);
+	
+	
+		$response = @file_get_contents($url, false, $ctx);
+		if ($response === false) {
+			$response = "200|Server Request not found";
+		}
+	
+		return $response;
 	}
 }

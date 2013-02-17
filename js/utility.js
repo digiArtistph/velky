@@ -87,11 +87,7 @@ $(document).ready(function(){
 			
 			$.post(base_url + "accident/accident/validatesendsms", input2)
 				.success(function(data) {
-					if(data == '1') {
-						alert('Please fill up form correctly');
-					} else {
-						alert('Record Successfully saved');
-					}
+						alert('Broadcast Request: ' + data);
 			});		
 			return false;
 		}
