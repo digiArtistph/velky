@@ -61,6 +61,10 @@ if (! function_exists('getSection')) {
 			case 'reports':
 				$section = 'reports';
 				break;
+
+			case 'accident':
+				$section = 'accident';
+				break;
 				
 			default:
 				$section = 'home';
@@ -126,5 +130,16 @@ if(! function_exists('toggleBcrumbs')) {
 			$val = sprintf('<a class="ext_disabled" href="%s">%s</a>', base_url(strtolower($path)), $section); 
 
 		return $val;	
+	}
+}
+
+if ( ! function_exists('paginate_helper')) {
+	function paginate_helper($links) {
+		$pattern = '/<li class="disabled"\>([\d])+<\/li>/';
+		$toreplace = '<li class="disabled"><a href="#">$1</a></li>';
+		
+		$page = preg_replace($pattern, $toreplace, $links);
+		
+		return $page;
 	}
 }

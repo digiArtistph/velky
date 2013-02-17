@@ -29,8 +29,8 @@
 \************************************************************/
 
 // BulkSMS account details
-define('BULKSMS_USERNAME', 'nebula');
-define('BULKSMS_PASSWORD', '12345678');
+define('BULKSMS_USERNAME', 'tongbens01');
+define('BULKSMS_PASSWORD', 'tongbens0101');
 
 // You need to uncomment the relevant line for the country
 // your BulkSMS account is registered in. If you select
@@ -602,14 +602,14 @@ class bulksms {
 	* BulkSMS).
 	\************************************************************/
 	function get_batch_id() {
-		$this->_push_debug_msg("called get_batch_id, returned: ".$this->_batch_id);
+		$this->_push_debug_msg("called get_batch_id, returned: ". $this->_batch_id);
 		return $this->_batch_id;
 	}
 	/************************************************************\
 	* GET_RESPONSE: Get response from BulkSMS.
 	\************************************************************/
 	function get_response() {
-		$this->_push_debug_msg("called get_response, returned: ".$this->_response);
+		$this->_push_debug_msg("called get_response, returned: ". $this->_response);
 		return $this->_response;
 	}
 	/************************************************************\

@@ -15,9 +15,12 @@ class Barangay extends CI_Controller{
 	
 	public function section(){
 		
-		$section = ($this->uri->segment(4)) ? $this->uri->segment(4) : '';
+		$section = ($this->uri->segment(2)) ? $this->uri->segment(2) : '';
 		
 		switch($section){
+			case 'barangay':
+				$this->_viewbarangay();
+				break;
 			case 'addbarangay':
 				$this->_addbarangay();
 				break;
@@ -84,8 +87,35 @@ class Barangay extends CI_Controller{
 	}
 	
 	private function _viewbarangay(){
+		$this->load->library('pagination');
+
+		$config['base_url'] = base_url('master/barangay/section/');
+		$config['total_rows'] = $this->db->query("SELECT * FROM barangay")->num_rows();
+		$config['uri_segment'] = 4;
+		$config['per_page'] = 10;
+		$config['num_links'] = 2;
+		$config['cur_tag_open'] = '<li class="disabled">';
+		$config['cur_tag_close'] = '</li>';
+		$config['anchor_class'] = 'class="ext_disabled"';		
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['prev_link'] = '&lt;';
+		$config['prev_link'] = 'Previous';
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_tag_close'] = '</li>';
+		$config['next_link'] = 'Next';
+		$config['next_tag_open'] = '<li class="next">';
+		$config['next_tag_close'] = '</li>';
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		$config['full_tag_open'] = '<div class="dataTables_paginate paging_bootstrap pagination"><ul>';
+		$config['full_tag_close'] = '</ul></div>';
+		$this->pagination->initialize($config);
+		$data['paginate'] = paginate_helper($this->pagination->create_links());		
+		$data['barangay'] = $this->db->get('barangay', $config['per_page'], $this->uri->segment(4))->result(); //$this->_getbarangay();
 		
-		$data['barangay'] = $this->_getbarangay();
 		$data['main_content'] = 'admin/barangay/barangay_view';
 		$this->load->view('includes/template', $data);
 	}
