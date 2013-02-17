@@ -1,26 +1,44 @@
-<div>
-	<p><a href="<?php echo base_url() . 'reports/hospitalsambulances';?>">Back</a></p>
-	<h3>Edit Ambulance</h3>
-	<?php echo form_open( base_url() . 'reports/hospitalsambulances/validateupdateambulance' );?>
-		<input type="hidden" name="id" value=<?php echo strencode($plateno[0]->amb_id);?>>
-		<p><label>Hospitals: </label>
-			<select class="select" name="hospitals">
+<div class="row-fluid">
+	<div class="span12">
+    	<h2 class="heading">Edit Ambulace</h2>
+    </div>
+</div>
+
+<div class="row-fluid">
+	<div class="span6">
+    	
+        <?php echo form_open( base_url() . 'master/ambulances/validatenewambulance', array('class' => 'form-vertical'));?>
+        
+        <div class="control-group formSep"><label class="control-label">Hospital<span class="f_req">*</span></label>
+        	<div class="controls">
+            <select class="select" name="h_id">
+            	<option selected="selected" value="">Select a hospital...</option>
 			<?php foreach ($types as $type):?>
 			<option value="<?php echo $type->h_id;?>"><?php echo $type->name;?></option>
 			<?php endforeach;?>
 			</select>
-		<p><label class="label">Name: </label><input type="text" name="plateno" class="textbox" value="<?php echo $plateno[0]->plateno;?>" /><span><?php echo form_error('plateno'); ?></span></p>
-		<p><label class="label">Capacity: </label><input type="text" name="capacity" class="textbox" value="<?php echo $plateno[0]->capacity;?>" /><span><?php echo form_error('capacity'); ?></span></p>
-		<p><label class="label">Status: </label>
-			<?php if ($plateno[0]->active == 1):?>
-			<input type="radio" name="active" value="1" checked="checked" class="radiobutton"/><label class="label">Active</label>
-			<input type="radio" name="active" value="0" class="radiobutton"/><label class="label">InActive</label>
-			<?php else :?>
-			<input type="radio" name="active" value="1" class="radiobutton"/><label class="label">Active</label>
-			<input type="radio" name="active" value="0" checked="checked" class="radiobutton"/><label class="label">InActive</label>
-			<?php endif;?>
-			<span><?php echo form_error('active'); ?></span>
-		</p>
-		<p><input type="submit" value="Update Ambulance" class="button"/></p>
-	<?php echo form_close();?>
+            <span class="help-inline error"><?php echo form_error('h_id'); ?></span>
+            </div>
+        </div>
+        
+        <div class="control-group formSep">
+          <label class="control-label">Plate No.<span class="f_req">*</span></label>
+        	<div class="controls">
+            <input type="text" name="plateno" class="input-xlarge" value="<?php echo set_value('plateno');?>" /><span class="help-inline error"><?php echo form_error('plateno'); ?></span>
+            </div>
+        </div>
+        
+        
+        <div class="control-group formSep">
+          <label class="control-label">Capacity<span class="f_req">*</span></label>
+        	<div class="controls">
+            <input type="text" name="capacity" class="input-xlarge" value="<?php echo set_value('capacity');?>"/><span class="help-inline error"><?php echo form_error('capacity'); ?></span>
+            </div>
+        </div>
+        
+        <div class="control-group">
+        <input type="submit" value="Save" class="btn btn-gebo span3"/> <a class="ext_disabled btn" href="<?php echo base_url('master/ambulances');?>" >Cancel</a>
+        </div>
+        <?php echo form_close();?>
+    </div>
 </div>
