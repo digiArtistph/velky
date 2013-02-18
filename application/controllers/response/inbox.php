@@ -80,45 +80,7 @@ class Inbox extends CI_Controller{
 		//call_debug($data['newinbox']);
 		$this->load->view('admin/response/bulksms/view_newmessage', $data);
 	}
-	public function updateMessage(){
-		
-		$this->load->model('mdldata');
-		$this->load->library('smsutil');
-		$params['querystring'] = "SELECT * FROM inbox WHERE  repliable=0 AND status=1";
-		$this->mdldata->select($params);
-		$mData = $this->mdldata->_mRecords;
-		call_debug($params);
-		foreach ($mData as $var) {
-			
-			$pattern = '/([t|T]amis)(\s)+([\w]+)(\2([\w\s]+))?/';
-			$pattern2 = '/([r|R]ta|[p|P]olice|[h|H]osp|[h|H]ospital)\s+(confirmed|declined)/';
-			$params = array(
-					'recepient'	=> '+'. $var->number,
-					'sms_type' => 2,
-					'message'	=> $var->message
-			);
-			
-			
-			if(preg_match($pattern, $var->message) ){
-				call_debug('sfdfdsfsd');
-				$params['message'] = 'We have recieved your message. We will contact you as soon as possible';
-				$this->smsutil->send($params);
-				
-			}
-			
-			if(preg_match($pattern2, $var->message)){
-				call_debug('sfdfdsfsd');
-				$params['message'] = 'We have recieved your message. We will contact you as soon as possible';
-				$this->smsutil->send($params);
-			}
-			
-			else{
-				$params['message'] = '<entity><space><confirmed|declined>';
-				$this->smsutil->send($params);
-			}
-			$this->_updateAutorecieve($var->id);
-		}
-	}
+
 	
 	private function _updateAutorecieve($id){
 		$this->load->model('mdldata');
@@ -172,6 +134,22 @@ class Inbox extends CI_Controller{
 		echo $count;
 	}
 	
+	public function autoResponse(){
+		
+		foreach($this->_getInboxdb() as $key){
+			$pattern = '/([r|R]ta|[p|P]olice|[h|H]osp|[h|H]ospital)\s+(confirmed|declined)/';
+				
+			if(preg_match($pattern, $key->message)){
+				//send message
+			}
+			
+			elseif(preg_match($pattern, $key->message)){
+				//send message
+			}
+		}
+		
+	}
+	
 	private function _getLastmsgId(){
 		$this->load->model('mdldata');
 		$params['table']['name'] = 'inbox';
@@ -197,6 +175,13 @@ class Inbox extends CI_Controller{
 		return $this->mdldata->_mRecords;
 	}
 	
+	private function _repliable(){
+		$this->load->model('mdldata');
+		$params['querystring'] = "SELECT * FROM inbox WHERE status='0' AND repliable='0'";
+		$this->mdldata->select($params);
+		return $this->mdldata->_mRecords;
+	}
+	
 	private function _getInboxCount(){
 		$this->load->model('mdldata');
 		$params['querystring'] = "SELECT * FROM inbox WHERE status='0'";
@@ -217,7 +202,8 @@ class Inbox extends CI_Controller{
 		$this->load->model('mdldata');
 		$params['querystring'] = 'UPDATE inbox SET status="1" WHERE id=' . $id;
 		$this->mdldata->update($params);
-		$this->_bulksms();
 	}
+	
+
 }
 ?>
