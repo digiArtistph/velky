@@ -173,7 +173,16 @@ class Inbox extends CI_Controller{
 					'sms_type' => '2',
 					'message'	=> $key[2]
 						);
-			
+			  $pattern = '/([t|T]amis)(\s)+([\w]+)(\2([\w\s]+))?/';
+			  $pattern2 = '/([r|R]ta|[p|P]olice|[h|H]osp|[h|H]ospital)\s+(confirmed|declined)/';
+				
+			  if(preg_match($pattern, $key[2])){
+			  	$params['message'] = 'We received your report message. We will contact you soon.';
+			  }
+			  	
+			  if(preg_match($pattern2, $key[2])){
+			  	$params['message'] = 'Thank for your reponse. We will assist you on your respond.';
+			  }
 				$this->smsutil->send($params);
 			}
 		}else{
