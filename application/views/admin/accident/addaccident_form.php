@@ -47,13 +47,13 @@
         
         <div class="conrol-group formSep"><label class="label label-inverse">Accident Date: </label>
         	<div class="controls">
-            <input id="dp1" class="input-xlarge" type="text" name="acdntdate" readonly="readonly" /><span class="accdatesInfo"><?php echo form_error('acdntdate'); ?></span>
+            <input id="dp1" class="input-xlarge" type="text" name="acdntdate" readonly="readonly" data-date-format="yyyy-mm-dd" /><span class="accdatesInfo"><?php echo form_error('acdntdate'); ?></span>
             </div>
         </div>
         
         <div class="conrol-group formSep"><label class="label label-inverse">Report Date: </label>
         	<div class="controls">
-            <input id="dp2" class="input-xlarge" type="text" name="rptdate" readonly="readonly" /><span class="rptdatesInfo"><?php echo form_error('rptdate'); ?></span>
+            <input id="dp2" class="input-xlarge" type="text" name="rptdate" readonly="readonly" data-date-format="yyyy-mm-dd" /><span class="rptdatesInfo"><?php echo form_error('rptdate'); ?></span>
             </div>
         </div>
 

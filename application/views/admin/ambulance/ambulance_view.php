@@ -1,38 +1,35 @@
+<div class="row-fluid">
+    	<div class="span12">
+        	<h2 class="heading">Add New Ambulance</h2>
+			 <a class="ext_disabled btn" href="<?php echo base_url() . 'master/ambulances/section/addambulance';?>" >Add New Ambulance</a>
+        </div>
+</div>
+<p>&nbsp;</p>
 
-<p> <a href="<?php echo base_url() . 'reports/hospitalsambulances/section/addambulance';?>" >Add Ambulance</a></p>
-
-<div>
-	<h3>Ambulance</h3>
-	<table>
+<div class="row-fluid">
+	<div class="span8">
+	<table class="table table-striped" data-provides="rowlink">
 		<thead>
 			<tr>
-			  <th>Hospitals</th>
-		      <th>Plate No</th>
+		      <th>Hospital</th>
+		      <th>Plate No.</th>
 		      <th>Capacity</th>
-		      <th>Status</th>
+		      <!--<th>Status</th>-->
 		      <th>Action</th>
 		    </tr>
 		 </thead>
-		
-		 <?php foreach ($hospitals_ambulances as $name):?>
 		 
-		 <tbody>
-		 	<tr>
-		 		<td><?php echo $name->name;?></td>
+		<?php foreach ($ambulances as $name):?>
+		<tbody>
+			<tr class="rowlink">
+				<td><?php echo $name->name;?></td>
 				<td><?php echo $name->plateno;?></td>
 				<td><?php echo $name->capacity;?></td>
-				<td>
-				<?php if ($name->active == 1):?>
-				<?php echo 'Active';?>
-				<?php else :?>
-				<?php echo 'Inactive'; ?>
-				</td>
-				<?php endif;?>
-				<td><a href="<?php echo base_url() . 'reports/hospitalsambulances/section/editambulance/' . strencode($name->amb_id);?>">Edit</a> |<a href="<?php echo base_url() . 'reports/hospitalsambulances/section/deleteambulance/' . strencode($name->amb_id);?>">Delete</a></td>
+				
+				<td><a class="ext_disabled" href="<?php echo base_url() . 'master/ambulances/section/editambulance/' . strencode($name->amb_id);?>">Edit</a> | <a class="ext_disabled" href="<?php echo base_url() . 'master/ambulances/section/deleteambulance/' . strencode($name->amb_id);?>">Delete</a></td>
 			</tr>
 		</tbody>
-		
 		<?php endforeach;?>
 	</table>
-	
+	</div>
 </div>
