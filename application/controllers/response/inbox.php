@@ -140,49 +140,43 @@ class Inbox extends CI_Controller{
 		
 		$oldMessage = $this->_getOldInbox(0);
 		$old = end($oldMessage);
-		$data['oldinbox'] = $this->_getInbox();
-		
+		$this->load->model('mdldata');
 		if( $old[0] != $this->_getLastmsgId() ){
-			if($this->_getInboxCount() != 0){
-				$body = $this->_repliable();
-				foreach( $body as $key){
+			
+			$newinput = $this->_getOldInbox($this->_getLastmsgId());
+			unset($newinput[0]);
+			
+			foreach ($newinput as $key){
 				
-					$pattern = '/([t|T]amis)(\s)+([\w]+)(\2([\w\s]+))?/';
-					$pattern2 = '/([r|R]ta|[p|P]olice|[h|H]osp|[h|H]ospital)\s+(confirmed|declined)/';
+				$key[0] = str_replace(array(' ', "\n", "\t", "\r"), '', $key[0]);
 				
-					if(preg_match($pattern, $key->message)){
-						$num =  substr($key->number, 2);
-							
-						$params = array(
-								'recepient'	=> '0' . $num,
-								'sms_type' => '2',
-								'message'	=> 'We have recieved your report message, We will contact you as soon as possible .'
+				$params = array(
+						'table' => array('name' => 'inbox'),
+						'fields' => array(
+								'message_id ' => $key[0],
+								'number' => $key[1],
+								'message' => $key[2],
+								'txtdate' => $key[3],
+								'status' => 1,
+								'repliable' => 1
+								)
 						);
-				
-						$this->smsutil->send($params);
-							
-					}
-				
-					if(preg_match($pattern2, $key->message)){
-						$num =  substr($key->number, 2);
-							
-						$params = array(
-								'recepient'	=> '0' . $num,
-								'sms_type' => '2',
-								'message'	=> 'We have recieved your confirmation message, We will contact you for further support.'
+		      $this->mdldata->reset();
+			  $this->mdldata->insert($params);
+			  
+			  $key[1] = substr($key[1], 2);
+			  $key[1] = '0' .  $key[1];
+			  
+			  
+			  $params = array(
+					'recepient'	=> $key[1],
+					'sms_type' => '2',
+					'message'	=> $key[2]
 						);
-				
-						$this->smsutil->send($params);
-							
-					}
-				
-					$this->_updateAutorecieve($key->id);
-				}
-			}else{
-				$newMessage = $this->_getOldInbox( $this->_getLastmsgId() );
-				$this->_insertInbox($newMessage);
-				
+			
+				$this->smsutil->send($params);
 			}
+		}else{
 			
 		}
 		
@@ -191,6 +185,7 @@ class Inbox extends CI_Controller{
 	private function _getLastmsgId(){
 		$this->load->model('mdldata');
 		$params['table']['name'] = 'inbox';
+		$params['table']['order_by'] = 'id:asc';
 		$this->mdldata->select($params);
 		$lstid = end($this->mdldata->_mRecords);
 		$lstid->message_id;
