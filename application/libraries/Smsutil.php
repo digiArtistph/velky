@@ -75,6 +75,7 @@ class Smsutil {
 	
 	//returns response of text
 	public function send($params){
+		call_debug('sdf');
 		$param = array(
 				'number_type' => null,
 				'number' => $params['recepient']
@@ -226,10 +227,10 @@ class Smsutil {
 		return true;
 	}
 	
-	public function inbox(){
+	public function inbox($id){
 		$url = $this->_mConfig2['header2'];
 		
-		$data = 'username='. $this->_mConfig2['username'] .'&password='. $this->_mConfig2['password'] .'&cat=1&last_retrieved_id=0';
+		$data = 'username='. $this->_mConfig2['username'] .'&password='. $this->_mConfig2['password'] .'&cat=1&last_retrieved_id=' . $id;
 		
 		$this->_splitArray($this->__requestInboxBulk($url, $data));
 	}
