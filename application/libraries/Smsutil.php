@@ -68,9 +68,9 @@ class Smsutil {
 		);
 		
 		$this->mData = new STDClass();
-		$this->mData->status_code = null;
-		$this->mData->status_message = null;
-		$this->mData->status_description = null;
+		$this->mData->status_code = '';
+		$this->mData->status_message = '';
+		$this->mData->status_description = '';
 	}
 	
 	//returns response of text
@@ -100,6 +100,7 @@ class Smsutil {
 			$qry = $this->__requestBulk($this->_mConfig2['header'], $data);
 			
 			$this->_splistResponse($qry, 2);
+			
 		}
 		
 		return true;
