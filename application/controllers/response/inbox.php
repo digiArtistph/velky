@@ -84,7 +84,7 @@ class Inbox extends CI_Controller{
 	
 	private function _updateAutorecieve($id){
 		$this->load->model('mdldata');
-		$params['querystring'] = 'UPDATE  inbox SET repliable="1" WHERE id=' . $id;
+		$params['querystring'] = 'UPDATE  inbox SET repliable="1", status="1" WHERE id=' . $id;
 		$this->mdldata->update($params);
 	}
 	
@@ -135,17 +135,55 @@ class Inbox extends CI_Controller{
 	}
 	
 	public function autoResponse(){
+		$this->load->library('Smsutil');
+		$body = $this->_repliable();
 		
-		foreach($this->_getInboxdb() as $key){
-			$pattern = '/([r|R]ta|[p|P]olice|[h|H]osp|[h|H]ospital)\s+(confirmed|declined)/';
+		$oldMessage = $this->_getOldInbox(0);
+		$old = end($oldMessage);
+		$data['oldinbox'] = $this->_getInbox();
+		
+		if( $old[0] != $this->_getLastmsgId() ){
+			if($this->_getInboxCount() != 0){
+				$body = $this->_repliable();
+				foreach( $body as $key){
 				
-			if(preg_match($pattern, $key->message)){
-				//send message
+					$pattern = '/([t|T]amis)(\s)+([\w]+)(\2([\w\s]+))?/';
+					$pattern2 = '/([r|R]ta|[p|P]olice|[h|H]osp|[h|H]ospital)\s+(confirmed|declined)/';
+				
+					if(preg_match($pattern, $key->message)){
+						$num =  substr($key->number, 2);
+							
+						$params = array(
+								'recepient'	=> '0' . $num,
+								'sms_type' => '2',
+								'message'	=> 'We have recieved your report message, We will contact you as soon as possible .'
+						);
+				
+						$this->smsutil->send($params);
+							
+					}
+				
+					if(preg_match($pattern2, $key->message)){
+						$num =  substr($key->number, 2);
+							
+						$params = array(
+								'recepient'	=> '0' . $num,
+								'sms_type' => '2',
+								'message'	=> 'We have recieved your confirmation message, We will contact you for further support.'
+						);
+				
+						$this->smsutil->send($params);
+							
+					}
+				
+					$this->_updateAutorecieve($key->id);
+				}
+			}else{
+				$newMessage = $this->_getOldInbox( $this->_getLastmsgId() );
+				$this->_insertInbox($newMessage);
+				
 			}
 			
-			elseif(preg_match($pattern, $key->message)){
-				//send message
-			}
 		}
 		
 	}

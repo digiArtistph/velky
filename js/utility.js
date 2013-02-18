@@ -81,6 +81,14 @@ $(document).ready(function(){
 		});
 	}, 2000);
 	
+	setInterval(function() { 
+		$.post(base_url + "response/inbox/autoResponse")
+		.success(function(data) {
+			
+		});
+	}, 2000);
+	
+	
 	$("#add_report").submit(function(){
 		//return true;
 		if( validatedetails() & validatecaller() & validateaccdate() & validaterptdate() ){

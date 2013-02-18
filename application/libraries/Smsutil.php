@@ -75,7 +75,6 @@ class Smsutil {
 	
 	//returns response of text
 	public function send($params){
-		call_debug('sdf');
 		$param = array(
 				'number_type' => null,
 				'number' => $params['recepient']
