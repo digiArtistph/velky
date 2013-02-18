@@ -4,8 +4,8 @@
         <ul class="nav user_menu pull-right">
                                 <li class="hidden-phone hidden-tablet">
                                     <div class="nb_boxes clearfix velkyNotifications">
-                                        <a id="sticky_a" data-toggle="modal" data-backdrop="static" href="#accidentNewMsgs" class="label ttip_b" title="New Accident Reports">25 <i class="splashy-map"></i></a>
-                                        <a data-toggle="modal" data-backdrop="static" href="#entitiesResponses" class="label ttip_b" title="New Responses">10 <i class="splashy-comments_reply"></i></a>
+                                        <a id="sticky_a" data-toggle="modal" data-backdrop="static" href="#accidentNewMsgs" class="label ttip_b caller" title="New Accident Reports">0 <i class="splashy-map"></i></a>
+                                        <a data-toggle="modal" data-backdrop="static" href="#entitiesResponses" class="label ttip_b entity" title="New Responses">0 <i class="splashy-comments_reply"></i></a>
                                     </div>
                                 </li>
             <li class="divider-vertical hidden-phone hidden-tablet"></li>

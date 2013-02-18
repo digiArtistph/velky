@@ -55,23 +55,31 @@ class Inbox extends CI_Controller{
 	}
 	
 	public function viewNewMessage(){
-		$oldMessage = $this->_getOldInbox(0);
-		$old = end($oldMessage);
-		$data['oldinbox'] = $this->_getInbox();
-		
-		if( $old[0] != $this->_getLastmsgId() ){
-			if($this->_getInboxCount() != 0){
-				$data['newinbox'] = $this->_getInboxdb();
-			}else{
-				$newMessage = $this->_getOldInbox( $this->_getLastmsgId() );
-				$this->_insertInbox($newMessage);
-				$data['newinbox'] = $this->_getInboxdb();
+		$data['newinbox'] = array();
+		foreach($this->_getInboxdb() as $key){
+			$pattern = '/([t|T]amis)(\s)+([\w]+)(\2([\w\s]+))?/';
+			
+			if(preg_match($pattern, $key->message)){
+				array_push($data['newinbox'], $key);
 			}
 		}
-		$data['v'] = '';
+		
+		//call_debug($data['newinbox']);
 		$this->load->view('admin/response/bulksms/view_newmessage', $data);
 	}
+	public function viewEntityMessage(){
+		$data['newinbox'] = array();
+		foreach($this->_getInboxdb() as $key){
+			$pattern = '/([r|R]ta|[p|P]olice|[h|H]osp|[h|H]ospital)\s+(confirmed|declined)/';
+				
+			if(preg_match($pattern, $key->message)){
+				array_push($data['newinbox'], $key);
+			}
+		}
 	
+		//call_debug($data['newinbox']);
+		$this->load->view('admin/response/bulksms/view_newmessage', $data);
+	}
 	public function updateMessage(){
 		
 		$this->load->model('mdldata');
@@ -136,6 +144,32 @@ class Inbox extends CI_Controller{
 				$this->mdldata->reset();
 				$this->mdldata->insert($params);
 		}
+	}
+	
+	public function getCallerCount(){
+		$count = 0;
+		foreach($this->_getInboxdb() as $key){
+			$pattern = '/([t|T]amis)(\s)+([\w]+)(\2([\w\s]+))?/';
+			
+			if(preg_match($pattern, $key->message)){
+					$count++;
+			}
+		}
+		
+		echo $count;
+	}
+	
+	public function getResponseCount(){
+		$count = 0;
+		foreach($this->_getInboxdb() as $key){
+			$pattern = '/([r|R]ta|[p|P]olice|[h|H]osp|[h|H]ospital)\s+(confirmed|declined)/';
+			
+			if(preg_match($pattern, $key->message)){
+					$count++;
+			}
+		}
+		
+		echo $count;
 	}
 	
 	private function _getLastmsgId(){

@@ -39,9 +39,10 @@ $(document).ready(function(){
 	_disableattr(2);
 
 	//submit form validation
-	$('.modal-body table thead').empty().html('<tr><th>Message Id</th><th>Number</th><th>Message</th><th>Date</th></tr>');
 	
-	$('#sticky_a').click(function(){
+	
+	$('.caller').click(function(){
+		$('.modal-body table thead').empty().html('<tr><th>Message Id</th><th>Number</th><th>Message</th><th>Date</th></tr>');
 		$('.modal-body table tbody').empty();
 		$('.modal-body table tbody').append('<p>Gathering Data</p>');
 		$.post(base_url + "response/inbox/viewNewMessage")
@@ -52,9 +53,31 @@ $(document).ready(function(){
 		
 	});
 	
-	//setInterval(function() { 
-	//	$.post(base_url + "response/inbox/updateMessage");
-	//}, 5000);
+	$('.entity').click(function(){
+		$('.modal-body table thead').empty().html('<tr><th>Message Id</th><th>Number</th><th>Message</th><th>Date</th></tr>');
+		$('.modal-body table tbody').empty();
+		$('.modal-body table tbody').append('<p>Gathering Data</p>');
+		$.post(base_url + "response/inbox/viewEntityMessage")
+		.success(function(data) {
+			$('.modal-body table tbody').empty().html(data);
+		});
+		
+		
+	});
+	
+	setInterval(function() { 
+		$.post(base_url + "response/inbox/getCallerCount")
+		.success(function(data) {
+			$('.caller').empty().append(data + '<i class="splashy-map"></i>');
+		});
+	}, 5000);
+	
+	setInterval(function() { 
+		$.post(base_url + "response/inbox/getResponseCount")
+		.success(function(data) {
+			$('.entity').empty().append(data + '<i class="splashy-comments_reply"></i>');
+		});
+	}, 5000);
 	
 	$("#add_report").submit(function(){
 		//return true;
