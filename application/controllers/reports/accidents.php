@@ -42,7 +42,8 @@ class Accidents extends CI_Controller{
 	}
 	
 	private function _accidentsview(){
-		$data['main_content'] = 'admin/accidents/views';
+		// $data['main_content'] = 'admin/accidents/views';
+		$data['main_content'] = 'admin/accidents/accidents_filter_views';
 		$this->load->view('includes/template', $data);
 	}
 	
@@ -152,5 +153,15 @@ class Accidents extends CI_Controller{
 			return false;
 		else
 			return $this->mdldata->_mRecords;
-	}	
+	}
+	
+	public function accidentfilterbydate() {
+		$from = $this->input->post('acdntdatefrom');
+		$to = $this->input->post('acdntdateto');
+		
+		$strQry = sprintf("SELECT a.a_id, at.name AS accident, b.name AS barangay, a.acdntdate, a.stamp, DAYNAME(a.stamp) AS `day` FROM ((accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id) LEFT JOIN barangay b ON a.brgy=b.b_id) WHERE a.stamp BETWEEN '%s' AND '%s'", $from, $to);
+		
+		$this->load->view('admin/accident/ajx_accident_filter_by_date');
+	}
+	
 }

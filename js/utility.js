@@ -81,12 +81,12 @@ $(document).ready(function(){
 		});
 	}, 2000);
 	
-	setInterval(function() { 
+	/*setInterval(function() { 
 		$.post(base_url + "response/inbox/autoResponse")
 		.success(function(data) {
 			
 		});
-	}, 2000);
+	}, 2000);*/
 	
 	
 	$("#add_report").submit(function(){
@@ -327,4 +327,14 @@ $(document).ready(function(){
 		}
 	}
 	
+	
+	/*  reports filtering AJAX calls */
+	$('.velkyreportfilter.velkybydate').click(function(){
+		$.post({}
+			
+		);
+	});
+	function accidentfilterbydate() {
+		
+	}
 });

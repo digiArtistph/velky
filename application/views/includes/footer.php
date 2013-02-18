@@ -44,6 +44,48 @@
     <!-- calendar functions -->
     <script src="<?php echo base_url('theme/js/gebo_calendar.js'); ?>"></script>
 	
+    <!-- extended form elements -->
+    <script src="<?php echo base_url('theme/lib/jquery-ui/jquery-ui-1.8.23.custom.min.js'); ?>"></script>
+    <!-- touch events for jquery ui-->
+    <script src="<?php echo base_url('theme/js/forms/jquery.ui.touch-punch.min.js'); ?>"></script>
+    <!-- masked inputs -->
+    <script src="<?php echo base_url('theme/js/forms/jquery.inputmask.min.js'); ?>"></script>
+    <!-- autosize textareas -->
+    <script src="<?php echo base_url('theme/js/forms/jquery.autosize.min.js'); ?>"></script>
+    <!-- textarea limiter/counter -->
+    <script src="<?php echo base_url('theme/js/forms/jquery.counter.min.js'); ?>"></script>
+    <!-- datepicker -->
+    <script src="<?php echo base_url('theme/lib/datepicker/bootstrap-datepicker.min.js'); ?>"></script>
+    <!-- timepicker -->
+    <script src="<?php echo base_url('theme/lib/datepicker/bootstrap-timepicker.min.js'); ?>"></script>
+    <!-- tag handler -->
+    <script src="<?php echo base_url('theme/lib/tag_handler/jquery.taghandler.min.js'); ?>"></script>
+    <!-- input spinners -->
+    <script src="<?php echo base_url('theme/js/forms/jquery.spinners.min.js'); ?>"></script>
+    <!-- styled form elements -->
+    <script src="<?php echo base_url('theme/lib/uniform/jquery.uniform.min.js'); ?>"></script>
+    <!-- animated progressbars -->
+    <script src="<?php echo base_url('theme/js/forms/jquery.progressbar.anim.js'); ?>"></script>
+    <!-- multiselect -->
+    <script src="<?php echo base_url('theme/lib/multi-select/js/jquery.multi-select.js'); ?>"></script>
+    <script src="<?php echo base_url('theme/lib/multi-select/js/jquery.quicksearch.js'); ?>"></script>
+    <!-- enhanced select (chosen) -->
+    <script src="<?php echo base_url('theme/lib/chosen/chosen.jquery.min.js'); ?>"></script>
+    <!-- TinyMce WYSIWG editor -->
+    <script src="<?php echo base_url('theme/lib/tiny_mce/jquery.tinymce.js'); ?>"></script>
+    <!-- plupload and all it's runtimes and the jQuery queue widget (attachments) -->
+    <script type="text/javascript" src="<?php echo base_url('theme/lib/plupload/js/plupload.full.js'); ?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('theme/lib/plupload/js/jquery.plupload.queue/jquery.plupload.queue.full.js'); ?>"></script>
+    <!-- colorpicker -->
+    <script src="<?php echo base_url('theme/lib/colorpicker/bootstrap-colorpicker.js'); ?>"></script>
+    <!-- password strength checker -->
+    <script src="<?php echo base_url('theme/lib/complexify/jquery.complexify.min.js'); ?>"></script>
+    <!-- form functions -->
+    <script src="<?php echo base_url('theme/js/gebo_forms.js'); ?>"></script>
+    
+    <!-- extended form elements end here -->
+            
+    
     <script type="text/javascript" src="<?php echo base_url('js/utility.js'); ?>"></script>
     
     <script>

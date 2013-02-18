@@ -16,7 +16,10 @@
         <link rel="stylesheet" href="<?php echo base_url('theme/lib/chosen/chosen.css'); ?>" />
     <!-- colorbox -->
         <link rel="stylesheet" href="<?php echo base_url('theme/lib/colorbox/colorbox.css'); ?>" />
-        
+    
+    <!-- datepicker -->
+        <link rel="stylesheet" href="<?php echo base_url('theme/lib/datepicker/datepicker.css'); ?>" />
+            
     <!-- main styles -->
         <link rel="stylesheet" href="<?php echo base_url('theme/css/style.css'); ?>" />
         

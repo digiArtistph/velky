@@ -5,4 +5,4 @@
 SELECT IF(ASCII(COUNT(a.acdntdate)), COUNT(a.acdntdate), 0) AS `count`  FROM accidents a WHERE a.acdntdate=CURDATE(); -- SIDEBAR INFO  TODATE
 #SELECT IF(ASCII(COUNT(a.acdntdate)),COUNT(a.acdntdate), 0) AS `count`  FROM accidents a WHERE stamp BETWEEN DATE_SUB(a.stamp, INTERVAL 1 WEEK) AND CURDATE(); -- SIDEBAR INFO A WEEK PRIOR
 #SELECT IF(ASCII(COUNT(a.acdntdate)), COUNT(a.acdntdate), 0) AS `count`  FROM accidents a WHERE stamp BETWEEN DATE_SUB(a.stamp, INTERVAL 2 MONTH) AND CURDATE(); -- SIDEBAR INFO A WEEK PRIOR
-
+SELECT a.a_id, at.name AS accident, b.name AS barangay, a.acdntdate, a.stamp, DAYNAME(a.stamp) AS `day` FROM ((accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id) LEFT JOIN barangay b ON a.brgy=b.b_id) WHERE a.stamp BETWEEN '2013-01-01' AND '2013-02-18'; #by day

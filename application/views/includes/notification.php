@@ -4,7 +4,7 @@
                         <h3>New accident reports</h3>
                     </div>
                     <div class="modal-body">
-                        <div class="alert alert-info">In this table jquery plugin turns a table row into a clickable link.</div>
+                        <!--<div class="alert alert-info">In this table jquery plugin turns a table row into a clickable link.</div>-->
                         <table class="table table-condensed table-striped" data-provides="rowlink">
                             <thead>
                                 <tr>
@@ -52,7 +52,7 @@
                         <h3>New entities' responses</h3>
                     </div>
                     <div class="modal-body">
-                        <div class="alert alert-info">In this table jquery plugin turns a table row into a clickable link.</div>
+                        <!--<div class="alert alert-info">In this table jquery plugin turns a table row into a clickable link.</div>-->
                         <table class="table table-condensed table-striped" data-provides="rowlink">
                             <thead>
                                 <tr>
