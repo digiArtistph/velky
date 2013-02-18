@@ -53,7 +53,7 @@
 											<div class="accordion-inner">
 												<ul class="nav nav-list">
 													<li <?php echo toggleButton('reports/accidents'); ?>><a href="<?php echo base_url('reports/accidents'); ?>" class="ext_disabled">Accidents</a></li>
-													<li <?php echo toggleButton('reports/hospitalsambulances'); ?>><a href="<?php echo base_url('reports/hospitalsambulances'); ?>" class="ext_disabled">Hospitals and Ambulances</a></li>
+													<li <?php echo toggleButton('reports/hospitalsambulances'); ?>><a href="#" class="ext_disabled">Hospitals and Ambulances</a></li>
 													<li <?php echo toggleButton('accident/nearestrespondents'); ?>><a href="<?php echo base_url('reports/nearestrespondents'); ?>" class="ext_disabled">Nearest Respondents</a></li>
 													
 												</ul>
@@ -90,7 +90,7 @@
 											<div class="accordion-inner">
 												<ul class="nav nav-list">
 													<li class="nav-header">Master Files</li>
-													<li <?php echo toggleButton('master/hospitals'); ?>><a href="<?php echo base_url('master/hospitals'); ?>" class="ext_disabled">Hospitals</a></li>                                                    													
+													<li <?php echo toggleButton('master/hospitals'); ?>><a href="<?php echo base_url('master/hospitals'); ?>" class="ext_disabled">Hospitals</a></li>                                                    <li <?php echo toggleButton('master/ambulances'); ?>><a href="<?php echo base_url('master/ambulances'); ?>" class="ext_disabled">Ambulances</a></li>										
                                                     <li <?php echo toggleButton('master/police'); ?>><a href="<?php echo base_url('master/police'); ?>" class="ext_disabled">Police</a></li>
                                                     <li <?php echo toggleButton('master/rta'); ?>><a href="<?php echo base_url('master/rta'); ?>" class="ext_disabled">RTA</a></li>
                                                     <li <?php echo toggleButton('master/barangay'); ?>><a href="<?php echo base_url('master/barangay'); ?>" class="ext_disabled">Barangay</a></li>
@@ -150,16 +150,16 @@
 							<div class="sidebar_info">
 								<ul class="unstyled">
 									<li>
-										<span class="act act-warning">2</span>
+										<span class="act act-warning"><?php echo getsideBarAccidents(1); ?></span>
 										<strong>Today's accidents</strong>
 									</li>
 									<li>
-										<span class="act act-success">65</span>
-										<strong>Accidents last week</strong>
+										<span class="act act-success"><?php echo getsideBarAccidents(2); ?></span>
+										<strong>Last week's accidents</strong>
 									</li>
 									<li>
-										<span class="act act-danger">137</span>
-										<strong>Accidents last 2 months</strong>
+										<span class="act act-danger"><?php echo getsideBarAccidents(3); ?></span>
+										<strong>Last 2 months' accidents</strong>
 									</li>
 								</ul>
 							</div> 

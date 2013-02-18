@@ -7,6 +7,8 @@ $(document).ready(function(){
 	//global vars
 	var form = $("#add_report");
 	
+	var stationInfo = $('.velkyStationValidation');
+	var mobileInfo = $('.velkyMobileNumValidation');
 	var details = $("textarea[name=details]");
 	var detailsInfo = $(".detailsInfo");
 	var caller = $("input[name=caller]");
@@ -36,7 +38,57 @@ $(document).ready(function(){
 	
 	_disableattr(2);
 
-	//On Submitting
+	//submit form validation
+	
+	
+	$('.caller').click(function(){
+		$('.modal-body table thead').empty().html('<tr><th>Message Id</th><th>Number</th><th>Message</th><th>Date</th></th><th>Mark as</th></tr>');
+		$('.modal-body table tbody').empty();
+		$('.modal-body table tbody').append('<p>Gathering Data</p>');
+		$.post(base_url + "response/inbox/viewNewMessage")
+		.success(function(data) {
+			$('.modal-body table tbody').empty().html(data);
+			
+		});
+		
+		
+	});
+	
+	$('.entity').click(function(){
+		$('.modal-body table thead').empty().html('<tr><th>Message Id</th><th>Number</th><th>Message</th><th>Date</th><th>Mark as</th></tr>');
+		$('.modal-body table tbody').empty();
+		$('.modal-body table tbody').append('<p>Gathering Data</p>');
+		$.post(base_url + "response/inbox/viewEntityMessage")
+		.success(function(data) {
+			$('.modal-body table tbody').empty().html(data);
+			
+		});
+		
+		
+	});
+	
+	setInterval(function() { 
+		$.post(base_url + "response/inbox/getCallerCount")
+		.success(function(data) {
+			$('.caller').empty().append(data + '<i class="splashy-map"></i>');
+		});
+	}, 2000);
+	
+	setInterval(function() { 
+		$.post(base_url + "response/inbox/getResponseCount")
+		.success(function(data) {
+			$('.entity').empty().append(data + '<i class="splashy-comments_reply"></i>');
+		});
+	}, 2000);
+	
+	/*setInterval(function() { 
+		$.post(base_url + "response/inbox/autoResponse")
+		.success(function(data) {
+			
+		});
+	}, 2000);*/
+	
+	
 	$("#add_report").submit(function(){
 		//return true;
 		if( validatedetails() & validatecaller() & validateaccdate() & validaterptdate() ){
@@ -85,11 +137,7 @@ $(document).ready(function(){
 			
 			$.post(base_url + "accident/accident/validatesendsms", input2)
 				.success(function(data) {
-					if(data == '1') {
-						alert('Please fill up form correctly');
-					} else {
-						alert('Record Successfully saved');
-					}
+						alert('Broadcast Request: ' + data);
 			});		
 			return false;
 		}
@@ -97,6 +145,59 @@ $(document).ready(function(){
 			return false;
 		}
 	});
+	
+	
+	$('#velkyAddPolice').submit(function(){
+		
+		if( validateMobile() & validateStation() ){
+			// valid add
+			return true;
+		}else{
+			// invalid
+			return false;
+		}
+	});
+	
+	//----function validation declaration
+	function validateMobile(){
+		var pattern = "/((09)[0-9]{9}),?/g";
+		var mobile = $('input[name=mobile]').val();
+		
+		if( pattern.match(mobile) ){
+			
+			mobileInfo.text("* Required");
+			mobileInfo.addClass("error");
+			return false;
+		}
+		//it's valid
+		else{
+			mobileInfo.removeClass("error");
+			mobileInfo.text("");
+			mobileInfo.removeClass("error");
+			return true;
+			
+		}
+	}
+	
+	function validateStation(){
+		var pattern = "/^[\d]+\b/";
+		var station = $('input[name=station]').val();
+		
+		if( pattern.match(station) ){
+			
+			stationInfo.text("* Required");
+			stationInfo.addClass("error");
+			return false;
+		}
+		//it's valid
+		else{
+			stationInfo.removeClass("error");
+			stationInfo.text("");
+			stationInfo.removeClass("error");
+			return true;
+			
+		}
+	}
 	
 	function _disableattr(param){
 		if(param == 1){
@@ -226,4 +327,14 @@ $(document).ready(function(){
 		}
 	}
 	
+	
+	/*  reports filtering AJAX calls */
+	$('.velkyreportfilter.velkybydate').click(function(){
+		$.post({}
+			
+		);
+	});
+	function accidentfilterbydate() {
+		
+	}
 });

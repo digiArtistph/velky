@@ -61,6 +61,10 @@ if (! function_exists('getSection')) {
 			case 'reports':
 				$section = 'reports';
 				break;
+
+			case 'accident':
+				$section = 'accident';
+				break;
 				
 			default:
 				$section = 'home';
@@ -126,5 +130,45 @@ if(! function_exists('toggleBcrumbs')) {
 			$val = sprintf('<a class="ext_disabled" href="%s">%s</a>', base_url(strtolower($path)), $section); 
 
 		return $val;	
+	}
+}
+
+if ( ! function_exists('paginate_helper')) {
+	function paginate_helper($links) {
+		$pattern = '/<li class="disabled"\>([\d])+<\/li>/';
+		$toreplace = '<li class="disabled"><a href="#">$1</a></li>';
+		
+		$page = preg_replace($pattern, $toreplace, $links);
+		
+		return $page;
+	}
+}
+
+if ( ! function_exists('getsideBarAccidents')) {
+	function getsideBarAccidents($flag) {
+		
+		$CI =& get_instance();
+		
+		switch($flag) {
+			case 1: // today's accidents
+				$strQry = sprintf("SELECT IF(ASCII(COUNT(a.acdntdate)), COUNT(a.acdntdate), 0) AS `count`  FROM accidents a WHERE a.acdntdate=CURDATE()");
+				break;
+				
+			case 2: // last week's accidents
+				$strQry = sprintf("SELECT IF(ASCII(COUNT(a.acdntdate)),COUNT(a.acdntdate), 0) AS `count`  FROM accidents a WHERE stamp BETWEEN DATE_SUB(a.stamp, INTERVAL 1 WEEK) AND CURDATE()");
+				break;
+				
+			case 3:
+				$strQry = sprintf("SELECT IF(ASCII(COUNT(a.acdntdate)), COUNT(a.acdntdate), 0) AS `count`  FROM accidents a WHERE stamp BETWEEN DATE_SUB(a.stamp, INTERVAL 2 MONTH) AND CURDATE()");	
+				break;
+				
+			default:
+				$strQry = sprintf("SELECT IF(ASCII(COUNT(a.acdntdate)), COUNT(a.acdntdate), 0) AS `count`  FROM accidents a WHERE a.acdntdate=CURDATE()");
+		}
+		
+		// executes query
+		$rec =  $CI->db->query($strQry)->result();
+		
+		return $rec[0]->count;
 	}
 }

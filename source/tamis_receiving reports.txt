@@ -1,0 +1,10 @@
+/* caller sending sms to the system*/
+
+(tamis)(\s)+([\w]+)(\2([\w\s]+))?
+
+/* entities response */
+(rta|police|hosp|hospital)\s+(confirmed|declined)
+
+/* replace +63 */
+pattern: ^(63|\+63)
+replace with: 0

@@ -32,5 +32,6 @@
 		</tbody>
 		<?php endforeach;?>
 	</table>
+    <?php echo $paginate; ?>
     </div>
 </div>

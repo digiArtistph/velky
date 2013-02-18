@@ -16,7 +16,7 @@ class Accident extends CI_Controller{
 	public function section(){
 		
 		$section = ($this->uri->segment(4)) ? $this->uri->segment(4) : '';
-		
+				
 		switch($section){
 			case 'accidentview':
 				$this->_accidentview(); 
@@ -64,10 +64,12 @@ class Accident extends CI_Controller{
 	}
 	
 	private function _addaccident(){
+		
 		$data['types'] = $this->_getaccidenttypelist();
 		$data['barangaytypes'] = $this->_getbarangaytype();
 		$data['main_content'] = 'admin/accident/addaccident_form';
 		$this->load->view('includes/template', $data);
+		
 	}
 	
 	private function _getaccidenttypelist(){
@@ -182,24 +184,21 @@ class Accident extends CI_Controller{
 		if($validation->run() ===  FALSE) {
 			$this->_addaccident();
 		} else {
+			$this->load->library('smsutil');
 			
 			$query = $this->_prepsql($this->input->post('broadcastto'), $this->input->post('lst_id')); // returns sql statement from selected recepient
-			$smstype = $this->input->post('smstype');
 			
 			$params = array(
 					'recepient'	=> $this->_getnumbers($query),
+					'sms_type' => $this->input->post('smstype'),
 					'message'	=> $this->input->post('message')
 						);
 			
-			$this->load->library('smsutil', $params);
-			
-			if( $this->smsutil->send($smstype) ) {
+			if( $this->smsutil->send($params) ) {
 				$mData = $this->smsutil->mData;
-				echo 'Sms Status:   ' . $mData->status_code . ' , ' .$mData->status_message;
-			}else{
-				$mData = $this->smsutil->mData;
-				echo 'Sms Status: ' . $mData->status_code;
+				echo 'ID : ' . $mData->status_code . ' , message : ' .$mData->status_message ;
 			}
+		
 		}
 	}
 	
