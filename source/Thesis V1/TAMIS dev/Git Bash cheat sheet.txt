@@ -1,0 +1,49 @@
+git remote add <git url> 
+git push -u origin master
+git log --stat --summary --pretty=short
+
+Git Bash: Undo (git reset)
+Syntax:
+git reset [options]
+
+Options:
+--hard = undo everything since the last commit
+
+--hard ORIG_HEAD = Undo most recent merge and any changes after.
+
+--soft HEAD^ = undo last commit, keep changes staged
+
+Undo everything since the last commit:
+$ git reset --hard
+ 
+
+Undo most recent successful merge and all changes after:
+$ git reset --hard ORIG_HEAD
+ 
+
+
+Undo most recent commit but retain changes in staging area:
+$ git reset --soft HEAD^
+
+git diff --staged
+
+git clean -f
+
+$ git blame -L 12,22 <file>
+
+git fetch -a
+this is to fetch updates from remote/origin/master and copy into origin/master
+
+git diff origin/master master
+
+git merge origin/master
+
+git config --global alias.logg "log --stat --summary --pretty=short"
+
+
+ git config --global alias.st status
+digiartist_ph: so instead of typing "git status" --> "git st" nlng
+
+
+git config --global alias.logg "log --graph --stat --summary"
+digiartist_ph: so pwede naka type: git logg
