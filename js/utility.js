@@ -1,7 +1,10 @@
 $(document).ready(function(){
-	
+	/*
 	var l = window.location;
 	var base_url = l.protocol + "//" + l.host + "/" + l.pathname.split('/')[1] + "/";
+	var domainName = $('meta[name*="url"]').attr('content');
+	*/
+	var base_url = $('meta[name*="url"]').attr('content');
 	
 	
 	//global vars
@@ -330,9 +333,15 @@ $(document).ready(function(){
 	
 	/*  reports filtering AJAX calls */
 	$('.velkyreportfilter.velkybydate').click(function(){
-		$.post({}
-			
-		);
+		var mDateFrom = $('input[name="acdntdatefrom"]').attr('value');
+		var mDateTo = $('input[name="acdntdateto"]').attr('value');
+		
+		$.post(base_url + 'reports/accidents/accidentfilterbydate', {'acdntdatefrom' : mDateFrom, 'acdntdateto' : mDateTo})
+		.success( function(data) {
+			//alert(data);
+			alert('mDateFrom ' + mDateFrom + ' ' + 'mDateTo ' +  mDateTo + ' ' + data);
+		});
+		/*alert('you\'ve clicked me');*/
 	});
 	function accidentfilterbydate() {
 		

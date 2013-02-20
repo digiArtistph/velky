@@ -170,7 +170,7 @@ class Accidents extends CI_Controller{
 		
 		$strQry = sprintf("SELECT a.a_id, at.name AS accident, b.name AS barangay, a.acdntdate, a.stamp, DAYNAME(a.stamp) AS `day` FROM ((accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id) LEFT JOIN barangay b ON a.brgy=b.b_id) WHERE a.stamp BETWEEN '%s' AND '%s'", $from, $to);
 		
-		$this->load->view('admin/accident/ajx_accident_filter_by_date');
+		$this->load->view('admin/accidents/ajx_accident_filter_by_date');
 	}
 	
 }

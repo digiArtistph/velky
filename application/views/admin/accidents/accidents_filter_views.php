@@ -5,8 +5,8 @@
 	<div class="span12">
         <div class="tabbable">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#tab1">Filter by date</a></li>
-                <li><a data-toggle="tab" href="#tab2">Filter by month</a></li>
+                <li class="active"><a data-toggle="tab" href="#tab1">Filter by date range</a></li>
+                <li><a data-toggle="tab" href="#tab2">Graph</a></li>
                 <li><a data-toggle="tab" href="#tab3">Filter by barangay</a></li>
             </ul>
             <div class="tab-content">
