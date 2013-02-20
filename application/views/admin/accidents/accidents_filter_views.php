@@ -5,36 +5,59 @@
 	<div class="span12">
         <div class="tabbable">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#tab1">Filter by date range</a></li>
+                <li class="active"><a data-toggle="tab" href="#tab1">Filtered Report</a></li>
                 <li><a data-toggle="tab" href="#tab2">Graph</a></li>
                 <li><a data-toggle="tab" href="#tab3">Filter by barangay</a></li>
             </ul>
             <div class="tab-content">
                 <div id="tab1" class="tab-pane active">
-                
-                	<div class="span12">
-
-                        <div class="controls">
-                        	<div class="span3">
-                        <label>From: </label><input type="text" data-date-format="yyyy-mm-dd" readonly="readonly" name="acdntdatefrom" class="input-xlarge" id="dp1"><span class="accdatesInfo"></span>
-                        	</div>
-                            
-                            <div class="span3">
-                        <label>To: </label><input type="text" data-date-format="yyyy-mm-dd" readonly="readonly" name="acdntdateto" class="input-xlarge" id="dp2"><span class="accdatesInfo"></span>
-                        	</div>
-                            
-                            <div class="span3">
-								<label>&nbsp;</label><button class="btn velkyreportfilter velkybydate" type="submit">Go</button>
-                            </div>
-                            
+                	<div class="row-fluid">
+                    	<div class="span2 offset10">                 		
+                        	<a class="btn" data-toggle="modal" data-backdrop="static" href="#filteredReports">Advanced Filters</a>                      
                         </div>
-
-                   	</div>
-                    
-                    <div class="span8"><!-- AJAX HERE -->
-                    
                     </div>
-                                  
+                    <div class="modal hide fade" id="filteredReports">
+                    	<div class="modal-header">
+                        <button class="close" data-dismiss="modal">×</button>
+                        <h3>Filtered Report</h3>
+                        
+                    </div>
+                    	<div class="modal-body">
+							
+							<div class="row-span">
+                            	<div class="span12">
+                                	<label class="label label-inverse">Date Range</label>
+                                </div>
+                            </div>
+                        	<div class="row-fluid">
+                            	
+                            	<div class="span6">
+                                <label class="label">From</label><input id="dp1" class="span12" name="datefrom" type="text"  />
+                                </div>
+                                
+                                <div class="span6">
+                                	<label class="label">To</label> <input id="dp2" class="span12" name="dateto" type="text"  />
+                                </div>
+                            </div>
+                        	<div class="row-fluid">
+                            	<div class="span6">
+                                	<label class="label label-inverse">Barangay</label><select class="chzn_a span12" name="barangay">
+                                    <option value="Banana">Banana</option>
+                                    <option value="Apple">Apple</option>
+                                    </select>
+                                </div>
+                                <div class="span6">
+                                	<label class="label label-inverse">Accident Type</label><select name="accidenttype" class="chzn_b span12">
+                                   		<option value="Bugo">Bugo</option>
+                                        <option value="Cugman">Cugman</option>
+                                   </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        <a href="#" class="btn ext_disabled">Generate Report</a>
+                    </div>
+                    </div>
                 </div>
                 
                 

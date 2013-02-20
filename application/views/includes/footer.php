@@ -81,10 +81,7 @@
     <!-- password strength checker -->
     <script src="<?php echo base_url('theme/lib/complexify/jquery.complexify.min.js'); ?>"></script>
     <!-- form functions -->
-    <script src="<?php echo base_url('theme/js/gebo_forms.js'); ?>"></script>
-    
-    <!-- extended form elements end here -->
-            
+    <script src="<?php echo base_url('theme/js/gebo_forms.js'); ?>"></script>    
     
     <script type="text/javascript" src="<?php echo base_url('js/utility.js'); ?>"></script>
     
