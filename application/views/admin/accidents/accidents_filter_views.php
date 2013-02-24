@@ -13,9 +13,10 @@
                 <div id="tab1" class="tab-pane active">
                 	<div class="row-fluid">
                     	<div class="span2 offset10">                 		
-                        	<a class="btn" data-toggle="modal" data-backdrop="static" href="#filteredReports">Advanced Filters</a>                      
+                        	<a class="btn velkyloaddata" data-toggle="modal" data-backdrop="static" href="#filteredReports">Advanced Filters</a>                      
                         </div>
                     </div>
+                    
                     <div class="modal hide fade" id="filteredReports">
                     	<div class="modal-header">
                         <button class="close" data-dismiss="modal">×</button>
@@ -42,14 +43,18 @@
                         	<div class="row-fluid">
                             	<div class="span6">
                                 	<label class="label label-inverse">Barangay</label><select class="chzn_a span12" name="barangay">
-                                    <option value="Banana">Banana</option>
-                                    <option value="Apple">Apple</option>
+                                   <option value="">Select a barangay...</option>
+                                        <?php foreach($barangay as $bry): ?>
+                                        <option value="<?php echo $bry->b_id; ?>"><?php echo $bry->name; ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                                 <div class="span6">
                                 	<label class="label label-inverse">Accident Type</label><select name="accidenttype" class="chzn_b span12">
-                                   		<option value="Bugo">Bugo</option>
-                                        <option value="Cugman">Cugman</option>
+                                   		<option value="">Select an accident type...</option>
+                                        <?php foreach($accidenttype as $actype): ?>
+                                        	<option value="<?php echo $actype->at_id; ?>"><?php echo $actype->name; ?></option>
+                                        <?php endforeach; ?>
                                    </select>
                                 </div>
                             </div>

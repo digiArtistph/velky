@@ -43,6 +43,8 @@ class Accidents extends CI_Controller{
 	
 	private function _accidentsview(){
 		// $data['main_content'] = 'admin/accidents/views';
+ 		$data['barangay'] = $this->_getBarangay();
+ 		$data['accidenttype'] = $this->_getAccidentType();
 		$data['main_content'] = 'admin/accidents/accidents_filter_views';
 		$this->load->view('includes/template', $data);
 	}
@@ -143,6 +145,15 @@ class Accidents extends CI_Controller{
 		$this->load->view('includes/template', $data);
 	}
 	
+	private function _getAccidentType() {
+		$strQry = sprintf("SELECT * FROM accidenttype");
+
+		if(! $this->db->query($strQry))
+			return false;
+		else
+			return $this->db->query($strQry)->result();	
+	}
+	
 	private function _getbarangaytype(){
 		$this->load->model('mdldata');
 		$params['querystring'] = 'SELECT * FROM  barangay';
@@ -151,6 +162,15 @@ class Accidents extends CI_Controller{
 			return false;
 		else
 			return $this->mdldata->_mRecords;
+	}
+	
+	private function _getBarangay() {
+		$strQry = sprintf("SELECT * FROM barangay");
+
+		if(! $this->db->query($strQry))
+			return false;
+		else
+			return $this->db->query($strQry)->result();	
 	}
 	
 	private function _getbarangayaccidentslist(){

@@ -70,7 +70,7 @@ $(document).ready(function(){
 		
 	});
 	
-	setInterval(function() { 
+	/*setInterval(function() { 
 		$.post(base_url + "response/inbox/getCallerCount")
 		.success(function(data) {
 			$('.caller').empty().append(data + '<i class="splashy-map"></i>');
@@ -82,7 +82,7 @@ $(document).ready(function(){
 		.success(function(data) {
 			$('.entity').empty().append(data + '<i class="splashy-comments_reply"></i>');
 		});
-	}, 2000);
+	}, 2000);*/
 	
 	/*setInterval(function() { 
 		$.post(base_url + "response/inbox/autoResponse")
@@ -329,8 +329,7 @@ $(document).ready(function(){
 			return true;
 		}
 	}
-	
-	
+		
 	/*  reports filtering AJAX calls */
 	$('.velkyreportfilter.velkybydate').click(function(){
 		var mDateFrom = $('input[name="acdntdatefrom"]').attr('value');
@@ -338,12 +337,7 @@ $(document).ready(function(){
 		
 		$.post(base_url + 'reports/accidents/accidentfilterbydate', {'acdntdatefrom' : mDateFrom, 'acdntdateto' : mDateTo})
 		.success( function(data) {
-			//alert(data);
 			alert('mDateFrom ' + mDateFrom + ' ' + 'mDateTo ' +  mDateTo + ' ' + data);
-		});
-		/*alert('you\'ve clicked me');*/
+		});		
 	});
-	function accidentfilterbydate() {
-		
-	}
 });
