@@ -340,4 +340,26 @@ $(document).ready(function(){
 			alert('mDateFrom ' + mDateFrom + ' ' + 'mDateTo ' +  mDateTo + ' ' + data);
 		});		
 	});
+			
+	$('.velkyFilteredReport').click(function() {
+		var mdateFrom = $('input[name="datefrom"]').attr('value');
+		var mdateTo = $('input[name="dateto"]').attr('value');
+		var mbarangay = $('select[name="barangay"]').attr('value');
+		var maccidenttype = $('select[name="accidenttype"]').attr('value');
+		var elem = $(this);
+		
+		
+		$.ajax({
+			type: 'post',
+			url: base_url + 'ajaxcalls/filteredreport',
+			data: {dateFrom: mdateFrom, dateTo: mdateTo, barangay: mbarangay, accidenttype: maccidenttype},
+			success: function(data) {
+				//alert(data);
+				$('.velkyreportcontainer').empty().append(data);
+			}
+		});
+	
+		//return false;
+	});
+	
 });

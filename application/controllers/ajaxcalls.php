@@ -12,4 +12,44 @@ class Ajaxcalls extends CI_Controller {
 		echo $jsn;
 		
 	}
+	
+	public function filteredreport() {
+		$from = $this->input->post('dateFrom');
+		$to = $this->input->post('dateTo');
+		$brgy = $this->input->post('barangay');
+		$accidenttype = $this->input->post('accidenttype');
+		$strQry = '';
+		$criteria = '';
+		
+		if($this->input->post('dateFrom') && $this->input->post('dateTo'))
+			$criteria .= sprintf(" a.stamp BETWEEN '%s' AND '%s'", $from, $to);
+		
+		
+		if($this->input->post('barangay'))
+			$criteria .= (strlen($criteria) > 0) ? sprintf(" AND b.b_id=%d",$brgy) :  sprintf(" b.b_id=%d",$brgy);
+		
+		if($this->input->post('accidenttype'))
+			$criteria .= (strlen($criteria) > 0) ? sprintf(" AND at.at_id=%d", $accidenttype) : sprintf(" at.at_id=%d", $accidenttype);
+		
+
+		$criteria = (strlen($criteria) > 0) ? sprintf(" WHERE %s", $criteria) : '';
+		
+		// default
+		$strQry .= "SELECT a.a_id, at.name AS accident, b.name AS barangay, a.acdntdate, a.stamp, DAYNAME(a.stamp) AS `day` FROM ((accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id) LEFT JOIN barangay b ON a.brgy=b.b_id)";
+		
+		$strQry = $strQry . $criteria;
+
+		
+		$records = $this->db->query($strQry)->result();
+		$data['accidents'] = $records;
+		//$records = json_encode($records);
+		
+		//echo $records;
+		//echo $strQry;
+		//echo $criteria;
+
+		$this->load->view('admin/accidents/ajx_filtered_reports', $data);
+		
+	}
+	
 }

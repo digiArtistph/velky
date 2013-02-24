@@ -33,11 +33,11 @@
                         	<div class="row-fluid">
                             	
                             	<div class="span6">
-                                <label class="label">From</label><input id="dp1" class="span12" name="datefrom" type="text"  />
+                                <label class="label">From</label><input id="dp1" class="span12" data-date-format="yyyy-mm-dd" name="datefrom" type="text"  />
                                 </div>
                                 
                                 <div class="span6">
-                                	<label class="label">To</label> <input id="dp2" class="span12" name="dateto" type="text"  />
+                                	<label class="label">To</label> <input id="dp2" class="span12" name="dateto" data-date-format="yyyy-mm-dd" type="text"  />
                                 </div>
                             </div>
                         	<div class="row-fluid">
@@ -60,8 +60,12 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                        <a href="#" class="btn ext_disabled">Generate Report</a>
+                        <a href="#" class="btn ext_disabled velkyFilteredReport" data-dismiss="modal">Generate Report</a>
                     </div>
+                    </div>
+                    
+                    <div class="row-fluid velkyreportcontainer">
+                    
                     </div>
                 </div>
                 
