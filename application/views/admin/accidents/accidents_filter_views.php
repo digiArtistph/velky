@@ -7,7 +7,7 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#tab1">Filtered Report</a></li>
                 <li><a data-toggle="tab" href="#tab2">Graph</a></li>
-                <li><a data-toggle="tab" href="#tab3">Filter by barangay</a></li>
+                
             </ul>
             <div class="tab-content">
                 <div id="tab1" class="tab-pane active">
@@ -75,12 +75,7 @@
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et tellus felis, sit amet interdum tellus. Suspendisse sit amet scelerisque dui. Vivamus faucibus magna quis augue venenatis ullamcorper. Proin eget mauris eget orci lobortis luctus ac a sem. Curabitur feugiat, eros consectetur egestas iaculis,
                     </p>
                 </div>
-                <div id="tab3" class="tab-pane">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et tellus felis, sit amet interdum tellus. Suspendisse sit amet scelerisque dui. Vivamus faucibus magna quis augue venenatis ullamcorper. Proin eget mauris eget orci lobortis luctus ac a sem. Curabitur feugiat, eros consectetur egestas iaculis,
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et tellus felis, sit amet interdum tellus. Suspendisse sit amet scelerisque dui. Vivamus faucibus magna quis augue venenatis ullamcorper. Proin eget mauris eget orci lobortis luctus ac a sem. Curabitur feugiat, eros consectetur egestas iaculis,
-                    </p>
-                </div>
+                
             </div>
         </div>
 	</div>        
