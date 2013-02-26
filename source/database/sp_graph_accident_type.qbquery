@@ -1,0 +1,51 @@
+DELIMITER $$
+
+DROP PROCEDURE IF EXISTS `sp_graph_accident_type` $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_graph_accident_type`(IN mdatefrom DATE, IN mdateto DATE, IN mtopn TINYINT)
+BEGIN
+
+    DECLARE recordnotfound INT DEFAULT 0;
+    DECLARE arrAcdntType VARCHAR(25) DEFAULT '';
+    DECLARE idAcdntType INT DEFAULT 0;
+    DECLARE curTopN CURSOR FOR SELECT a.acdnttype FROM accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id WHERE DATE(a.stamp) BETWEEN mdatefrom AND mdateto GROUP BY a.acdnttype ORDER BY COUNT(a.acdnttype) DESC LIMIT mtopn;
+
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET recordnotfound = 1;
+
+    # creaates temporary table
+     DROP TEMPORARY TABLE IF EXISTS `tmptbl_graph_accident_type`;
+     CREATE TEMPORARY TABLE `tmptbl_graph_accident_type`(
+       `count` INT,
+       acdnttype INT,
+       name VARCHAR(255) NULL,
+       `date` DATE
+     ) ENGINE=MyISAM COMMENT' this tables exists within a session only';
+
+     OPEN curTopN;
+
+     main_loop:LOOP
+       FETCH curTopN INTO idAcdntType;
+
+       IF recordnotfound = 1 THEN
+         LEAVE main_loop;
+       END IF;
+
+       -- appends strings
+       IF LENGTH(arrAcdntType) > 0 THEN
+         SET arrAcdntType = CONCAT(arrAcdntType, ',', idAcdntType);
+       ELSE
+         SET arrAcdntType = idAcdntType;
+       END IF;
+     END LOOP main_loop;
+
+     CLOSE curTopN;
+
+     -- SET arrAcdntType = TRIM(arrAcdntType);
+
+    -- SELECT arrAcdntType;
+
+      SELECT COUNT(a.acdnttype) AS `count`, at.at_id, at.name, DATE(a.stamp) AS `Date` FROM accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id WHERE (DATE(a.stamp) BETWEEN mdatefrom AND mdateto) GROUP BY DATE(a.stamp), a.acdnttype ORDER BY COUNT(a.acdnttype) DESC;
+
+
+  END $$
+
+DELIMITER ;

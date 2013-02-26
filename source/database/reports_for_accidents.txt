@@ -6,3 +6,25 @@ SELECT IF(ASCII(COUNT(a.acdntdate)), COUNT(a.acdntdate), 0) AS `count`  FROM acc
 #SELECT IF(ASCII(COUNT(a.acdntdate)),COUNT(a.acdntdate), 0) AS `count`  FROM accidents a WHERE stamp BETWEEN DATE_SUB(a.stamp, INTERVAL 1 WEEK) AND CURDATE(); -- SIDEBAR INFO A WEEK PRIOR
 #SELECT IF(ASCII(COUNT(a.acdntdate)), COUNT(a.acdntdate), 0) AS `count`  FROM accidents a WHERE stamp BETWEEN DATE_SUB(a.stamp, INTERVAL 2 MONTH) AND CURDATE(); -- SIDEBAR INFO A WEEK PRIOR
 SELECT a.a_id, at.name AS accident, b.name AS barangay, a.acdntdate, a.stamp, DAYNAME(a.stamp) AS `day` FROM ((accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id) LEFT JOIN barangay b ON a.brgy=b.b_id) WHERE a.stamp BETWEEN '2013-01-01' AND '2013-02-18'; #by day
+
+
+/***********************/
+/***     Graph       ***/
+/***********************/
+
+// by accident type in a milestone
+SELECT COUNT(a.acdnttype) AS `count`, at.name, DATE(a.stamp) AS `Date` FROM accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id GROUP BY DATE(a.stamp), a.acdnttype ORDER BY a.stamp ASC;
+
+SELECT a.acdnttype, at.name FROM accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id WHERE DATE(a.stamp) BETWEEN '2013-01-01' AND '2013-01-03' GROUP BY a.acdnttype ORDER BY COUNT(a.acdnttype) DESC LIMIT 3; -- gets the top N accident type within a milestone
+
+
+SELECT COUNT(a.acdnttype) AS `count`, at.at_id, at.name, DATE(a.stamp) AS `Date` FROM accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id WHERE ((DATE(a.stamp) BETWEEN '2013-01-01' AND '2013-01-07') AND at.at_id IN (SELECT a.acdnttype FROM accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id WHERE DATE(a.stamp) BETWEEN '2013-01-01' AND '2013-01-03' GROUP BY a.acdnttype ORDER BY COUNT(a.acdnttype) DESC)) GROUP BY DATE(a.stamp), a.acdnttype ORDER BY at.name DESC;
+
+
+SELECT COUNT(a.acdnttype) AS `count`, at.at_id, at.name, DATE(a.stamp) AS `Date` FROM accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id WHERE ((DATE(a.stamp) BETWEEN '2013-01-01' AND '2013-01-04') AND at.at_id IN (SELECT a.acdnttype FROM accidents a LEFT JOIN accidenttype at ON a.acdnttype=at.at_id WHERE DATE(a.stamp) BETWEEN '2013-01-01' AND '2013-01-03' GROUP BY a.acdnttype ORDER BY COUNT(a.acdnttype) DESC)) GROUP BY DATE(a.stamp), a.acdnttype ORDER BY at.name DESC;
+
+
+
+
+
+CALL sp_graph_accident_type('2013-01-01','2013-01-07',3);
