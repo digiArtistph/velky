@@ -2,15 +2,15 @@
 
 	$(document).ready(function() {
         //* pie chart
-		gebo_charts.fl_a();
+		//gebo_charts.fl_a();
 		//* multiple axes
-		gebo_charts.fl_b();
+		//gebo_charts.fl_b();
 		//* bars
 		gebo_charts.fl_c();
 		//* combined
-		gebo_charts.fl_d();
+		//gebo_charts.fl_d();
 		//* pyramid
-		gebo_charts.fl_e();
+		// gebo_charts.fl_e();
 	});
 	
 	//* charts
@@ -226,36 +226,8 @@
 		
 		fl_c : function() {
 			var elem = $('#fl_c');
-            
-            var d1 = [
-				[new Date('05/23/2012').getTime(),350],
-				[new Date('05/24/2012').getTime(),422],
-				[new Date('05/25/2012').getTime(),550],
-				[new Date('05/26/2012').getTime(),608],
-				[new Date('05/27/2012').getTime(),681],
-				[new Date('05/28/2012').getTime(),591],
-				[new Date('05/29/2012').getTime(),510]
-			];
-			
-			var d2 = [
-				[new Date('05/23/2012').getTime(),1200],
-				[new Date('05/24/2012').getTime(),1400],
-				[new Date('05/25/2012').getTime(),1500],
-				[new Date('05/26/2012').getTime(),1200],
-				[new Date('05/27/2012').getTime(),1340],
-				[new Date('05/28/2012').getTime(),1421],
-				[new Date('05/29/2012').getTime(),1510]
-			];
-         
-            var d3 = [
-				[new Date('05/23/2012').getTime(),120],
-				[new Date('05/24/2012').getTime(),100],
-				[new Date('05/26/2012').getTime(),140],
-				[new Date('05/27/2012').getTime(),153],
-				[new Date('05/28/2012').getTime(),184],
-				[new Date('05/29/2012').getTime(),226]
-			];
-            
+		
+		
             // add 2h to match utc+2
             for (var i = 0; i < d1.length; ++i) {d1[i][0] += 60 * 120 * 1000};
 			for (var i = 0; i < d2.length; ++i) {d2[i][0] += 60 * 120 * 1000};
@@ -264,7 +236,7 @@
             var ds = new Array();
          
             ds.push({
-                label: "Data 1",
+                label: d1Label,
                 data:d1,
                 bars: {
                     show: true, 
@@ -275,7 +247,7 @@
                 }
             });
             ds.push({
-                label: "Data 2",
+                label: d2Label ,
                 data:d2,
                 bars: {
                     show: true, 
@@ -283,9 +255,10 @@
                     order: 2,
                     fill: 1
                 }
+				
             });
             ds.push({
-                label: "Data 3",
+                label: d3Label ,
                 data:d3,
                 bars: {
                     show: true, 

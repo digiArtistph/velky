@@ -71,9 +71,13 @@
                 
                 
                 <div id="tab2" class="tab-pane">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et tellus felis, sit amet interdum tellus. Suspendisse sit amet scelerisque dui. Vivamus faucibus magna quis augue venenatis ullamcorper. Proin eget mauris eget orci lobortis luctus ac a sem. Curabitur feugiat, eros consectetur egestas iaculis,
-                    </p>
+                    <div class="row-fluid">
+						<div class="span6">
+							<h3 class="heading">Top 3 Accident Types Occurence</h3>
+							<div id="fl_c" style="height:270px;width:90%;margin:15px auto 0"></div>
+						</div>
+						
+					</div>
                 </div>
                 
             </div>

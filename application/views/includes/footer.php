@@ -86,13 +86,30 @@
     
     <script type="text/javascript" src="<?php echo base_url('js/utility.js'); ?>"></script>
     
-    <script>
+    <!-- charts -->
+	<script src="<?php echo base_url('theme/lib/flot/jquery.flot.min.js'); ?>"></script>
+    <script src="<?php echo base_url('theme/lib/flot/jquery.flot.resize.min.js'); ?>"></script>
+    <script src="<?php echo base_url('theme/lib/flot/jquery.flot.pie.min.js'); ?>"></script>
+    <script src="<?php echo base_url('theme/lib/flot/jquery.flot.curvedLines.min.js'); ?>"></script>
+    <script src="<?php echo base_url('theme/lib/flot/jquery.flot.orderBars.min.js'); ?>"></script>
+    <script src="<?php echo base_url('theme/lib/flot/jquery.flot.multihighlight.min.js'); ?>"></script>
+    <script src="<?php echo base_url('theme/lib/flot/jquery.flot.pyramid.min.js'); ?>"></script>
+    <script src="<?php echo base_url('theme/lib/moment_js/moment.min.js'); ?>"></script>
+    <!-- charts functions -->
+    <script type="text/javascript">
+		
+		<?php $this->load->view('admin/accidents/datareport_view'); ?>
+	</script>
+    
+	<script src="<?php echo base_url('theme/js/gebo_charts.js'); ?>"></script>
+    
+	<script>
         $(document).ready(function() {
             //* show all elements & remove preloader
-            setTimeout('$("html").removeClass("js")',1000);
+            setTimeout('$("html").removeClass("js")',1000);			 
         });
     </script>
-
+    
 <?php elseif($section == "accident"): ?>
 
 	<script src="<?php echo base_url('theme/js/jquery.min.js'); ?>"></script>
