@@ -37,7 +37,8 @@
 											<div class="accordion-inner">
 												<ul class="nav nav-list">
 													<li><a href="javascript:void(0)">Dashboard</a></li>
-													<li <?php echo toggleButton('accident/accident'); ?>><a class="ext_disabled" href="<?php echo base_url('accident/accident'); ?>">Accident Report</a></li>													
+													<li <?php echo toggleButton('accident/accident'); ?>><a class="ext_disabled" href="<?php echo base_url('accident/accident'); ?>">Accident Report</a></li>
+                                                    <li <?php echo toggleButton('response/inbox'); ?>><a class="ext_disabled" href="<?php echo base_url('response/inbox/section/bulksms'); ?>">Response SMSBulk</a></li>												
 												</ul>
 											</div>
 										</div>
@@ -53,8 +54,10 @@
 											<div class="accordion-inner">
 												<ul class="nav nav-list">
 													<li <?php echo toggleButton('reports/accidents'); ?>><a href="<?php echo base_url('reports/accidents'); ?>" class="ext_disabled">Accidents</a></li>
+
 													<!--<li <?php echo toggleButton('reports/hospitalsambulances'); ?>><a href="#" class="ext_disabled">Hospitals and Ambulances</a></li>
 													<li <?php echo toggleButton('accident/nearestrespondents'); ?>><a href="<?php echo base_url('reports/nearestrespondents'); ?>" class="ext_disabled">Nearest Respondents</a></li>-->
+
 													
 												</ul>
 											</div>

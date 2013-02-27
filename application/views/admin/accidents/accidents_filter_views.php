@@ -11,6 +11,7 @@
             </ul>
             <div class="tab-content">
                 <div id="tab1" class="tab-pane active">
+
                 	<div class="row-fluid">
                     	<div class="span2 offset10">                 		
                         	<a class="btn velkyloaddata" data-toggle="modal" data-backdrop="static" href="#filteredReports">Advanced Filters</a>                      
@@ -57,6 +58,7 @@
                                         <?php endforeach; ?>
                                    </select>
                                 </div>
+
                             </div>
                         </div>
                         <div class="modal-footer">

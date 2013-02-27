@@ -5,8 +5,6 @@ class Inbox extends CI_Controller{
 	public function __construct() {
 		parent::__construct();
 
-		//authenticate pages
-		authUser(array('section' => 'admin', 'sessvar' => array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname')));
 	}
 
 	public function index(){
@@ -69,16 +67,20 @@ class Inbox extends CI_Controller{
 	}
 	public function viewEntityMessage(){
 		$data['newinbox'] = array();
-		foreach($this->_getInboxdb() as $key){
-			$pattern = '/([r|R]ta|[p|P]olice|[h|H]osp|[h|H]ospital)\s+(confirmed|declined)/';
-				
-			if(preg_match($pattern, $key->message)){
-				array_push($data['newinbox'], $key);
+		if($this->_getInboxdb()){
+			foreach($this->_getInboxdb() as $key){
+				$pattern = '/([r|R]ta|[p|P]olice|[h|H]osp|[h|H]ospital)\s+(confirmed|declined)/';
+					
+				if(preg_match($pattern, $key->message)){
+					array_push($data['newinbox'], $key);
+				}
 			}
-		}
 	
-		//call_debug($data['newinbox']);
-		$this->load->view('admin/response/bulksms/view_newmessage', $data);
+			//call_debug($data['newinbox']);
+			$this->load->view('admin/response/bulksms/view_newmessage', $data);
+		}else{
+			echo 1;
+		}
 	}
 
 	
@@ -110,94 +112,121 @@ class Inbox extends CI_Controller{
 	
 	public function getCallerCount(){
 		$count = 0;
-		foreach($this->_getInboxdb() as $key){
-			$pattern = '/([t|T]amis)(\s)+([\w]+)(\2([\w\s]+))?/';
+		$count2= 0;
+		$params = array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname');
+		
+		if( $this->sentinel->goFlag($params) ){
 			
-			if(preg_match($pattern, $key->message)){
-					$count++;
+			if($this->_getInboxdb() != false){
+				foreach($this->_getInboxdb() as $key){
+					$pattern = '/([t|T]amis)(\s)+([\w]+)(\2([\w\s]+))?/';
+			
+					if(preg_match($pattern, $key->message)){
+						$count++;
+					}
+			
+					$pattern2 = '/([r|R]ta|[p|P]olice|[h|H]osp|[h|H]ospital)\s+(confirmed|declined)/';
+			
+					if(preg_match($pattern2, $key->message)){
+						$count2++;
+					}
+			
+				}
+					
+				echo $count . '|' . $count2;
+			}else{
+				
 			}
 		}
-		
-		echo $count;
-	}
-	
-	public function getResponseCount(){
-		$count = 0;
-		foreach($this->_getInboxdb() as $key){
-			$pattern = '/([r|R]ta|[p|P]olice|[h|H]osp|[h|H]ospital)\s+(confirmed|declined)/';
-			
-			if(preg_match($pattern, $key->message)){
-					$count++;
-			}
+		else{
+				echo "ses_false";
 		}
+			
 		
-		echo $count;
+		
 	}
 	
+
 	public function autoResponse(){
-		$this->load->library('Smsutil');
-		$body = $this->_repliable();
+		$params = array('sadmin_uname', 'sadmin_islog', 'sadmin_fullname');
 		
-		$oldMessage = $this->_getOldInbox(0);
-		$old = end($oldMessage);
-		$this->load->model('mdldata');
-		if( $old[0] != $this->_getLastmsgId() ){
+		if( $this->sentinel->goFlag($params) ){
+			$this->load->library('Smsutil');
 			
-			$newinput = $this->_getOldInbox($this->_getLastmsgId());
-			unset($newinput[0]);
+			$body = $this->_repliable();
 			
-			foreach ($newinput as $key){
-				
-				$key[0] = str_replace(array(' ', "\n", "\t", "\r"), '', $key[0]);
-				
-				$params = array(
-						'table' => array('name' => 'inbox'),
-						'fields' => array(
-								'message_id ' => $key[0],
-								'number' => $key[1],
-								'message' => $key[2],
-								'txtdate' => $key[3],
-								'status' => 1,
-								'repliable' => 1
-								)
-						);
-		      $this->mdldata->reset();
-			  $this->mdldata->insert($params);
-			  
-			  $key[1] = substr($key[1], 2);
-			  $key[1] = '0' .  $key[1];
-			  
-			  
-			  $params = array(
-					'recepient'	=> $key[1],
-					'sms_type' => '2',
-					'message'	=> $key[2]
-						);
-			  $pattern = '/([t|T]amis)(\s)+([\w]+)(\2([\w\s]+))?/';
-			  $pattern2 = '/([r|R]ta|[p|P]olice|[h|H]osp|[h|H]ospital)\s+(confirmed|declined)/';
-				
-			  if(preg_match($pattern, $key[2])){
-			  	$params['message'] = 'We received your report message. We will contact you soon.';
-			  }
-			  	
-			  if(preg_match($pattern2, $key[2])){
-			  	$params['message'] = 'Thank for your reponse. We will assist you on your respond.';
-			  }
-				$this->smsutil->send($params);
+			$oldMessage = $this->_getOldInbox(0);
+			$old = end($oldMessage);
+			$this->load->model('mdldata');
+			if( $old[0] != $this->_getLastmsgId() ){
+					
+				$newinput = $this->_getOldInbox($this->_getLastmsgId());
+					
+				unset($newinput[0]);
+					
+					
+				foreach ($newinput as $key){
+			
+					$key[0] = str_replace(array(' ', "\n", "\t", "\r"), '', $key[0]);
+			
+					$params = array(
+							'table' => array('name' => 'inbox'),
+							'fields' => array(
+									'message_id ' => $key[0],
+									'number' => $key[1],
+									'message' => $key[2],
+									'txtdate' => $key[3],
+									'status' => 0,
+									'repliable' => 0
+							)
+					);
+					$this->mdldata->reset();
+					$this->mdldata->insert($params);
+						
+					$key[1] = substr($key[1], 2);
+					$key[1] = '0' .  $key[1];
+						
+						
+					$params = array(
+							'recepient'	=> $key[1],
+							'sms_type' => '2',
+							'message'	=> $key[2]
+					);
+					$pattern = '/([t|T]amis)(\s)+([\w]+)(\2([\w\s]+))?/';
+					$pattern2 = '/([r|R]ta|[p|P]olice|[h|H]osp|[h|H]ospital)\s+(confirmed|declined)/';
+			
+					if(preg_match($pattern, $key[2])){
+						$params['message'] = 'We received your report message. We will contact you soon.';
+			
+					}elseif(preg_match($pattern2, $key[2])){
+			
+						$params['message'] = 'Thank for your reponse. We will assist you on your respond.';
+					}else{
+						$params['message'] = 'Please follow the format: tamis<space><location><space><report>';
+					}
+					$this->smsutil->send($params);
+					call_debug($this->smsutil->mData);
+				}
+					
+			}else{
+				echo 0;
 			}
-		}else{
+		}
+		else{
 			
 		}
+			
+		
 		
 	}
 	
 	private function _getLastmsgId(){
 		$this->load->model('mdldata');
-		$params['table']['name'] = 'inbox';
-		$params['table']['order_by'] = 'id:asc';
+		$params['querystring'] = "SELECT message_id FROM inbox ORDER BY id DESC LIMIT 1";
 		$this->mdldata->select($params);
-		$lstid = end($this->mdldata->_mRecords);
-		$lstid->message_id;
+		
+		foreach ($this->mdldata->_mRecords as $lstid)
+		
 		return $lstid->message_id;
 	}
 	
@@ -214,14 +243,22 @@ class Inbox extends CI_Controller{
 		$this->load->model('mdldata');
 		$params['querystring'] = "SELECT * FROM inbox WHERE status='0'";
 		$this->mdldata->select($params);
-		return $this->mdldata->_mRecords;
+		
+		if($this->mdldata->_mRowCount < 1){
+			return false;}
+		else{
+			return $this->mdldata->_mRecords;}
 	}
 	
 	private function _repliable(){
 		$this->load->model('mdldata');
 		$params['querystring'] = "SELECT * FROM inbox WHERE status='0' AND repliable='0'";
 		$this->mdldata->select($params);
-		return $this->mdldata->_mRecords;
+		
+		if($this->mdldata->_mRowCount < 0)
+			return false;
+		else
+			return $this->mdldata->_mRecords;
 	}
 	
 	private function _getInboxCount(){

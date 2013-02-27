@@ -29,7 +29,7 @@
         </div>
         
         
-        <div class="control-group formSep">
+        <div class="control-growup formSep">
           <label class="control-label">Capacity<span class="f_req">*</span></label>
         	<div class="controls">
             <input type="text" name="capacity" class="input-xlarge" value="<?php echo set_value('capacity');?>"/><span class="help-inline error"><?php echo form_error('capacity'); ?></span>
