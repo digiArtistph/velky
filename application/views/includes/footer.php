@@ -1,5 +1,6 @@
 <?php if($section == 'home' || $section == "master" || $section == 'reports' || $section == "admin"): ?>
 	<script src="<?php echo base_url('theme/js/jquery.min.js'); ?>"></script>
+
     <!-- smart resize event -->
     <script src="<?php echo base_url('theme/js/jquery.debouncedresize.min.js'); ?>"></script>
     <!-- hidden elements width/height -->
@@ -81,10 +82,7 @@
     <!-- password strength checker -->
     <script src="<?php echo base_url('theme/lib/complexify/jquery.complexify.min.js'); ?>"></script>
     <!-- form functions -->
-    <script src="<?php echo base_url('theme/js/gebo_forms.js'); ?>"></script>
-    
-    <!-- extended form elements end here -->
-            
+    <script src="<?php echo base_url('theme/js/gebo_forms.js'); ?>"></script>    
     
     <script type="text/javascript" src="<?php echo base_url('js/utility.js'); ?>"></script>
     
@@ -168,8 +166,9 @@
     
     <script>
         $(document).ready(function() {
+			
             //* show all elements & remove preloader
-            setTimeout('$("html").removeClass("js")',1000);
+            setTimeout('$("html").removeClass("js")',1000);	
         });
     </script>
 

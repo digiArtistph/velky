@@ -5,36 +5,70 @@
 	<div class="span12">
         <div class="tabbable">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#tab1">Filter by date</a></li>
-                <li><a data-toggle="tab" href="#tab2">Filter by month</a></li>
-                <li><a data-toggle="tab" href="#tab3">Filter by barangay</a></li>
+                <li class="active"><a data-toggle="tab" href="#tab1">Filtered Report</a></li>
+                <li><a data-toggle="tab" href="#tab2">Graph</a></li>
+                
             </ul>
             <div class="tab-content">
                 <div id="tab1" class="tab-pane active">
-                
-                	<div class="span12">
 
-                        <div class="controls">
-                        	<div class="span3">
-                        <label>From: </label><input type="text" data-date-format="yyyy-mm-dd" readonly="readonly" name="acdntdatefrom" class="input-xlarge velkyaccdatefrom" id="dp1"><span class="accdatesInfo"></span>
-                        	</div>
-                            
-                            <div class="span3">
-                        <label>To: </label><input type="text" data-date-format="yyyy-mm-dd" readonly="readonly" name="acdntdateto" class="input-xlarge velkyaccdateto" id="dp2"><span class="accdatesInfo"></span>
-                        	</div>
-                            
-                            <div class="span3">
-								<label>&nbsp;</label><button class="btn velkyreportfilter velkybydate" type="submit">Go</button>
-                            </div>
-                            
+                	<div class="row-fluid">
+                    	<div class="span2 offset10">                 		
+                        	<a class="btn velkyloaddata" data-toggle="modal" data-backdrop="static" href="#filteredReports">Advanced Filters</a>                      
                         </div>
-
-                   	</div>
+                    </div>
                     
-                    <div class="span8"><!-- AJAX HERE -->
+                    <div class="modal hide fade" id="filteredReports">
+                    	<div class="modal-header">
+                        <button class="close" data-dismiss="modal">×</button>
+                        <h3>Filtered Report</h3>
+                        
+                    </div>
+                    	<div class="modal-body">
+							
+							<div class="row-span">
+                            	<div class="span12">
+                                	<label class="label label-inverse">Date Range</label>
+                                </div>
+                            </div>
+                        	<div class="row-fluid">
+                            	
+                            	<div class="span6">
+                                <label class="label">From</label><input id="dp1" class="span12" data-date-format="yyyy-mm-dd" name="datefrom" type="text"  />
+                                </div>
+                                
+                                <div class="span6">
+                                	<label class="label">To</label> <input id="dp2" class="span12" name="dateto" data-date-format="yyyy-mm-dd" type="text"  />
+                                </div>
+                            </div>
+                        	<div class="row-fluid">
+                            	<div class="span6">
+                                	<label class="label label-inverse">Barangay</label><select class="chzn_a span12" name="barangay">
+                                   <option value="">Select a barangay...</option>
+                                        <?php foreach($barangay as $bry): ?>
+                                        <option value="<?php echo $bry->b_id; ?>"><?php echo $bry->name; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="span6">
+                                	<label class="label label-inverse">Accident Type</label><select name="accidenttype" class="chzn_b span12">
+                                   		<option value="">Select an accident type...</option>
+                                        <?php foreach($accidenttype as $actype): ?>
+                                        	<option value="<?php echo $actype->at_id; ?>"><?php echo $actype->name; ?></option>
+                                        <?php endforeach; ?>
+                                   </select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        <a href="#" class="btn ext_disabled velkyFilteredReport" data-dismiss="modal">Generate Report</a>
+                    </div>
+                    </div>
+                    
+                    <div class="row-fluid velkyreportcontainer">
                     
                     </div>
-                                  
                 </div>
                 
                 
@@ -43,12 +77,7 @@
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et tellus felis, sit amet interdum tellus. Suspendisse sit amet scelerisque dui. Vivamus faucibus magna quis augue venenatis ullamcorper. Proin eget mauris eget orci lobortis luctus ac a sem. Curabitur feugiat, eros consectetur egestas iaculis,
                     </p>
                 </div>
-                <div id="tab3" class="tab-pane">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et tellus felis, sit amet interdum tellus. Suspendisse sit amet scelerisque dui. Vivamus faucibus magna quis augue venenatis ullamcorper. Proin eget mauris eget orci lobortis luctus ac a sem. Curabitur feugiat, eros consectetur egestas iaculis,
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et tellus felis, sit amet interdum tellus. Suspendisse sit amet scelerisque dui. Vivamus faucibus magna quis augue venenatis ullamcorper. Proin eget mauris eget orci lobortis luctus ac a sem. Curabitur feugiat, eros consectetur egestas iaculis,
-                    </p>
-                </div>
+                
             </div>
         </div>
 	</div>        

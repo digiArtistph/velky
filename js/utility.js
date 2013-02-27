@@ -1,7 +1,10 @@
 $(document).ready(function(){
-	
+	/*
 	var l = window.location;
 	var base_url = l.protocol + "//" + l.host + "/" + l.pathname.split('/')[1] + "/";
+	var domainName = $('meta[name*="url"]').attr('content');
+	*/
+	var base_url = $('meta[name*="url"]').attr('content');
 	
 	
 	//global vars
@@ -69,7 +72,8 @@ $(document).ready(function(){
 		
 		
 	});
-	
+
+
 	setInterval(function() { 
 		$.get(base_url + "response/inbox/getCallerCount")
 		.success(function(data) {
@@ -93,24 +97,10 @@ $(document).ready(function(){
 		$.post(base_url + "response/inbox/autoResponse")
 		.success(function() {
 		});
+
 	}, 3000);
 	
-	/*
-	setInterval(function() { 
-		$.get(base_url + "response/inbox/getResponseCount")
-		.success(function(data) {
-			if(data == 1){
-				// this returns false
-			}else{
-				$('.entity').empty().append(data + '<i class="splashy-comments_reply"></i>');
-			}
-		});
-	}, 2000);
-	
-	
-	
-	
-	*/
+
 	
 	$("#add_report").submit(function(){
 		//return true;
@@ -349,19 +339,38 @@ $(document).ready(function(){
 			return true;
 		}
 	}
-	
-	
+		
 	/*  reports filtering AJAX calls */
 	$('.velkyreportfilter.velkybydate').click(function(){
-		var datefrom = $('input.velkyaccdatefrom').attr('value');
-		var dateto = $('input.velkyaccdateto').attr('value');
+
+		var mDateFrom = $('input[name="acdntdatefrom"]').attr('value');
+		var mDateTo = $('input[name="acdntdateto"]').attr('value');
 		
-		$.post(base_url + 'reports/accidents/accidentfilterbydate', {acdntdatefrom: datefrom, acdntdateto: dateto}, function(data){
-			alert(data);
-		});
-		//alert('you clicked me.');
+		$.post(base_url + 'reports/accidents/accidentfilterbydate', {'acdntdatefrom' : mDateFrom, 'acdntdateto' : mDateTo})
+		.success( function(data) {
+			alert('mDateFrom ' + mDateFrom + ' ' + 'mDateTo ' +  mDateTo + ' ' + data);
+		});		
 	});
-	function accidentfilterbydate() {
+			
+	$('.velkyFilteredReport').click(function() {
+		var mdateFrom = $('input[name="datefrom"]').attr('value');
+		var mdateTo = $('input[name="dateto"]').attr('value');
+		var mbarangay = $('select[name="barangay"]').attr('value');
+		var maccidenttype = $('select[name="accidenttype"]').attr('value');
+		var elem = $(this);
 		
-	}
+		
+		$.ajax({
+			type: 'post',
+			url: base_url + 'ajaxcalls/filteredreport',
+			data: {dateFrom: mdateFrom, dateTo: mdateTo, barangay: mbarangay, accidenttype: maccidenttype},
+			success: function(data) {
+				//alert(data);
+				$('.velkyreportcontainer').empty().append(data);
+			}
+		});
+	
+		//return false;
+	});
+	
 });
