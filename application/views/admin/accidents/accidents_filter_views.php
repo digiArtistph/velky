@@ -16,11 +16,11 @@
 
                         <div class="controls">
                         	<div class="span3">
-                        <label>From: </label><input type="text" data-date-format="yyyy-mm-dd" readonly="readonly" name="acdntdatefrom" class="input-xlarge" id="dp1"><span class="accdatesInfo"></span>
+                        <label>From: </label><input type="text" data-date-format="yyyy-mm-dd" readonly="readonly" name="acdntdatefrom" class="input-xlarge velkyaccdatefrom" id="dp1"><span class="accdatesInfo"></span>
                         	</div>
                             
                             <div class="span3">
-                        <label>To: </label><input type="text" data-date-format="yyyy-mm-dd" readonly="readonly" name="acdntdateto" class="input-xlarge" id="dp2"><span class="accdatesInfo"></span>
+                        <label>To: </label><input type="text" data-date-format="yyyy-mm-dd" readonly="readonly" name="acdntdateto" class="input-xlarge velkyaccdateto" id="dp2"><span class="accdatesInfo"></span>
                         	</div>
                             
                             <div class="span3">

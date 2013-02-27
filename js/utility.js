@@ -60,34 +60,57 @@ $(document).ready(function(){
 		$('.modal-body table tbody').append('<p>Gathering Data</p>');
 		$.post(base_url + "response/inbox/viewEntityMessage")
 		.success(function(data) {
-			$('.modal-body table tbody').empty().html(data);
-			
+			if(data == 1){
+				// this returns false
+			}else{
+				$('.modal-body table tbody').empty().html(data);
+			}
 		});
 		
 		
 	});
 	
 	setInterval(function() { 
-		$.post(base_url + "response/inbox/getCallerCount")
+		$.get(base_url + "response/inbox/getCallerCount")
 		.success(function(data) {
-			$('.caller').empty().append(data + '<i class="splashy-map"></i>');
+			if(data == 1){
+				// this returns false
+			}else{
+				if(data == "ses_false"){
+					
+				}else{
+				var result = data.split("|");
+				
+					$('.caller').empty().append(result[0] + '<i class="splashy-map"></i>');
+					$('.entity').empty().append(result[1] + '<i class="splashy-comments_reply"></i>');
+				}
+			}
+			
 		});
 	}, 2000);
 	
 	setInterval(function() { 
-		$.post(base_url + "response/inbox/getResponseCount")
+		$.post(base_url + "response/inbox/autoResponse")
+		.success(function() {
+		});
+	}, 3000);
+	
+	/*
+	setInterval(function() { 
+		$.get(base_url + "response/inbox/getResponseCount")
 		.success(function(data) {
-			$('.entity').empty().append(data + '<i class="splashy-comments_reply"></i>');
+			if(data == 1){
+				// this returns false
+			}else{
+				$('.entity').empty().append(data + '<i class="splashy-comments_reply"></i>');
+			}
 		});
 	}, 2000);
 	
-	/*setInterval(function() { 
-		$.post(base_url + "response/inbox/autoResponse")
-		.success(function(data) {
-			
-		});
-	}, 2000);*/
 	
+	
+	
+	*/
 	
 	$("#add_report").submit(function(){
 		//return true;
@@ -330,9 +353,13 @@ $(document).ready(function(){
 	
 	/*  reports filtering AJAX calls */
 	$('.velkyreportfilter.velkybydate').click(function(){
-		$.post({}
-			
-		);
+		var datefrom = $('input.velkyaccdatefrom').attr('value');
+		var dateto = $('input.velkyaccdateto').attr('value');
+		
+		$.post(base_url + 'reports/accidents/accidentfilterbydate', {acdntdatefrom: datefrom, acdntdateto: dateto}, function(data){
+			alert(data);
+		});
+		//alert('you clicked me.');
 	});
 	function accidentfilterbydate() {
 		
